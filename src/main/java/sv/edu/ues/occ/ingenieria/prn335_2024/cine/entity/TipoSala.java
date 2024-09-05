@@ -2,8 +2,10 @@ package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import jakarta.ws.rs.ext.ParamConverter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tipo_sala", schema = "public")
@@ -11,6 +13,9 @@ public class TipoSala implements Serializable {
     @Id
     @Column(name = "id_tipo_sala", nullable = false)
     private Integer idTipoReserva;
+
+    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY)
+    private List<SalaCaracteristica> salaCaracteristicas;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -78,4 +83,7 @@ public class TipoSala implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
+    public List<SalaCaracteristica> getSalaCaracteristicas() {
+        return salaCaracteristicas;
+    }
 }

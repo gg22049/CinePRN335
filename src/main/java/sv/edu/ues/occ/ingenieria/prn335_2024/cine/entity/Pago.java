@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pago", schema = "public")
@@ -19,6 +20,9 @@ public class Pago implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_pago")
     private TipoPago idTipoPago;
+
+    @OneToMany(mappedBy = "pago_detalle", fetch = FetchType.LAZY)
+    private List<FacturaDetalleSala> facturaDetalleSalas;
 
     @Column(name = "fecha")
     private OffsetDateTime fecha;
@@ -65,4 +69,7 @@ public class Pago implements Serializable {
         this.fecha = fecha;
     }
 
+    public List<FacturaDetalleSala> getFacturaDetalleSalas() {
+        return facturaDetalleSalas;
+    }
 }

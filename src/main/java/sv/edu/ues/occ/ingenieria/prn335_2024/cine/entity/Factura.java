@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "factura", schema = "public")
@@ -12,6 +13,15 @@ public class Factura implements Serializable {
     @Id
     @Column(name = "id_factura", nullable = false)
     private Long idFactura;
+
+    @OneToMany(mappedBy = "factura_detalle_sala", fetch = FetchType.LAZY)
+    private List<FacturaDetalleSala> facturaDetalleSalas;
+
+    @OneToMany(mappedBy = "factura_detalle_producto", fetch = FetchType.LAZY)
+    private List<FacturaDetalleProducto> facturaDetalleProductos;
+
+    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY)
+    private List<Pago> pagos;
 
     @Size(max = 255)
     @Column(name = "cliente")
@@ -79,4 +89,15 @@ public class Factura implements Serializable {
         this.comentarios = comentarios;
     }
 
+    public List<FacturaDetalleSala> getFacturaDetalleSalas() {
+        return facturaDetalleSalas;
+    }
+
+    public List<FacturaDetalleProducto> getFacturaDetalleProductos() {
+        return facturaDetalleProductos;
+    }
+
+    public List<Pago> getPagos() {
+        return pagos;
+    }
 }

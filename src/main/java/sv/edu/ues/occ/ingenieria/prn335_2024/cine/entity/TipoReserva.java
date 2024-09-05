@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tipo_reserva", schema = "public")
@@ -11,6 +12,9 @@ public class TipoReserva implements Serializable {
     @Id
     @Column(name = "id_tipo_reserva", nullable = false)
     private Integer idTipoReserva;
+
+    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY)
+    private List<Reserva> reservas;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -65,4 +69,7 @@ public class TipoReserva implements Serializable {
         this.comentarios = comentarios;
     }
 
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
 }

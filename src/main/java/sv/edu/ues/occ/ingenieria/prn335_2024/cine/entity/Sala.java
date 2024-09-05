@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "sala", schema = "public")
@@ -15,6 +16,15 @@ public class Sala implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sucursal")
     private Sucursal idSucursal;
+
+    @OneToMany(mappedBy="sala_caracteristica", fetch=FetchType.LAZY)
+    private List<SalaCaracteristica> salaCaracteristicas;
+
+    @OneToMany(mappedBy="asiento", fetch=FetchType.LAZY)
+    private List<Asiento> asientos;
+
+    @OneToMany(mappedBy="programacion", fetch=FetchType.LAZY)
+    private List<Programacion> programaciones;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -78,4 +88,15 @@ public class Sala implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public List<SalaCaracteristica> getSalaCaracteristicas() {
+        return salaCaracteristicas;
+    }
+
+    public List<Asiento> getAsientos() {
+        return asientos;
+    }
+
+    public List<Programacion> getProgramaciones() {
+        return programaciones;
+    }
 }

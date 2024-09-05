@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "programacion", schema = "public")
@@ -19,6 +20,9 @@ public class Programacion implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pelicula")
     private Pelicula idPelicula;
+
+    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY)
+    private List<Reserva> reservas;
 
     @Column(name = "desde")
     private OffsetDateTime desde;
@@ -90,4 +94,7 @@ public class Programacion implements Serializable {
         this.comentarios = comentarios;
     }
 
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
 }

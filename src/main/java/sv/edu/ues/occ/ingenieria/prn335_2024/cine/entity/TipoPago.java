@@ -1,12 +1,10 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tipo_pago", schema = "public")
@@ -14,6 +12,9 @@ public class TipoPago implements Serializable {
     @Id
     @Column(name = "id_tipo_pago", nullable = false)
     private Integer idTipoPago;
+
+    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY)
+    private List<Pago> pagos;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -55,4 +56,7 @@ public class TipoPago implements Serializable {
         this.activo = activo;
     }
 
+    public List<Pago> getPagos() {
+        return pagos;
+    }
 }

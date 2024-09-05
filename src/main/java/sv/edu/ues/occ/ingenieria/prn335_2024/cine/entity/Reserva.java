@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "reserva", schema = "public")
@@ -20,6 +21,9 @@ public class Reserva implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_reserva")
     private TipoReserva idTipoReserva;
+
+    @OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY)
+    private List<ReservaDetalle> reservaDetalles;
 
     @Column(name = "fecha_reserva")
     private OffsetDateTime fechaReserva;
@@ -92,4 +96,7 @@ public class Reserva implements Serializable {
         this.observaciones = observaciones;
     }
 
+    public List<ReservaDetalle> getReservaDetalles() {
+        return reservaDetalles;
+    }   
 }
