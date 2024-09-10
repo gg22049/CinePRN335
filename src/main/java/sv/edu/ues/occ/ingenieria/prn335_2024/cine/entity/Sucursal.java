@@ -13,8 +13,8 @@ public class Sucursal implements Serializable {
     @Column(name = "id_sucursal", nullable = false)
     private Integer idSucursal;
 
-    @OneToMany(mappedBy = "sala", fetch = FetchType.LAZY)
-    private List<Sala> salas;
+    @OneToMany(mappedBy = "sala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Sala> salaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -93,7 +93,11 @@ public class Sucursal implements Serializable {
         this.activo = activo;
     }
 
-    public List<Sala> getSalas() {
-        return salas;
+    public List<Sala> getSalaList() {
+        return salaList;
+    }
+
+    public void setSalaList(List<Sala> salaList) {
+        this.salaList = salaList;
     }
 }

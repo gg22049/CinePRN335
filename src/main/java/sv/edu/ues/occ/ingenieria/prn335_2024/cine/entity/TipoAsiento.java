@@ -13,8 +13,8 @@ public class TipoAsiento implements Serializable {
     @Column(name = "id_tipo_asiento", nullable = false)
     private Integer idTipoAsiento;
 
-    @OneToMany(mappedBy = "asiento_caracteristica", fetch = FetchType.LAZY)
-    private List<AsientoCaracteristica> asientoCaracteristicas;
+    @OneToMany(mappedBy = "asiento_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AsientoCaracteristica> asientoCaracteristicaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -82,7 +82,11 @@ public class TipoAsiento implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-    public List<AsientoCaracteristica> getAsientoCaracteristicas() {
-        return asientoCaracteristicas;
+    public List<AsientoCaracteristica> getAsientoCaracteristicaList() {
+        return asientoCaracteristicaList;
+    }
+
+    public void setAsientoCaracteristicaList(List<AsientoCaracteristica> asientoCaracteristicaList) {
+        this.asientoCaracteristicaList = asientoCaracteristicaList;
     }
 }

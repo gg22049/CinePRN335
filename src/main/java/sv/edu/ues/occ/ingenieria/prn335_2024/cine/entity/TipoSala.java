@@ -14,8 +14,8 @@ public class TipoSala implements Serializable {
     @Column(name = "id_tipo_sala", nullable = false)
     private Integer idTipoReserva;
 
-    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY)
-    private List<SalaCaracteristica> salaCaracteristicas;
+    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SalaCaracteristica> salaCaracteristicaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -83,7 +83,11 @@ public class TipoSala implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-    public List<SalaCaracteristica> getSalaCaracteristicas() {
-        return salaCaracteristicas;
+    public List<SalaCaracteristica> getSalaCaracteristicaList() {
+        return salaCaracteristicaList;
+    }
+
+    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
+        this.salaCaracteristicaList = salaCaracteristicaList;
     }
 }

@@ -13,8 +13,8 @@ public class TipoReserva implements Serializable {
     @Column(name = "id_tipo_reserva", nullable = false)
     private Integer idTipoReserva;
 
-    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY)
-    private List<Reserva> reservas;
+    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> reservaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -69,7 +69,11 @@ public class TipoReserva implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public List<Reserva> getReservas() {
-        return reservas;
+    public List<Reserva> getReservaList() {
+        return reservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        this.reservaList = reservaList;
     }
 }

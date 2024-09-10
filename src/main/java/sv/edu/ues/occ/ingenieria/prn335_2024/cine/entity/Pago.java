@@ -21,8 +21,8 @@ public class Pago implements Serializable {
     @JoinColumn(name = "id_tipo_pago")
     private TipoPago idTipoPago;
 
-    @OneToMany(mappedBy = "pago_detalle", fetch = FetchType.LAZY)
-    private List<FacturaDetalleSala> facturaDetalleSalas;
+    @OneToMany(mappedBy = "pago_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FacturaDetalleSala> facturaDetalleSalaList;
 
     @Column(name = "fecha")
     private OffsetDateTime fecha;
@@ -69,7 +69,11 @@ public class Pago implements Serializable {
         this.fecha = fecha;
     }
 
-    public List<FacturaDetalleSala> getFacturaDetalleSalas() {
-        return facturaDetalleSalas;
+    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
+        return facturaDetalleSalaList;
+    }
+
+    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
+        this.facturaDetalleSalaList = facturaDetalleSalaList;
     }
 }

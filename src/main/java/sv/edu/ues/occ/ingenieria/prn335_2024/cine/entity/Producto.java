@@ -17,8 +17,8 @@ public class Producto implements Serializable {
     @JoinColumn(name = "id_tipo_producto")
     private TipoProducto idTipoProducto;
 
-    @OneToMany(mappedBy = "factura_detalle_producto", fetch = FetchType.LAZY)
-    private List<FacturaDetalleProducto> facturaDetalleProductos;
+    @OneToMany(mappedBy = "factura_detalle_producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FacturaDetalleProducto> facturaDetalleProductoList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -82,7 +82,11 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public List<FacturaDetalleProducto> getFacturaDetalleProductos() {
-        return facturaDetalleProductos;
+    public List<FacturaDetalleProducto> getFacturaDetalleProductoList() {
+        return facturaDetalleProductoList;
+    }
+
+    public void setFacturaDetalleProductoList(List<FacturaDetalleProducto> facturaDetalleProductoList) {
+        this.facturaDetalleProductoList = facturaDetalleProductoList;
     }
 }

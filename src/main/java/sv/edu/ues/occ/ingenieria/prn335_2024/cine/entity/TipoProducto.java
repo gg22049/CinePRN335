@@ -13,8 +13,8 @@ public class TipoProducto implements Serializable {
     @Column(name = "id_tipo_producto", nullable = false)
     private Integer idTipoProducto;
 
-    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY)
-    private List<Producto> productos;
+    @OneToMany(mappedBy = "producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Producto> productoList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -69,7 +69,11 @@ public class TipoProducto implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public List<Producto> getProductos() {
-        return productos;
+    public List<Producto> getProductoList() {
+        return productoList;
+    }
+
+    public void setProductoList(List<Producto> productoList) {
+        this.productoList = productoList;
     }
 }

@@ -21,8 +21,8 @@ public class ReservaDetalle implements Serializable {
     @JoinColumn(name = "id_asiento")
     private Asiento idAsiento;
 
-    @OneToMany(mappedBy = "factura_detalle_sala", fetch = FetchType.LAZY)
-    private List<FacturaDetalleSala> facturaDetalleSalas;
+    @OneToMany(mappedBy = "factura_detalle_sala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FacturaDetalleSala> facturaDetalleSalaList;
 
     @Size(max = 155)
     @Column(name = "estado", length = 155)
@@ -70,7 +70,11 @@ public class ReservaDetalle implements Serializable {
         this.estado = estado;
     }
 
-    public List<FacturaDetalleSala> getFacturaDetalleSalas() {
-        return facturaDetalleSalas;
+    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
+        return facturaDetalleSalaList;
+    }
+
+    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
+        this.facturaDetalleSalaList = facturaDetalleSalaList;
     }
 }
