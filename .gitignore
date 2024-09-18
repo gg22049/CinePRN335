@@ -3,8 +3,3 @@ target/
 .gitignore
 
 ### IntelliJ IDEA ###
-.idea/
-.mvn/
-mvnw
-mvnw.cmd
-cine.iml
