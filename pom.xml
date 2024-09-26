@@ -56,7 +56,7 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.10</version>
                 <configuration>
-                    <installDirectory>/usr/local/OpenLiberty-JEE10/wlp10_24_0_08</installDirectory>
+                    <installDirectory>/usr/local/openLiberty-JEE10/wlp10_0_0_9</installDirectory>
                     <serverName>prn335_2024</serverName>
                 </configuration>
             </plugin>
