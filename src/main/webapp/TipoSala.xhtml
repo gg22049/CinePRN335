@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Tipo Sala</title>
+</h:head>
+
+<h:body>
+    <h1>Tipos de Salas</h1>
+
+    <h:form>
+    <h:dataTable value="#{frmTipoSala.registros}" var="ts">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            <h:outputText value="#{ts.idTipoSala}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Nombre</f:facet>
+            <h:outputText value="#{ts.nombre}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Activo</f:facet>
+            <h:outputText value="#{ts.activo?'ACTIVO':'INACTIVO'}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Comentarios</f:facet>
+            <h:outputText value="#{ts.comentarios}"/>
+        </h:column>
+        <h:column>
+            <f:facet name="header">Expresion Regular</f:facet>
+            <h:outputText value="#{ts.expresionRegular}"/>
+        </h:column>
+        <h:column>
+            <h:commandButton value="Seleccionar" action="#{frmTipoSala.btnSeleccionarRegistroHandler(ts.idTipoSala)}"/>
+        </h:column>
+    </h:dataTable>
+        <h:panelGroup>
+            <h:commandButton value="Cancelar" actionListener="#{frmTipoSala.btnCancelarHandler}"/>
+            <h:commandButton value="Nuevo" actionListener="#{frmTipoSala.btnNuevoHandler}"/>
+        </h:panelGroup>
+    </h:form>
+
+    <h:panelGroup>
+<h:form>
+        <h:panelGrid>
+            <h:messages showDetail="true" showSummary="true"/>
+        </h:panelGrid>
+        <h:panelGrid columns="2" rendered="#{not empty frmTipoSala.registro}">
+            <h:outputLabel value="ID" for="txtId"/>
+            <h:inputText id="txtId" value="#{frmTipoSala.registro.idTipoSala}" readonly="true" disabled="true"/>
+            <h:outputLabel value="Nombre" for="txtNombre"/>
+            <h:inputText size="50" id="txtNombre" value="#{frmTipoSala.registro.nombre}"/>
+            <h:outputLabel value="Activo" for="chkActivo"/>
+            <h:inputText id="chkActivo" value="#{frmTipoSala.registro.activo}"/>
+            <h:outputLabel value="Expresion Regular" for="txtComentarios"/>
+            <h:inputText size="20" id="txtComentarios" value="#{frmTipoSala.registro.expresionRegular}"/>
+            <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
+            <h:inputTextarea size="50" id="txtExpresionRegular" value="#{frmTipoSala.registro.expresionRegular}"/>
+
+                <h:commandButton value="Cancelar" actionListener="#{frmTipoSala.btnCancelarHandler}"/>
+                <h:commandButton value="Guardar" actionListener="#{frmTipoSala.btnGuardarHandler}"/>
+                <h:commandButton value="Modificar" actionListener="#{frmTipoSala.btnModificarHandler}"/>
+                <h:commandButton value="Eliminar" action="#{frmTipoSala.btnEliminarHandler(frmTipoSala.registro.idTipoSala)}"/>
+        </h:panelGrid>
+</h:form>
+</h:panelGroup>
+</h:body>
+</html>

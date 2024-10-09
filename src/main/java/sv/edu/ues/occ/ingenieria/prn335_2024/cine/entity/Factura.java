@@ -14,14 +14,14 @@ public class Factura implements Serializable {
     @Column(name = "id_factura", nullable = false)
     private Long idFactura;
 
-    @OneToMany(mappedBy = "factura_detalle_sala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<FacturaDetalleSala> facturaDetalleSalaList;
-
-    @OneToMany(mappedBy = "factura_detalle_producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<FacturaDetalleProducto> facturaDetalleProductoList;
-
-    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Pago> pagoList;
+//    @OneToMany(mappedBy = "factura_detalle_sala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<FacturaDetalleSala> facturaDetalleSalaList;
+//
+//    @OneToMany(mappedBy = "factura_detalle_producto", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<FacturaDetalleProducto> facturaDetalleProductoList;
+//
+//    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Pago> pagoList;
 
     @Size(max = 255)
     @Column(name = "cliente")
@@ -89,27 +89,27 @@ public class Factura implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
-        return facturaDetalleSalaList;
-    }
-
-    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
-        this.facturaDetalleSalaList = facturaDetalleSalaList;
-    }
-
-    public List<FacturaDetalleProducto> getFacturaDetalleProductoList() {
-        return facturaDetalleProductoList;
-    }
-
-    public void setFacturaDetalleProductoList(List<FacturaDetalleProducto> facturaDetalleProductoList) {
-        this.facturaDetalleProductoList = facturaDetalleProductoList;
-    }
-
-    public List<Pago> getPagoList() {
-        return pagoList;
-    }
-
-    public void setPagoList(List<Pago> pagoList) {
-        this.pagoList = pagoList;
-    }
+//    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
+//        return facturaDetalleSalaList;
+//    }
+//
+//    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
+//        this.facturaDetalleSalaList = facturaDetalleSalaList;
+//    }
+//
+//    public List<FacturaDetalleProducto> getFacturaDetalleProductoList() {
+//        return facturaDetalleProductoList;
+//    }
+//
+//    public void setFacturaDetalleProductoList(List<FacturaDetalleProducto> facturaDetalleProductoList) {
+//        this.facturaDetalleProductoList = facturaDetalleProductoList;
+//    }
+//
+//    public List<Pago> getPagoList() {
+//        return pagoList;
+//    }
+//
+//    public void setPagoList(List<Pago> pagoList) {
+//        this.pagoList = pagoList;
+//    }
 }

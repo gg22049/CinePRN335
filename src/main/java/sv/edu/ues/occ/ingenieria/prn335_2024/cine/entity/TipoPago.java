@@ -13,8 +13,8 @@ public class TipoPago implements Serializable {
     @Column(name = "id_tipo_pago", nullable = false)
     private Integer idTipoPago;
 
-    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Pago> pagoList;
+//    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Pago> pagoList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -56,11 +56,11 @@ public class TipoPago implements Serializable {
         this.activo = activo;
     }
 
-    public List<Pago> getPagoList() {
-        return pagoList;
-    }
-
-    public void setPagoList(List<Pago> pagoList) {
-        this.pagoList = pagoList;
-    }
+//    public List<Pago> getPagoList() {
+//        return pagoList;
+//    }
+//
+//    public void setPagoList(List<Pago> pagoList) {
+//        this.pagoList = pagoList;
+//    }
 }

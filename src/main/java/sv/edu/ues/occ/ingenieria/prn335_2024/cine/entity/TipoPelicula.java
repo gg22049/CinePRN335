@@ -13,8 +13,8 @@ public class TipoPelicula implements Serializable {
     @Column(name = "id_tipo_pelicula", nullable = false)
     private Integer idTipoPelicula;
 
-    @OneToMany(mappedBy = "pelicula_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PeliculaCaracteristica> peliculasCaracteristicaList;
+//    @OneToMany(mappedBy = "pelicula_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<PeliculaCaracteristica> peliculasCaracteristicaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -80,11 +80,11 @@ public class TipoPelicula implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-    public List<PeliculaCaracteristica> getPeliculasCaracteristicaList() {
-        return peliculasCaracteristicaList;
-    }
-
-    public void setPeliculasCaracteristicaList(List<PeliculaCaracteristica> peliculasCaracteristicaList) {
-        this.peliculasCaracteristicaList = peliculasCaracteristicaList;
-    }
+//    public List<PeliculaCaracteristica> getPeliculasCaracteristicaList() {
+//        return peliculasCaracteristicaList;
+//    }
+//
+//    public void setPeliculasCaracteristicaList(List<PeliculaCaracteristica> peliculasCaracteristicaList) {
+//        this.peliculasCaracteristicaList = peliculasCaracteristicaList;
+//    }
 }

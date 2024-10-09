@@ -22,8 +22,8 @@ public class Reserva implements Serializable {
     @JoinColumn(name = "id_tipo_reserva")
     private TipoReserva idTipoReserva;
 
-    @OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ReservaDetalle> reservaDetalleList;
+//    @OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<ReservaDetalle> reservaDetalleList;
 
     @Column(name = "fecha_reserva")
     private OffsetDateTime fechaReserva;
@@ -96,11 +96,11 @@ public class Reserva implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public List<ReservaDetalle> getReservaDetalleList() {
-        return reservaDetalleList;
-    }
-
-    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
-        this.reservaDetalleList = reservaDetalleList;
-    }
+//    public List<ReservaDetalle> getReservaDetalleList() {
+//        return reservaDetalleList;
+//    }
+//
+//    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
+//        this.reservaDetalleList = reservaDetalleList;
+//    }
 }

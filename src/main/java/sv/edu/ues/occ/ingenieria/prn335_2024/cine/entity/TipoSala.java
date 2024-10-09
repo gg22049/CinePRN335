@@ -1,23 +1,24 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import jakarta.ws.rs.ext.ParamConverter;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "tipo_sala", schema = "public")
 public class TipoSala implements Serializable {
     @Id
     @Column(name = "id_tipo_sala", nullable = false)
-    private Integer idTipoReserva;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTipoSala;
 
-    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<SalaCaracteristica> salaCaracteristicaList;
+//    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<SalaCaracteristica> salaCaracteristicaList;
 
-    @Size(max = 155)
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
     @Column(name = "nombre", length = 155)
     private String nombre;
 
@@ -35,20 +36,20 @@ public class TipoSala implements Serializable {
     public TipoSala() {
     }
 
-    public TipoSala(Integer idTipoReserva, String nombre, Boolean activo, String comentarios, String expresionRegular) {
-        this.idTipoReserva = idTipoReserva;
+    public TipoSala(Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular) {
+        this.idTipoSala = idTipoSala;
         this.nombre = nombre;
         this.activo = activo;
         this.comentarios = comentarios;
         this.expresionRegular = expresionRegular;
     }
 
-    public Integer getIdTipoReserva() {
-        return idTipoReserva;
+    public Integer getIdTipoSala() {
+        return idTipoSala;
     }
 
-    public void setIdTipoReserva(Integer idTipoReserva) {
-        this.idTipoReserva = idTipoReserva;
+    public void setIdTipoSala(Integer idTipoReserva) {
+        this.idTipoSala = idTipoReserva;
     }
 
     public String getNombre() {
@@ -83,11 +84,11 @@ public class TipoSala implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-    public List<SalaCaracteristica> getSalaCaracteristicaList() {
-        return salaCaracteristicaList;
-    }
-
-    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
-        this.salaCaracteristicaList = salaCaracteristicaList;
-    }
+//    public List<SalaCaracteristica> getSalaCaracteristicaList() {
+//        return salaCaracteristicaList;
+//    }
+//
+//    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
+//        this.salaCaracteristicaList = salaCaracteristicaList;
+//    }
 }

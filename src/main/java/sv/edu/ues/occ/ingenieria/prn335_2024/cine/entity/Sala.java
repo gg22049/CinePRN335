@@ -17,14 +17,14 @@ public class Sala implements Serializable {
     @JoinColumn(name = "id_sucursal")
     private Sucursal idSucursal;
 
-    @OneToMany(mappedBy="sala_caracteristica", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<SalaCaracteristica> salaCaracteristicaList;
-
-    @OneToMany(mappedBy="asiento", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Asiento> asientoList;
-
-    @OneToMany(mappedBy="programacion", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Programacion> programacionList;
+//    @OneToMany(mappedBy="sala_caracteristica", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<SalaCaracteristica> salaCaracteristicaList;
+//
+//    @OneToMany(mappedBy="asiento", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Asiento> asientoList;
+//
+//    @OneToMany(mappedBy="programacion", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Programacion> programacionList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -88,27 +88,27 @@ public class Sala implements Serializable {
         this.observaciones = observaciones;
     }
 
-    public List<SalaCaracteristica> getSalaCaracteristicaList() {
-        return salaCaracteristicaList;
-    }
-
-    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
-        this.salaCaracteristicaList = salaCaracteristicaList;
-    }
-
-    public List<Asiento> getAsientoList() {
-        return asientoList;
-    }
-
-    public void setAsientoList(List<Asiento> asientoList) {
-        this.asientoList = asientoList;
-    }
-
-    public List<Programacion> getProgramacionList() {
-        return programacionList;
-    }
-
-    public void setProgramacionList(List<Programacion> programacionList) {
-        this.programacionList = programacionList;
-    }
+//    public List<SalaCaracteristica> getSalaCaracteristicaList() {
+//        return salaCaracteristicaList;
+//    }
+//
+//    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
+//        this.salaCaracteristicaList = salaCaracteristicaList;
+//    }
+//
+//    public List<Asiento> getAsientoList() {
+//        return asientoList;
+//    }
+//
+//    public void setAsientoList(List<Asiento> asientoList) {
+//        this.asientoList = asientoList;
+//    }
+//
+//    public List<Programacion> getProgramacionList() {
+//        return programacionList;
+//    }
+//
+//    public void setProgramacionList(List<Programacion> programacionList) {
+//        this.programacionList = programacionList;
+//    }
 }

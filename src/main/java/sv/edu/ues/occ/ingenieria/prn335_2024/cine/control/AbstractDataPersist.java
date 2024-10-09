@@ -48,7 +48,7 @@ public abstract class AbstractDataPersist <T> {
 
     public List<T> findByRange(int first, int max) throws IllegalArgumentException, IllegalStateException {
         EntityManager em = null;
-        if (max <= 0 || max<=first) {
+        if (first <= 0 && max<=first) {
             throw new IllegalArgumentException("Parametro no valido");
         }
         try {
@@ -69,7 +69,7 @@ public abstract class AbstractDataPersist <T> {
         }
     }
 
-    public void update(T entity) throws IllegalArgumentException, IllegalStateException {
+    public T update( T entity) throws IllegalArgumentException, IllegalStateException {
         if (entity == null) {
             throw new IllegalArgumentException("Parametro no valido");
         }
@@ -79,7 +79,7 @@ public abstract class AbstractDataPersist <T> {
             if (em == null) {
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
-            em.merge(entity);
+            return em.merge(entity);
         } catch (Exception ex) {
             throw new IllegalStateException("Error al actualizar la entidad", ex);
         }
@@ -95,9 +95,9 @@ public abstract class AbstractDataPersist <T> {
             if (em == null) {
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
-            em.remove(findById(id));
+            em.remove(em.find(tipoDato.class, id));
         } catch (Exception ex) {
-            throw new IllegalStateException("Error al actualizar la entidad", ex);
+            throw new IllegalStateException("Error al eliminar la entidad", ex);
         }
     }
 

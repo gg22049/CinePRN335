@@ -13,11 +13,11 @@ public class Pelicula implements Serializable {
     @Column(name = "id_pelicula", nullable = false)
     private Long idPelicula;
 
-    @OneToMany(mappedBy = "programacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Programacion> programacionList;
-
-    @OneToMany(mappedBy = "pelicula_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PeliculaCaracteristica> peliculaCaracteristicaList;
+//    @OneToMany(mappedBy = "programacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<Programacion> programacionList;
+//
+//    @OneToMany(mappedBy = "pelicula_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<PeliculaCaracteristica> peliculaCaracteristicaList;
 
     @Size(max = 255)
     @Column(name = "nombre")
@@ -60,19 +60,19 @@ public class Pelicula implements Serializable {
         this.sinopsis = sinopsis;
     }
 
-    public List<Programacion> getProgramacionList() {
-        return programacionList;
-    }
-
-    public void setProgramacionList(List<Programacion> programacionList) {
-        this.programacionList = programacionList;
-    }
-
-    public List<PeliculaCaracteristica> getPeliculaCaracteristicaList() {
-        return peliculaCaracteristicaList;
-    }
-
-    public void setPeliculaCaracteristicaList(List<PeliculaCaracteristica> peliculaCaracteristicaList) {
-        this.peliculaCaracteristicaList = peliculaCaracteristicaList;
-    }
+//    public List<Programacion> getProgramacionList() {
+//        return programacionList;
+//    }
+//
+//    public void setProgramacionList(List<Programacion> programacionList) {
+//        this.programacionList = programacionList;
+//    }
+//
+//    public List<PeliculaCaracteristica> getPeliculaCaracteristicaList() {
+//        return peliculaCaracteristicaList;
+//    }
+//
+//    public void setPeliculaCaracteristicaList(List<PeliculaCaracteristica> peliculaCaracteristicaList) {
+//        this.peliculaCaracteristicaList = peliculaCaracteristicaList;
+//    }
 }

@@ -17,11 +17,11 @@ public class Asiento implements Serializable {
     @JoinColumn(name = "id_sala")
     private Sala idSala;
 
-    @OneToMany(mappedBy = "asiento_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AsientoCaracteristica> asientoCaracteristicaList;
+//    @OneToMany(mappedBy = "asiento_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<AsientoCaracteristica> asientoCaracteristicaList;
 
-    @OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ReservaDetalle> reservaDetalleList;
+    //@OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private List<ReservaDetalle> reservaDetalleList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -72,19 +72,19 @@ public class Asiento implements Serializable {
         this.activo = activo;
     }
 
-    public List<AsientoCaracteristica> getAsientoCaracteristicaList() {
-        return asientoCaracteristicaList;
-    }
+//    public List<AsientoCaracteristica> getAsientoCaracteristicaList() {
+//        return asientoCaracteristicaList;
+//    }
 
-    public void setAsientoCaracteristicaList(List<AsientoCaracteristica> asientoCaracteristicaList) {
-        this.asientoCaracteristicaList = asientoCaracteristicaList;
-    }
-
-    public List<ReservaDetalle> getReservaDetalleList() {
-        return reservaDetalleList;
-    }
-
-    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
-        this.reservaDetalleList = reservaDetalleList;
-    }
+//    public void setAsientoCaracteristicaList(List<AsientoCaracteristica> asientoCaracteristicaList) {
+//        this.asientoCaracteristicaList = asientoCaracteristicaList;
+//    }
+//
+//    public List<ReservaDetalle> getReservaDetalleList() {
+//        return reservaDetalleList;
+//    }
+//
+//    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
+//        this.reservaDetalleList = reservaDetalleList;
+//    }
 }
