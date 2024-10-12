@@ -4,13 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" afterDir="false" />
+    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="Abstrac de los frm y primer maquetado">
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoAsiento.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPago.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPelicula.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoProducto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoReserva.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoAsientoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoPagoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoPeliculaServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoProductoServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoReservaServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoSala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoSala.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoSalaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/TipoSalaServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoSala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoSala.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoAsientoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoAsientoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPagoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPagoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPeliculaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPeliculaBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoProductoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoProductoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoReservaBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +40,8 @@
       <list>
         <option value="com.intellij.jpb.JpaEntity" />
         <option value="Enum" />
-        <option value="jsf" />
         <option value="Class" />
+        <option value="jsf" />
       </list>
     </option>
   </component>
@@ -234,7 +251,7 @@
       <workItem from="1728694455822" duration="14241000" />
       <workItem from="1728743931948" duration="8657000" />
       <workItem from="1728753147240" duration="362000" />
-      <workItem from="1728753788624" duration="15364000" />
+      <workItem from="1728753788624" duration="21788000" />
     </task>
     <task id="LOCAL-00001" summary="Constructores de las entidades">
       <option name="closed" value="true" />
@@ -276,7 +293,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728485956248</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Abstrac de los frm y primer maquetado">
+      <option name="closed" value="true" />
+      <created>1728770070885</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728770070885</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,7 +355,8 @@
     <MESSAGE value="Correccion en los mapeos y primer abstract" />
     <MESSAGE value="Adicion de los beans, control terminado" />
     <MESSAGE value="Estructura del maquetado base y vista del crud" />
-    <option name="LAST_COMMIT_MESSAGE" value="Estructura del maquetado base y vista del crud" />
+    <MESSAGE value="Abstrac de los frm y primer maquetado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Abstrac de los frm y primer maquetado" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

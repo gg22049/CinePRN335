@@ -8,18 +8,18 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "TipoSalaServlet", urlPatterns = "TipoSala")
-public class TipoSalaServlet extends HttpServlet {
+@WebServlet(name = "TipoPeliculaServlet", urlPatterns = "TipoPelicula")
+public class TipoPeliculaServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        req.getRequestDispatcher("/TipoSala.xhtml").forward(req, resp);
+        req.getRequestDispatcher("/TipoPelicula.xhtml").forward(req, resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-            req.getRequestDispatcher("/TipoSala.xhtml").forward(req, resp);
+        req.getRequestDispatcher("/TipoPelicula.xhtml").forward(req, resp);
     }
 }
