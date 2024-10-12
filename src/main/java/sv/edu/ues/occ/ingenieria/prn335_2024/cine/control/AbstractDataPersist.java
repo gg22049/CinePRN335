@@ -85,8 +85,8 @@ public abstract class AbstractDataPersist <T> {
         }
     }
 
-    public void delete(final Object id) throws IllegalArgumentException, IllegalStateException {
-        if (id == null) {
+    public void delete(T entity) throws IllegalArgumentException, IllegalStateException {
+        if (entity == null) {
             throw new IllegalArgumentException("Parametro no valido");
         }
         EntityManager em = null;
@@ -95,10 +95,20 @@ public abstract class AbstractDataPersist <T> {
             if (em == null) {
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
-            em.remove(em.find(tipoDato.class, id));
+            entity = em.merge(entity);
+            em.remove(entity);
         } catch (Exception ex) {
             throw new IllegalStateException("Error al eliminar la entidad", ex);
         }
+    }
+
+    public Integer count() throws IllegalArgumentException, IllegalStateException {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<T> raiz = cq.from(tipoDato);
+        cq.select(cb.count(raiz));
+
+        return getEntityManager().createQuery(cq).getSingleResult().intValue();
     }
 
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class TipoSala implements Serializable {
     @Id
     @Column(name = "id_tipo_sala", nullable = false)
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idTipoSala;
 
 //    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
