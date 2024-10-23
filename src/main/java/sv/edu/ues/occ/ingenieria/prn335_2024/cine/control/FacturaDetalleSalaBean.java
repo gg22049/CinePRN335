@@ -6,7 +6,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.FacturaDetalleSala;
 
 import java.io.Serializable;
 
-public class FacturaDetalleSalaBean extends AbstractDataPersist<FacturaDetalleSala> implements Serializable {
+public class FacturaDetalleSalaBean extends AbstractDataPersistence<FacturaDetalleSala> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

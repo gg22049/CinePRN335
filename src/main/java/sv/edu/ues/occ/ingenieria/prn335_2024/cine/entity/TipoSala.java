@@ -10,8 +10,8 @@ import java.io.Serializable;
 @Table(name = "tipo_sala", schema = "public")
 public class TipoSala implements Serializable {
     @Id
-    @Column(name = "id_tipo_sala", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_sala", nullable = false)
     private Integer idTipoSala;
 
 //    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -34,6 +34,10 @@ public class TipoSala implements Serializable {
     private String expresionRegular;
 
     public TipoSala() {
+    }
+
+    public TipoSala (int idEsperado){
+        this.idTipoSala = idEsperado;
     }
 
     public TipoSala(Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular) {

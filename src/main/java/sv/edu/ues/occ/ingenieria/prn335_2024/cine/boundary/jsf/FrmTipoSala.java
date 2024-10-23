@@ -1,136 +1,60 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.interceptor.Interceptors;
-import org.primefaces.model.FilterMeta;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortMeta;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoSalaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoSala;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
-public class FrmTipoSala extends AbstractFrm implements Serializable {
+public class FrmTipoSala extends AbstractFrm<TipoSala> implements Serializable {
 
     @Inject
-    TipoSalaBean dataBean;
+    TipoSalaBean bean;
 
     @Inject
-    FacesContext facesContext;
+    FacesContext fc;
 
     @Override
-    public int getCount() {
-        if (dataBean!=null){
-            try {
-                return dataBean.count();
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al consultar los registros:"+e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }else {
-            FacesMessage mensaje = new FacesMessage();
-            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-            mensaje.setSummary("Error al acceder a la base de datos");
-            facesContext.addMessage(null, mensaje);
-        }
-        return 0;
+    public AbstractDataPersistence<TipoSala> getDataPersist() {
+        return this.bean;
     }
 
     @Override
-    public List llenarModelo(int desde, int max) {
-        try {
-            if (desde >= 0 && max >= desde) {
-                return dataBean.findByRange(desde, max);
-            }
-        }catch (Exception e){
-            FacesMessage mensaje = new FacesMessage();
-            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-            mensaje.setSummary("Error al cargar los registros:"+e.getMessage());
-            facesContext.addMessage(null, mensaje);
-        }
-        return List.of();
+    public FacesContext getFacesContext() {
+        return this.fc;
     }
 
     @Override
-    public String obtenerID(Object objeto) {
-        if (objeto!=null){
-            try {
-                TipoSala parse = (TipoSala) objeto;
-                return parse.getIdTipoSala().toString();
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error no se puedo obtener el ID:"+e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
+    public String getIdObjeto(TipoSala object) {
+        if (object != null && object.getIdTipoSala()!=null) {
+            return object.getIdTipoSala().toString();
         }
-        return "";
-    }
-
-    //Botones
-
-    @Override
-    public void createNew() {
-        TipoSala nuevo = new TipoSala();
-        nuevo.setActivo(true);
-        nuevo.setExpresionRegular(".");
-        this.registro = nuevo;
+        return null;
     }
 
     @Override
-    public void saveNew(){
-        if(dataBean!=null){
-            try {
-                TipoSala parse = (TipoSala) registro;
-                dataBean.create(parse);
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al convertir" + e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
+    public TipoSala getObjeto(String id) {
+        if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdTipoSala().toString().equals(id)).collect(Collectors.toList()).get(0);
         }
-    }
-    @Override
-    public void updateNew(){
-        if(dataBean!=null){
-            try {
-                TipoSala parse = (TipoSala) registro;
-                dataBean.update(parse);
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al actualizar" + e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }
+        return null;
     }
 
     @Override
-    public void deleteNew(){
-        if(dataBean!=null){
-            try {
-                TipoSala parse = (TipoSala) registro;
-                dataBean.delete(parse);
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al actualizar" + e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }
+    public void instanciarRegistro() {
+        this.registro = new TipoSala();
+    }
+
+    @Override
+    public String getTituloPagina(){
+        return TipoSala.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 
 }

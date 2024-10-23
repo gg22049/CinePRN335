@@ -1,136 +1,60 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.interceptor.Interceptors;
-import org.primefaces.model.FilterMeta;
-import org.primefaces.model.LazyDataModel;
-import org.primefaces.model.SortMeta;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoPeliculaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoPelicula;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoProducto;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
-public class FrmTipoPelicula extends AbstractFrm implements Serializable {
+public class FrmTipoPelicula extends AbstractFrm<TipoPelicula> implements Serializable {
 
     @Inject
-    TipoPeliculaBean dataBean;
+    TipoPeliculaBean bean;
 
     @Inject
-    FacesContext facesContext;
+    FacesContext fc;
 
     @Override
-    public int getCount() {
-        if (dataBean!=null){
-            try {
-                return dataBean.count();
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al consultar los registros:"+e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }else {
-            FacesMessage mensaje = new FacesMessage();
-            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-            mensaje.setSummary("Error al acceder a la base de datos");
-            facesContext.addMessage(null, mensaje);
+    public AbstractDataPersistence<TipoPelicula> getDataPersist() {
+        return this.bean;
+    }
+
+    @Override
+    public FacesContext getFacesContext() {
+        return this.fc;
+    }
+
+    @Override
+    public String getIdObjeto(TipoPelicula object) {
+        if (object != null && object.getIdTipoPelicula()!=null) {
+            return object.getIdTipoPelicula().toString();
         }
-        return 0;
+        return null;
     }
 
     @Override
-    public List llenarModelo(int desde, int max) {
-        try {
-            if (desde >= 0 && max >= desde) {
-                return dataBean.findByRange(desde, max);
-            }
-        }catch (Exception e){
-            FacesMessage mensaje = new FacesMessage();
-            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-            mensaje.setSummary("Error al cargar los registros:"+e.getMessage());
-            facesContext.addMessage(null, mensaje);
+    public TipoPelicula getObjeto(String id) {
+        if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdTipoPelicula().toString().equals(id)).collect(Collectors.toList()).get(0);
         }
-        return List.of();
+        return null;
     }
 
     @Override
-    public String obtenerID(Object objeto) {
-        if (objeto!=null){
-            try {
-                TipoPelicula parse = (TipoPelicula) objeto;
-                return parse.getIdTipoPelicula().toString();
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error no se puedo obtener el ID:"+e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }
-        return "";
-    }
-
-    //Botones
-
-    @Override
-    public void createNew() {
-        TipoPelicula nuevo = new TipoPelicula();
-        nuevo.setActivo(true);
-        nuevo.setExpresionRegular(".");
-        this.registro = nuevo;
+    public void instanciarRegistro() {
+        this.registro = new TipoPelicula();
     }
 
     @Override
-    public void saveNew(){
-        if(dataBean!=null){
-            try {
-                TipoPelicula parse = (TipoPelicula) registro;
-                dataBean.create(parse);
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al convertir" + e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }
+    public String getTituloPagina(){
+        return TipoProducto.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
-    @Override
-    public void updateNew(){
-        if(dataBean!=null){
-            try {
-                TipoPelicula parse = (TipoPelicula) registro;
-                dataBean.update(parse);
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al actualizar" + e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }
-    }
-
-    @Override
-    public void deleteNew(){
-        if(dataBean!=null){
-            try {
-                TipoPelicula parse = (TipoPelicula) registro;
-                dataBean.delete(parse);
-            }catch (Exception e){
-                FacesMessage mensaje = new FacesMessage();
-                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al actualizar" + e.getMessage());
-                facesContext.addMessage(null, mensaje);
-            }
-        }
-    }
-
 }

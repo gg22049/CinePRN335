@@ -6,7 +6,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.PagoDetalle;
 
 import java.io.Serializable;
 
-public class PagoDetalleBean extends AbstractDataPersist<PagoDetalle> implements Serializable {
+public class PagoDetalleBean extends AbstractDataPersistence<PagoDetalle> implements Serializable {
         @PersistenceContext(unitName = "CinePU")
         EntityManager em;
 

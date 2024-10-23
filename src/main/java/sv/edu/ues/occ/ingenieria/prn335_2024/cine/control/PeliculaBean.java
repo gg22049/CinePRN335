@@ -6,7 +6,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Pelicula;
 
 import java.io.Serializable;
 
-public class PeliculaBean extends AbstractDataPersist<Pelicula> implements Serializable {
+public class PeliculaBean extends AbstractDataPersistence<Pelicula> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Stateless
 @LocalBean
-public class FacturaDetalleProductoBean extends AbstractDataPersist<FacturaDetalleProducto> implements Serializable {
+public class FacturaDetalleProductoBean extends AbstractDataPersistence<FacturaDetalleProducto> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

@@ -1,79 +1,61 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<?xml version="1.0" encoding="UTF-8"?>
 
-<h:head>
-    <title>Tipos de Sala</title>
-</h:head>
+<f:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.facelets"
+               template="WEB-INF/templates/principal.xhtml"
+               xmlns:crud="jakarta.faces.composite/crud"
+>
+    <f:define name="titulo">
+        #{frmTipoSala.titulo}
+    </f:define>
 
-<h:body>
-    <h:form>
-        <p:dataTable id="frmDatos" var="r" value="#{frmTipoSala.modelo}"
-                     sortMode="single" selection="#{frmTipoSala.registro}"
-                     paginatorPosition="bottom" reflow="true" rowKey="#{r.idTipoSala}"
-                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                     paginator="true" rows="10" styleClass="dt-products" lazy="true">
-            <f:facet name="header">
-                <div class="products-table-header">
-                    <div>
-                        <h1>Tipos de Sala</h1>
-                    </div>
-                        <span class="filter-container ui-input-icon-left" > <i class="pi pi-search"></i>
-                        <p:inputText id="search" onkeyup="PF('dtProducts').filter()" placeholder="Search" />
-                    </span>
-                </div>
-            </f:facet>
-
-            <p:ajax event="rowSelect" update="pnlDetalle" process="frmDatos"/>
-            <p:ajax event="rowUnselect" update="pnlDetalle" process="frmDatos"/>
-
-            <p:column headerText="ID" sortBy="#{r.idTipoSala}">
-                <h:outputText value="#{r.idTipoSala}"/>
-            </p:column>
-            <p:column headerText="Nombre" sortBy="#{r.nombre}">
-                <h:outputText value="#{r.nombre}"/>
-            </p:column>
-            <p:column headerText="Activo" sortBy="#{r.activo}">
-                <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
-            </p:column>
-            <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
-                <h:outputText value="#{r.expresionRegular}"/>
-            </p:column>
-            <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
-                <h:outputText value="#{r.comentarios}"/>
-            </p:column>
-            <p:column exportable="false" headerText="Administrar">
-                <p:commandButton id="btnModificar" icon="pi pi-pencil"  ajax="true" disabled="#{frmTipoSala.registro==null}"
-                                 styleClass="edit-button rounded-button ui-button-success" process="@this" update=":pnlDetalle"
-                                 actionListener="#{frmTipoSala.btnModificarHandler}"/>
-                <p:commandButton id="btnEliminar" class="ui-button-warning rounded-button" icon="pi pi-trash"
-                                 process="@this" disabled="#{frmTipoSala.registro==null}"
-                                 update="datos" ajax="true" actionListener="#{frmTipoSala.btnEliminarHandler}">
-                </p:commandButton>
-            </p:column>
-        </p:dataTable>
-        <h:panelGroup id="btnDatos">
-            <p:commandButton value="Nuevo" icon="pi pi-plus" actionListener="#{frmTipoSala.btnNuevoHandler}"
-                             update="pnlDetalle"
-                             styleClass="ui-button-success" style="margin-right: .5rem">
-                <p:resetInput target=":pnlDetalle" />
-            </p:commandButton>
-            <p:commandButton value="Cancelar" icon="pi pi-check" actionListener="#{frmTipoSala.btnCancelarHandler}"
-                             styleClass="ui-button-secondary" style="margin-right: .5rem" update=":pnlDetalle"/>
-        </h:panelGroup>
-    </h:form>
-
-<h:panelGroup id="pnlDetalle">
+<f:define name="cuerpo">
     <h:panelGrid>
-        <h:messages showDetail="false" showSummary="true" />
+        <h:panelGroup id="pnlGpDatos">
+            <h:form>
+                <h:panelGrid>
+                    <p:dataTable id="tablaDatos" var="r" value="#{frmTipoSala.modelo}" rendered="#{empty frmTipoSala.registro}"
+                                 sortMode="single" selection="#{frmTipoSala.registro}"
+                                 paginatorPosition="bottom" reflow="true" rowKey="#{r.idTipoSala}"
+                                 paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 paginator="true" rows="10" styleClass="dt-products" lazy="true">
+
+                        <p:ajax event="rowSelect" update=":pnlGpDetalle @form" process="@this"
+                                listener="#{frmTipoSala.selecionarRegistro}"/>
+
+                        <p:column headerText="ID" sortBy="#{r.idTipoSala}">
+                            <h:outputText value="#{r.idTipoSala}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{r.nombre}">
+                            <h:outputText value="#{r.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Activo" sortBy="#{r.activo}">
+                            <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
+                        </p:column>
+                        <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
+                            <h:outputText value="#{r.expresionRegular}"/>
+                        </p:column>
+                        <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
+                            <h:outputText value="#{r.comentarios}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <crud:BtnTop frm="#{frmTipoSala}"/>
+                </h:panelGrid>
+            </h:form>
+        </h:panelGroup>
     </h:panelGrid>
-    <h:form id="frmDetale" rendered="#{not empty frmTipoSala.registro}">
+
+<h:panelGroup id="pnlGpDetalle">
+    <h:form id="frmDetalle" rendered="#{not empty frmTipoSala.registro}">
         <h:panelGrid columns="2">
             <h:outputLabel value="ID" for="txtId"/>
             <h:inputText id="txtId" value="#{frmTipoSala.registro.idTipoSala}" readonly="true" disabled="true"/>
             <h:outputLabel value="Nombre" for="txtNombre"/>
-            <h:inputText size="50" id="txtNombre" value="#{frmTipoSala.registro.nombre}"/>
+            <h:inputText size="50" id="txtNombre" value="#{frmTipoSala.registro.nombre}" required="true"/>
             <h:outputLabel value="Activo" for="chkActivo"/>
             <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoSala.registro.activo}"/>
             <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
@@ -81,15 +63,7 @@
             <h:outputLabel value="Comentarios" for="txtComentarios"/>
             <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoSala.registro.comentarios}"/>
         </h:panelGrid>
-        <h:panelGrid>
-            <p:commandButton value="Modificar" icon="pi pi-check" actionListener="#{frmTipoSala.btnModificarHandler}"
-                             styleClass="ui-button-secondary" style="margin-right: .5rem" update="@all" process="pnlDetalle"/>
-            <p:commandButton value="Guardar" icon="pi pi-check" actionListener="#{frmTipoSala.btnGuardarHandler}"
-                             styleClass="ui-button-success" style="margin-right: .5rem" update="@all" process="pnlDetalle"/>
-            <p:commandButton value="Eliminar" icon="pi pi-check" actionListener="#{frmTipoSala.btnEliminarHandler}"
-                             styleClass="ui-button-danger" style="margin-right: .5rem" update="@all" process="pnlDetalle"/>
-        </h:panelGrid>
     </h:form>
 </h:panelGroup>
-</h:body>
-</html>
+</f:define>
+</f:composition>

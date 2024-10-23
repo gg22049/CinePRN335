@@ -5,7 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Pago;
 import java.io.Serializable;
 
-public class PagoBean extends AbstractDataPersist<Pago> implements Serializable {
+public class PagoBean extends AbstractDataPersistence<Pago> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

@@ -6,7 +6,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
 
 import java.io.Serializable;
 
-public class ProgramacionBean extends AbstractDataPersist<Programacion> implements Serializable {
+public class ProgramacionBean extends AbstractDataPersistence<Programacion> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

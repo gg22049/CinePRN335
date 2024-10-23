@@ -5,7 +5,7 @@ import jakarta.persistence.PersistenceContext;
 
 import java.io.Serializable;
 
-public class ReservaDetalleBean extends AbstractDataPersist<sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.ReservaDetalleBean> implements Serializable {
+public class ReservaDetalleBean extends AbstractDataPersistence<ReservaDetalleBean> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

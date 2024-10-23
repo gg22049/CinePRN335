@@ -6,7 +6,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Sucursal;
 
 import java.io.Serializable;
 
-public class SucursalBean extends AbstractDataPersist<Sucursal> implements Serializable {
+public class SucursalBean extends AbstractDataPersistence<Sucursal> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 

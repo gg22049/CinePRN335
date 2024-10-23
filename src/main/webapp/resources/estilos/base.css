@@ -1,0 +1,13 @@
+body{
+    background-color: black;
+    color: wheat;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+}
+
+h1{
+    color: wheat;
+    text-align: center;
+}

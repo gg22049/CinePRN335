@@ -6,7 +6,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.SalaCaracteristica;
 
 import java.io.Serializable;
 
-public class SalaCaracteristicaBean extends AbstractDataPersist<SalaCaracteristica> implements Serializable {
+public class SalaCaracteristicaBean extends AbstractDataPersistence<SalaCaracteristica> implements Serializable {
     @PersistenceContext(unitName = "CinePU")
     EntityManager em;
 
