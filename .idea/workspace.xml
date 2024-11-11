@@ -4,63 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="Maquetado de los tipo">
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/SesionUsuario.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersistence.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Traducciones.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Traducciones_en.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Traducciones_es.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/faces-config.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/templates/principal.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/crud/BtnTop.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/estilos/base.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBeanTest.java" afterDir="false" />
+    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="Maquetado con template, composite, opcion de traducir y menu de tipos">
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPelicula.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPeliculaCaracteristica.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/PeliculaServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/Pelicula.xhtml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/datos/TablaDatos.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoAsiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoAsiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPago.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoProducto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoReserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoSala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoSala.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersist.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AsientoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AsientoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersistence.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AsientoCaracteristicaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AsientoCaracteristicaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/FacturaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/FacturaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/FacturaDetalleProductoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/FacturaDetalleProductoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/FacturaDetalleSalaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/FacturaDetalleSalaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PagoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PagoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PagoDetalleBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PagoDetalleBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaCaracteristicaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaCaracteristicaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ProductoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ProductoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ProgramacionBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ProgramacionBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ReservaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ReservaDetalleBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/ReservaDetalleBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/SalaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/SalaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/SalaCaracteristicaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/SalaCaracteristicaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/SucursalBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/SucursalBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoAsientoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoAsientoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPagoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPagoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPeliculaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoPeliculaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoProductoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoProductoBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoReservaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoAsiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoAsiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoPago.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoPago.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoPelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoProducto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoProducto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoReserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoReserva.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoSala.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/TipoSala.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Pelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Pelicula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/PeliculaCaracteristica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/PeliculaCaracteristica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Sucursal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Sucursal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersistTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBeanTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBeanTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,8 +36,9 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="CSS File" />
-        <option value="jsf" />
         <option value="Class" />
+        <option value="Jsp File" />
+        <option value="jsf" />
       </list>
     </option>
   </component>
@@ -101,7 +64,7 @@
     &quot;JUnit.TipoSalaBeanTest.count.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TipoSalaBeanTest.create.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TipoSalaBeanTest.delete.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.TipoSalaBeanTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TipoSalaBeanTest.executor&quot;: &quot;Debug&quot;,
     &quot;JUnit.TipoSalaBeanTest.findById.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TipoSalaBeanTest.findRange.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.TipoSalaBeanTest.update.executor&quot;: &quot;Run&quot;,
@@ -381,7 +344,16 @@
       <workItem from="1729570391884" duration="2001000" />
       <workItem from="1729612319679" duration="4794000" />
       <workItem from="1729618355576" duration="21760000" />
-      <workItem from="1729643080172" duration="2682000" />
+      <workItem from="1729643080172" duration="2991000" />
+      <workItem from="1731176183152" duration="19790000" />
+      <workItem from="1731200146596" duration="3869000" />
+      <workItem from="1731210790524" duration="2224000" />
+      <workItem from="1731213249341" duration="1785000" />
+      <workItem from="1731247776590" duration="28185000" />
+      <workItem from="1731339369821" duration="2599000" />
+      <workItem from="1731342654828" duration="5057000" />
+      <workItem from="1731351151424" duration="6289000" />
+      <workItem from="1731359240507" duration="3082000" />
     </task>
     <task id="LOCAL-00001" summary="Constructores de las entidades">
       <option name="closed" value="true" />
@@ -439,7 +411,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728776628534</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Maquetado con template, composite, opcion de traducir y menu de tipos">
+      <option name="closed" value="true" />
+      <created>1729646064451</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1729646064451</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,7 +447,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
@@ -495,7 +475,8 @@
     <MESSAGE value="Estructura del maquetado base y vista del crud" />
     <MESSAGE value="Abstrac de los frm y primer maquetado" />
     <MESSAGE value="Maquetado de los tipo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maquetado de los tipo" />
+    <MESSAGE value="Maquetado con template, composite, opcion de traducir y menu de tipos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Maquetado con template, composite, opcion de traducir y menu de tipos" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

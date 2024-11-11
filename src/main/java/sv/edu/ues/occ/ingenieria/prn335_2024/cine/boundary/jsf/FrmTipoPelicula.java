@@ -7,7 +7,6 @@ import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoPeliculaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoPelicula;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoProducto;
 
 import java.io.Serializable;
 import java.util.stream.Collectors;
@@ -55,6 +54,6 @@ public class FrmTipoPelicula extends AbstractFrm<TipoPelicula> implements Serial
 
     @Override
     public String getTituloPagina(){
-        return TipoProducto.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
+        return TipoPelicula.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 }

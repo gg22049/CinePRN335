@@ -6,51 +6,44 @@
       xmlns:f="jakarta.faces.facelets"
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud"
+               xmlns:datos="jakarta.faces.composite/datos"
 >
     <f:define name="titulo">
         #{frmTipoSala.titulo}
     </f:define>
 
 <f:define name="cuerpo">
-    <h:panelGrid>
-        <h:panelGroup id="pnlGpDatos">
-            <h:form>
-                <h:panelGrid>
-                    <p:dataTable id="tablaDatos" var="r" value="#{frmTipoSala.modelo}" rendered="#{empty frmTipoSala.registro}"
-                                 sortMode="single" selection="#{frmTipoSala.registro}"
-                                 paginatorPosition="bottom" reflow="true" rowKey="#{r.idTipoSala}"
-                                 paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="10" styleClass="dt-products" lazy="true">
+    <h:panelGroup id="pnlGpDatos">
+            <datos:TablaDatos
+                    value="#{frmTipoSala.modelo}"
+                    selection="#{frmTipoSala.registro}"
+                    update=":pnlGpDatos @form"
+                    listener="#{frmTipoSala.selecionarRegistro}"
+                    frm="#{frmTipoSala}"
+            >
 
-                        <p:ajax event="rowSelect" update=":pnlGpDetalle @form" process="@this"
-                                listener="#{frmTipoSala.selecionarRegistro}"/>
+                <p:column headerText="ID" sortBy="#{r.idTipoSala}">
+                    <h:outputText value="#{r.idTipoSala}"/>
+                </p:column>
+                <p:column headerText="Nombre" sortBy="#{r.nombre}">
+                    <h:outputText value="#{r.nombre}"/>
+                </p:column>
+                <p:column headerText="Activo" sortBy="#{r.activo}">
+                    <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
+                </p:column>
+                <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
+                    <h:outputText value="#{r.expresionRegular}"/>
+                </p:column>
+                <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
+                    <h:outputText value="#{r.comentarios}"/>
+                </p:column>
 
-                        <p:column headerText="ID" sortBy="#{r.idTipoSala}">
-                            <h:outputText value="#{r.idTipoSala}"/>
-                        </p:column>
-                        <p:column headerText="Nombre" sortBy="#{r.nombre}">
-                            <h:outputText value="#{r.nombre}"/>
-                        </p:column>
-                        <p:column headerText="Activo" sortBy="#{r.activo}">
-                            <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
-                        </p:column>
-                        <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
-                            <h:outputText value="#{r.expresionRegular}"/>
-                        </p:column>
-                        <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
-                            <h:outputText value="#{r.comentarios}"/>
-                        </p:column>
-                    </p:dataTable>
-                </h:panelGrid>
-                <h:panelGrid>
-                    <crud:BtnTop frm="#{frmTipoSala}"/>
-                </h:panelGrid>
-            </h:form>
-        </h:panelGroup>
-    </h:panelGrid>
+            </datos:TablaDatos>
+        <h:outputText value="#{frmTipoSala.selecionarRegistro}"/>
+    </h:panelGroup>
 
 <h:panelGroup id="pnlGpDetalle">
-    <h:form id="frmDetalle" rendered="#{not empty frmTipoSala.registro}">
+    <h:form id="frmDetalle" rendered="#{frmTipoSala.estado!='NINGUNO'}">
         <h:panelGrid columns="2">
             <h:outputLabel value="ID" for="txtId"/>
             <h:inputText id="txtId" value="#{frmTipoSala.registro.idTipoSala}" readonly="true" disabled="true"/>

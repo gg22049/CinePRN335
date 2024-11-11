@@ -11,10 +11,7 @@ import java.util.List;
 public class Sucursal implements Serializable {
     @Id
     @Column(name = "id_sucursal", nullable = false)
-    private Integer idSucursal;
-
-//    @OneToMany(mappedBy = "sala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Sala> salaList;
+    private Integer idSala;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -36,21 +33,13 @@ public class Sucursal implements Serializable {
     public Sucursal() {
     }
 
-    public Sucursal(Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
-        this.idSucursal = idSucursal;
+    public Sucursal(Integer idSala, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
+        this.idSala = idSala;
         this.nombre = nombre;
         this.longitud = longitud;
         this.latitud = latitud;
         this.comentarios = comentarios;
         this.activo = activo;
-    }
-
-    public Integer getIdSucursal() {
-        return idSucursal;
-    }
-
-    public void setIdSucursal(Integer idSucursal) {
-        this.idSucursal = idSucursal;
     }
 
     public String getNombre() {
@@ -93,11 +82,14 @@ public class Sucursal implements Serializable {
         this.activo = activo;
     }
 
-//    public List<Sala> getSalaList() {
+
+    //    public List<Sala> getSalaList() {
 //        return salaList;
 //    }
 //
 //    public void setSalaList(List<Sala> salaList) {
 //        this.salaList = salaList;
 //    }
+
+
 }

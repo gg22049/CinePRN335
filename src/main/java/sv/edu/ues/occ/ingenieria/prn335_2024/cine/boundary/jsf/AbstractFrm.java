@@ -15,14 +15,47 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *Generalizacion de los metodos para los frm
+ * @param <T> parametro generico que se sustituye para utilizar la clase
+ */
 public abstract class AbstractFrm<T> implements Serializable {
 
-    //Metodos Abstractos
+    /**
+     * Metodo abstracto para obtener bean de operaciones crud
+     * @return AbstractDataPersistence<T> generico del que se opte
+     */
     public abstract AbstractDataPersistence<T> getDataPersist();
+
+    /**
+     * Metodo abstracto para obtener un Faces Context para los mensajes
+     * @return FacesContext
+     */
     public abstract FacesContext getFacesContext();
+
+    /**
+     * Conversor de objeto a id en texto para el lazy data model
+     * @param object objeto del que obtendra el id
+     * @return String de la id obtenida
+     */
     public abstract String getIdObjeto(T object);
+
+    /**
+     * Metodo para convertir el string del id a objeto
+     * @param id en texto para obtener el objeto de devuelta
+     * @return objeto recuperado
+     */
     public abstract T getObjeto(String id);
+
+    /**
+     * Inicializa el registro para crear nuevos.
+     */
     public abstract void instanciarRegistro();
+
+    /**
+     * Regresa el titulo para la pagina en base al nombre de la clase
+     * @return regresa el titulo
+     */
     public abstract String getTituloPagina();
 
     //Instancias
@@ -81,6 +114,29 @@ public abstract class AbstractFrm<T> implements Serializable {
         };
     }
 
+    //Metodos invasivos por revisar
+    protected List<T> listaDeRegistros;
+
+    public List<T> cargarDatos(int first, int max) {
+        try {
+            AbstractDataPersistence<T> dataBean= getDataPersist();
+            return dataBean.findRange(first,max);
+        }catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+        return null;
+    }
+
+    public int contar(){
+        try {
+            AbstractDataPersistence<T> dataBean= getDataPersist();
+            return dataBean.count();
+        }catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+        return 0;
+    }
+
     //Getter & Setter
     public LazyDataModel<T> getModelo() {
         return modelo;
@@ -114,16 +170,27 @@ public abstract class AbstractFrm<T> implements Serializable {
         this.titulo = titulo;
     }
 
-//Botones CRUD v2
+    //Botones CRUD v2
+    /**
+     * Metodo para asignar el estado de modificacion con el registro seleccionado
+     */
     public void selecionarRegistro(){
         this.estado = ESTADO_CRUD.MODIFICAR;
     }
 
+    /**
+     * Metodo que da funcionalidad al boton para cancelar el estado de seleccion y volver registro nulo
+     * @param actionEvent parametro que indica el uso del boton
+     */
     public void btnCancelarHandler(ActionEvent actionEvent) {
         this.registro = null;
         this.estado = ESTADO_CRUD.NINGUNO;
     }
 
+    /**
+     * Metodo que da funcionalidad al boton que instancia el registro
+     * @param actionEvent Parametro que indica el uso del boton
+     */
     public void btnNuevoHandler(ActionEvent actionEvent) {
         try{
            this.instanciarRegistro();
@@ -137,6 +204,10 @@ public abstract class AbstractFrm<T> implements Serializable {
         }
     }
 
+    /**
+     * Metodo que da funcionalidad al boton para persistir el registro instanciado
+     * @param actionEvent Parametro que indica el uso del boton
+     */
     public void btnGuardarHandler(ActionEvent actionEvent) {
         if (registro != null) {
             FacesContext fc = getFacesContext();
@@ -158,6 +229,10 @@ public abstract class AbstractFrm<T> implements Serializable {
         }
     }
 
+    /**
+     * Metodo que da funcionalidad al boton para actualizar registros desde el formulario
+     * @param actionEvent Parametro que indica el uso del boton
+     */
     public void btnModificarHandler(ActionEvent actionEvent) {
         if (registro != null) {
             FacesContext fc = getFacesContext();
@@ -179,6 +254,10 @@ public abstract class AbstractFrm<T> implements Serializable {
         }
     }
 
+    /**
+     * Metodo que da funcionalidad al boton para eliminar un registro desde el formulario
+     * @param actionEvent Parametro que indica el uso del boton
+     */
     public void btnEliminarHandler(ActionEvent actionEvent) {
         if (registro != null) {
             FacesContext fc = getFacesContext();

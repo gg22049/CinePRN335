@@ -155,11 +155,4 @@ class TipoSalaBeanTest {
         cut.count();
     }
 
-    @Test
-    void carnet() {
-        System.out.println("==============================");
-        System.out.println("Examen para el alumno");
-        TipoSalaBean cut = new TipoSalaBean();
-        System.out.println(cut.imprimirCarnet());
-    }
 }

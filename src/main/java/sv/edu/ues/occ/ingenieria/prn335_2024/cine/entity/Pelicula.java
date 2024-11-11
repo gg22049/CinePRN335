@@ -30,6 +30,10 @@ public class Pelicula implements Serializable {
     public Pelicula() {
     }
 
+    public Pelicula(Long idPelicula) {
+        this.idPelicula = idPelicula;
+    }
+
     public Pelicula(Long idPelicula, String nombre, String sinopsis) {
         this.idPelicula = idPelicula;
         this.nombre = nombre;

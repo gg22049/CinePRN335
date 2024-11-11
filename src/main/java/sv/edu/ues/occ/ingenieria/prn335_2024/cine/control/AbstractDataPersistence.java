@@ -8,8 +8,16 @@ import jakarta.persistence.criteria.Root;
 
 import java.util.List;
 
+/**
+ * Generalizacion de los metodos de crud
+ * @param <T> parametro generico que se sustituye para utilizar la clase
+ */
 public abstract class AbstractDataPersistence<T> {
 
+    /**
+     * Metodo para obtener el el entity manager
+     * @return Retorna un entity manager
+     */
     public abstract EntityManager getEntityManager();
 
     protected final Class<T> tipoDato;
@@ -18,8 +26,12 @@ public abstract class AbstractDataPersistence<T> {
         this.tipoDato = tipoDato;
     }
 
-    public String imprimirCarnet(){ return "GG22049";}
-
+    /**
+     * Metodo para crear nuevos registros en la base de datos
+     * @param entity la entidad que se persistira en la base de datos
+     * @throws IllegalStateException si se produce un error en el proceso
+     * @throws IllegalArgumentException si la entidad es nula
+     */
     public void create(final T entity) throws  IllegalStateException, IllegalArgumentException {
         EntityManager em = null;
 
@@ -38,7 +50,13 @@ public abstract class AbstractDataPersistence<T> {
 
     }
 
-
+    /**
+     * Metodo para buscar registros en la base de datos
+     * @param id llave para realizar la busqueda
+     * @return retorna la entidad buscada si se encuentra, sino retorna nulo
+     * @throws IllegalArgumentException en caso de id nulo
+     * @throws IllegalStateException en caso de error en proceso
+     */
     public T findById(final Object id) throws IllegalArgumentException, IllegalStateException{
         EntityManager em = null;
 
@@ -56,6 +74,12 @@ public abstract class AbstractDataPersistence<T> {
         return em.find(tipoDato, id);
     }
 
+    /**
+     * Metodo para eliminar registros de la base de datos
+     * @param entity la entidad a eliminar
+     * @throws IllegalArgumentException la entidad brindada es nula
+     * @throws IllegalStateException error en proceso de eliminado
+     */
     public void delete(final T entity) throws IllegalArgumentException, IllegalStateException{
         EntityManager em = null;
 
@@ -73,6 +97,13 @@ public abstract class AbstractDataPersistence<T> {
         }
     }
 
+    /**
+     * Metodo para acualizar con campos de un registro
+     * @param entity La entidad a Actualizar
+     * @return Regresa la entidad actualizada
+     * @throws IllegalArgumentException La entidad a actualizar es nula
+     * @throws IllegalStateException Error en proceso de actualizacion
+     */
     public T update(final T entity) throws IllegalArgumentException, IllegalStateException{
         EntityManager em = null;
 
@@ -90,6 +121,14 @@ public abstract class AbstractDataPersistence<T> {
         }
     }
 
+    /**
+     * Metodo para buscar listas de registros por rango
+     * @param first Valor en donde comienza la lista de registros
+     * @param pageSize Valor maximo de la lista
+     * @return Retorna la lista en el rango estipulado
+     * @throws IllegalArgumentException Rango brindado no valido
+     * @throws IllegalStateException Error en el proceso de busqueda
+     */
     public List<T> findRange(int first, int pageSize) throws IllegalArgumentException, IllegalStateException{
         if(first < 0 || pageSize <= 0) {
             throw new IllegalArgumentException("Parametros no validos");
@@ -114,7 +153,11 @@ public abstract class AbstractDataPersistence<T> {
         }
     }
 
-
+    /**
+     * Metodo para contar la cantidad de registros de una tabla de la base de datos
+     * @return int Retorna un valor entero
+     * @throws IllegalStateException Error en proceso de contar los registro
+     */
     public int count() throws IllegalStateException{
         EntityManager em = null;
         try{
