@@ -85,7 +85,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         return PeliculaCaracteristica.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 
-    //Metodos que no funcionan
     @Override
     public int contar(){
         try {
@@ -112,6 +111,20 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
 
     //Clases nuevas y cosas que no funcionan
 
+    public void validarVailador(FacesContext fc, UIComponent component, Object valor){
+        UIInput input= (UIInput) component;
+        if (registro!=null && this.registro.getIdTipoPelicula()!=null) {
+            String nuevo = valor.toString();
+            Pattern pattern=Pattern.compile(this.registro.getIdTipoPelicula().getExpresionRegular());
+            Matcher matcher=pattern.matcher(nuevo);
+            if (matcher.find()) {
+                input.setValue(true);
+                return;
+            }
+        }
+        input.setValue(false);
+    }
+
     public PeliculaCaracteristica crearNuevo(){
         PeliculaCaracteristica pc = new PeliculaCaracteristica();
         if(idPelicula!=null){
@@ -134,20 +147,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         if (this.registro!=null && this.tipoPeliculaList!=null && !this.tipoPeliculaList.isEmpty()){
             this.registro.setIdTipoPelicula(this.tipoPeliculaList.stream().filter(r->r.getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null));
         }
-    }
-
-    public void validarVailador(FacesContext fc, UIComponent component, Object valor){
-        UIInput input= (UIInput) component;
-        if (registro!=null && this.registro.getIdTipoPelicula()!=null) {
-            String nuevo = valor.toString();
-            Pattern pattern=Pattern.compile(this.registro.getIdTipoPelicula().getExpresionRegular());
-            Matcher matcher=pattern.matcher(nuevo);
-            if (matcher.find()) {
-                input.setValue(true);
-                return;
-            }
-        }
-        input.setValue(false);
     }
 
     //Getter & Setter

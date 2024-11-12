@@ -4,25 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="Maquetado con template, composite, opcion de traducir y menu de tipos">
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPelicula.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPeliculaCaracteristica.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/servlet/PeliculaServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/Pelicula.xhtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/datos/TablaDatos.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmTipoPelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersistence.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AbstractDataPersistence.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AsientoCaracteristicaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/AsientoCaracteristicaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaCaracteristicaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/PeliculaCaracteristicaBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPelicula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPeliculaCaracteristica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPeliculaCaracteristica.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Pelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Pelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/PeliculaCaracteristica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/PeliculaCaracteristica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Sucursal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Sucursal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/Pelicula.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Pelicula.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBeanTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/control/TipoSalaBeanTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/datos/TablaDatos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/datos/TablaDatos.xhtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +80,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;cesar&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/caesar/IdeaProjects/PRN335_2024/CinePRN335/target/jacoco.exec&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
@@ -354,6 +350,10 @@
       <workItem from="1731342654828" duration="5057000" />
       <workItem from="1731351151424" duration="6289000" />
       <workItem from="1731359240507" duration="3082000" />
+      <workItem from="1731363568512" duration="11505000" />
+      <workItem from="1731380262196" duration="6881000" />
+      <workItem from="1731422282949" duration="19294000" />
+      <workItem from="1731448908903" duration="1545000" />
     </task>
     <task id="LOCAL-00001" summary="Constructores de las entidades">
       <option name="closed" value="true" />
@@ -419,7 +419,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729646064451</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Comienzo de parcial 2, comienzo de generalizacion xhtml">
+      <option name="closed" value="true" />
+      <created>1731363687478</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731363687478</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,15 +484,17 @@
     <MESSAGE value="Abstrac de los frm y primer maquetado" />
     <MESSAGE value="Maquetado de los tipo" />
     <MESSAGE value="Maquetado con template, composite, opcion de traducir y menu de tipos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maquetado con template, composite, opcion de traducir y menu de tipos" />
+    <MESSAGE value="Comienzo de parcial 2, comienzo de generalizacion xhtml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comienzo de parcial 2, comienzo de generalizacion xhtml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.IllegalStateException" package="java.lang" />
-          <option name="timeStamp" value="2" />
-        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/net/bytebuddy/byte-buddy-agent/1.14.15/byte-buddy-agent-1.14.15.jar!/net/bytebuddy/agent/Installer.class</url>
+          <line>43</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

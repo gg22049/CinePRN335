@@ -6,64 +6,53 @@
                xmlns:f="jakarta.faces.facelets"
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud"
+               xmlns:datos="jakarta.faces.composite/datos"
 >
    <f:define name="titulo">
       #{frmTipoPelicula.titulo}
    </f:define>
 
-<f:define name="cuerpo">
-   <h:panelGrid>
+   <f:define name="cuerpo">
       <h:panelGroup id="pnlGpDatos">
-         <h:form>
-            <h:panelGrid>
-               <p:dataTable id="tablaDatos" var="r" value="#{frmTipoPelicula.modelo}" rendered="#{empty frmTipoPelicula.registro}"
-                            sortMode="single" selection="#{frmTipoPelicula.registro}"
-                            paginatorPosition="bottom" reflow="true" rowKey="#{r.idTipoPelicula}"
-                            paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                            paginator="true" rows="10" styleClass="dt-products" lazy="true">
+         <datos:TablaDatos frm="#{frmTipoPelicula}" rowkey="#{r.idTipoPelicula}" update=":pnlGpDetalle :pnlGpDatos @form">
 
-                  <p:ajax event="rowSelect" update=":pnlGpDetalle @form" process="@this"
-                          listener="#{frmTipoPelicula.selecionarRegistro}"/>
+            <p:column headerText="ID" sortBy="#{r.idTipoPelicula}">
+               <h:outputText value="#{r.idTipoPelicula}"/>
+            </p:column>
+            <p:column headerText="Nombre" sortBy="#{r.nombre}">
+               <h:outputText value="#{r.nombre}"/>
+            </p:column>
+            <p:column headerText="Activo" sortBy="#{r.activo}">
+               <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
+            </p:column>
+            <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
+               <h:outputText value="#{r.expresionRegular}"/>
+            </p:column>
+            <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
+               <h:outputText value="#{r.comentarios}"/>
+            </p:column>
 
-                  <p:column headerText="ID" sortBy="#{r.idTipoPelicula}">
-                     <h:outputText value="#{r.idTipoPelicula}"/>
-                  </p:column>
-                  <p:column headerText="Nombre" sortBy="#{r.nombre}">
-                     <h:outputText value="#{r.nombre}"/>
-                  </p:column>
-                  <p:column headerText="Activo" sortBy="#{r.activo}">
-                     <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
-                  </p:column>
-                  <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
-                     <h:outputText value="#{r.expresionRegular}"/>
-                  </p:column>
-                  <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
-                     <h:outputText value="#{r.comentarios}"/>
-                  </p:column>
-               </p:dataTable>
+         </datos:TablaDatos>
+      </h:panelGroup>
+
+      <h:panelGroup id="pnlGpDetalle">
+         <h:form id="frmDetalle" rendered="#{frmTipoPelicula.estado!='NINGUNO'}">
+            <h:panelGrid columns="2">
+               <h:outputLabel value="ID" for="txtId"/>
+               <h:inputText id="txtId" value="#{frmTipoPelicula.registro.idTipoPelicula}" readonly="true" disabled="true"/>
+               <h:outputLabel value="Nombre" for="txtNombre"/>
+               <h:inputText id="txtNombre" value="#{frmTipoPelicula.registro.nombre}" required="true"/>
+               <h:outputLabel value="Activo" for="chkActivo"/>
+               <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPelicula.registro.activo}"/>
+               <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
+               <h:inputText id="txtExpresionRegular" value="#{frmTipoPelicula.registro.expresionRegular}"/>
+               <h:outputLabel value="Comentarios" for="txtComentarios"/>
+               <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoPelicula.registro.comentarios}"/>
             </h:panelGrid>
-            <h:panelGrid>
+            <h:panelGrid columns="3">
                <crud:BtnTop frm="#{frmTipoPelicula}"/>
             </h:panelGrid>
          </h:form>
       </h:panelGroup>
-   </h:panelGrid>
-
-   <h:panelGroup id="pnlGpDetalle">
-      <h:form id="frmDetalle" rendered="#{not empty frmTipoPelicula.registro}">
-         <h:panelGrid columns="2">
-            <h:outputLabel value="ID" for="txtId"/>
-            <h:inputText id="txtId" value="#{frmTipoPelicula.registro.idTipoPelicula}" readonly="true" disabled="true"/>
-            <h:outputLabel value="Nombre" for="txtNombre"/>
-            <h:inputText size="50" id="txtNombre" value="#{frmTipoPelicula.registro.nombre}" required="true"/>
-            <h:outputLabel value="Activo" for="chkActivo"/>
-            <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPelicula.registro.activo}"/>
-            <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
-            <h:inputText size="20" id="txtExpresionRegular" value="#{frmTipoPelicula.registro.expresionRegular}"/>
-            <h:outputLabel value="Comentarios" for="txtComentarios"/>
-            <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoPelicula.registro.comentarios}"/>
-         </h:panelGrid>
-      </h:form>
-   </h:panelGroup>
-</f:define>
+   </f:define>
 </f:composition>

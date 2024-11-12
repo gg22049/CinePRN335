@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name = "pelicula", schema = "public")
 public class Pelicula implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pelicula", nullable = false)
     private Long idPelicula;
 
