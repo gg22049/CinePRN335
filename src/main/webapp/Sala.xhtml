@@ -29,8 +29,8 @@
                         <p:column headerText="Id sala" sortBy="#{r.idSala}">
                             <h:outputText value="#{r.idSala}"/>
                         </p:column>
-                        <p:column headerText="Id Sucursal" sortBy="#{r.idSucursal}">
-                            <h:outputText value="#{r.idSucursal}"/>
+                        <p:column headerText="Sucursal" sortBy="#{r.idSucursal}">
+                            <h:outputText value="#{r.idSucursal.nombre}"/>
                         </p:column>
                         <p:column headerText="Nombre" sortBy="#{r.nombre}">
                             <h:outputText value="#{r.nombre}"/>
@@ -103,7 +103,6 @@
                             </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
-
                     <h:panelGroup id="tiposPnlGpDetalle">
                         <h:panelGrid>
                             <h:form>
@@ -129,6 +128,37 @@
                         </h:panelGrid>
                     </h:panelGroup>
                 </p:tab>
+
+<!--                aqui van los asientos-->
+                <p:tab title="Asientos" closable="false" disabled="#{frmSala.estado!='MODIFICAR'}">
+                    <h:panelGroup id="asientosPnlGpDatos">
+                        <h:form>
+                            <h:panelGrid rendered="#{frmSala.frmAsiento.estado=='NINGUNO'}">
+                                <p:dataTable id="AsientosDatos" reflow="true" sortMode="single" var="r"
+                                             paginator="true" rows="10" styleClass="dt-products" lazy="true" paginatorPosition="bottom"
+                                             value="#{frmSala.frmAsiento.modelo}" selection="#{frmSala.frmAsiento.registro}" rowKey="#{frmSala.frmAsiento.registro.idAsiento}"
+                                >
+                                    <p:ajax event="rowSelect" update="tabDetalle" listener="#{frmSala.frmAsiento.registro}"/>
+                                    <p:column headerText="Id Asiento" sortBy="#{frmSala.frmAsiento.registro.idAsiento}">
+                                        <h:outputText value="#{frmSala.frmAsiento.registro.idAsiento}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombre Sala" sortBy="#{frmSala.frmAsiento.registro.idSala.nombre}">
+                                        <h:outputText value="#{frmSala.frmAsiento.registro.idSala.nombre}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombre" sortBy="#{frmSala.frmAsiento.registro.nombre}">
+                                        <h:outputText vulue="#{frmSala.frmAsiento.registro.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="Activo" sortBy="#{frmSala.frmAsiento.registro.activo}">
+                                        <h:outputText value="#{frmSala.frmAsiento.registro.activo}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </h:form>
+                    </h:panelGroup>
+                </p:tab>
+
+
+<!--                aqui va la programacion-->
 
             </p:tabView>
         </h:panelGroup>

@@ -25,6 +25,9 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
     @Inject
     FrmSalaCaracteristica frmSalaCaracteristica;
 
+    @Inject
+    FrmAsiento frmAsiento;
+
     @Override
     public AbstractDataPersistence<Sala> getDataPersist() {
         return this.bean;
@@ -64,10 +67,18 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
         return frmSalaCaracteristica;
     }
 
+    public FrmAsiento getFrmAsiento() {
+        return frmAsiento;
+    }
+
     public void cambiarTab(TabChangeEvent tce){
         if (tce.getTab().getTitle().equals("Tipos")){
             if(this.registro!=null && this.frmSalaCaracteristica !=null){
                 this.frmSalaCaracteristica.setIdSala(this.registro.getIdSala().longValue());
+            }
+        } else if (tce.getTab().getTitle().equals("Asientos")){
+            if(this.registro!=null && this.frmAsiento !=null){
+                this.frmAsiento.setIdSala(this.registro.getIdSala().longValue());
             }
         }
     }

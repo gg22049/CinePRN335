@@ -29,4 +29,28 @@ public class AsientoCaracteristicaBean extends AbstractDataPersistence<AsientoCa
         return em;
     }
 
+    public List<AsientoCaracteristica> caracteristicaSelected(final Long idAsiento, int first, int max ){
+        try{
+            TypedQuery<AsientoCaracteristica> q = em.createNamedQuery("AsientoCaracteristica.ListBySelected", AsientoCaracteristica.class);
+            q.setParameter("idAsiento", idAsiento);
+            q.setFirstResult(first);
+            q.setMaxResults(max);
+            return q.getResultList();
+        }catch (Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return List.of();
+    }
+
+    public int countAsiento(final Long idAsiento){
+        try{
+            TypedQuery<Long> q = em.createNamedQuery("AsientoCaracteristica.cantidadPaginador", Long.class);
+            q.setParameter("idAsiento", idAsiento);
+            return q.getSingleResult().intValue();
+        }catch (Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+        }
+        return 0;
+    }
+
 }
