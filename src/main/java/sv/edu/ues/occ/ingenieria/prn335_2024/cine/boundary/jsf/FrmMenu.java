@@ -65,6 +65,35 @@ public class FrmMenu implements Serializable {
                 .build();
         tipos.getElements().add(item);
         model.getElements().add(tipos);
+        DefaultSubMenu cine = DefaultSubMenu.builder()
+                .label("Cine")
+                .expanded(true)
+                .build();
+        item = DefaultMenuItem.builder()
+                .value("Pelicula")
+                .ajax(true)
+                .command("#{frmMenu.navegar('Pelicula.jsf')}")
+                .build();
+        cine.getElements().add(item);
+        item = DefaultMenuItem.builder()
+                    .value("Sucursal")
+                    .ajax(true)
+                    .command("#{frmMenu.navegar('Sucursal.jsf')}")
+                    .build();
+        cine.getElements().add(item);
+        item = DefaultMenuItem.builder()
+                .value("Sala")
+                .ajax(true)
+                .command("#{frmMenu.navegar('Sala.jsf')}")
+                .build();
+        cine.getElements().add(item);
+        item = DefaultMenuItem.builder()
+                .value("Reserva")
+                .ajax(true)
+                .command("#{frmMenu.navegar('Reserva.jsf')}")
+                .build();
+        cine.getElements().add(item);
+        model.getElements().add(cine);
     }
 
     public void navegar(String formulario) throws IOException {

@@ -23,7 +23,7 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
     FacesContext fc;
 
     @Inject
-    FrmPeliculaCaracteristica frmCaracteristica;
+    FrmPeliculaCaracteristica frmPeliculaCaracteristica;
 
     @Override
     public AbstractDataPersistence<Pelicula> getDataPersist() {
@@ -60,14 +60,14 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
         return Pelicula.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 
-    public FrmPeliculaCaracteristica getFrmCaracteristica() {
-        return frmCaracteristica;
+    public FrmPeliculaCaracteristica getFrmPeliculaCaracteristica() {
+        return frmPeliculaCaracteristica;
     }
 
     public void cambiarTab(TabChangeEvent tce){
         if (tce.getTab().getTitle().equals("Tipos")){
-            if(this.registro!=null && this.frmCaracteristica!=null){
-                this.frmCaracteristica.setIdPelicula(this.registro.getIdPelicula());
+            if(this.registro!=null && this.frmPeliculaCaracteristica !=null){
+                this.frmPeliculaCaracteristica.setIdPelicula(this.registro.getIdPelicula());
             }
         }
     }

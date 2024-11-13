@@ -6,52 +6,41 @@
                xmlns:f="jakarta.faces.facelets"
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud"
+               xmlns:datos="jakarta.faces.composite/datos"
 >
     <f:define name="titulo">
         #{frmTipoPago.titulo}
     </f:define>
 
     <f:define name="cuerpo">
-        <h:panelGrid>
-            <h:panelGroup id="pnlGpDatos">
-                <h:form>
-                    <h:panelGrid>
-                        <p:dataTable id="tablaDatos" var="r" value="#{frmTipoPago.modelo}" rendered="#{empty frmTipoPago.registro}"
-                                     sortMode="single" selection="#{frmTipoPago.registro}"
-                                     paginatorPosition="bottom" reflow="true" rowKey="#{r.idTipoPago}"
-                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                     paginator="true" rows="10" styleClass="dt-products" lazy="true">
+        <h:panelGroup id="pnlGpDatos">
+            <datos:TablaDatos frm="#{frmTipoPago}" rowkey="#{r.idTipoPago}">
 
-                            <p:ajax event="rowSelect" update=":pnlGpDetalle @form" process="@this"
-                                    listener="#{frmTipoPago.selecionarRegistro}"/>
+                <p:column headerText="ID" sortBy="#{r.idTipoPago}">
+                    <h:outputText value="#{r.idTipoPago}"/>
+                </p:column>
+                <p:column headerText="Nombre" sortBy="#{r.nombre}">
+                    <h:outputText value="#{r.nombre}"/>
+                </p:column>
+                <p:column headerText="Activo" sortBy="#{r.activo}">
+                    <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
+                </p:column>
 
-                            <p:column headerText="ID" sortBy="#{r.idTipoPago}">
-                                <h:outputText value="#{r.idTipoPago}"/>
-                            </p:column>
-                            <p:column headerText="Nombre" sortBy="#{r.nombre}">
-                                <h:outputText value="#{r.nombre}"/>
-                            </p:column>
-                            <p:column headerText="Activo" sortBy="#{r.activo}">
-                                <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <crud:BtnTop frm="#{frmTipoPago}"/>
-                    </h:panelGrid>
-                </h:form>
-            </h:panelGroup>
-        </h:panelGrid>
+            </datos:TablaDatos>
+        </h:panelGroup>
 
         <h:panelGroup id="pnlGpDetalle">
-            <h:form id="frmDetalle" rendered="#{not empty frmTipoPago.registro}">
-                <h:panelGrid columns="2">
+            <h:form id="frmDetalle">
+                <h:panelGrid columns="2" rendered="#{frmTipoPago.estado!='NINGUNO'}">
                     <h:outputLabel value="ID" for="txtId"/>
                     <h:inputText id="txtId" value="#{frmTipoPago.registro.idTipoPago}" readonly="true" disabled="true"/>
                     <h:outputLabel value="Nombre" for="txtNombre"/>
-                    <h:inputText size="50" id="txtNombre" value="#{frmTipoPago.registro.nombre}" required="true"/>
+                    <h:inputText id="txtNombre" value="#{frmTipoPago.registro.nombre}" required="true"/>
                     <h:outputLabel value="Activo" for="chkActivo"/>
                     <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPago.registro.activo}"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <crud:BtnTop frm="#{frmTipoPago}"/>
                 </h:panelGrid>
             </h:form>
         </h:panelGroup>

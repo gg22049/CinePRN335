@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "sucursal", schema = "public")
@@ -12,14 +11,6 @@ public class Sucursal implements Serializable {
     @Id
     @Column(name = "id_sucursal", nullable = false)
     private Integer idSucursal;
-
-    /**
-     * Relacion: Sucursal/Sala
-     * henry(hp19021):
-     * Sucursal (1)(id) <-> (fk)(M)Sala
-     */
-    @OneToMany(mappedBy = "idSucursal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Sala> SalaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -38,15 +29,11 @@ public class Sucursal implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
-    //Sucursal
-    public Sucursal() {}
-
-    public Sucursal(Integer idSucursal) {
-        this.idSucursal = idSucursal;
+    public Sucursal() {
     }
 
-    public Sucursal(Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
-        this.idSucursal = idSucursal;
+    public Sucursal(Integer idSala, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
+        this.idSucursal = idSala;
         this.nombre = nombre;
         this.longitud = longitud;
         this.latitud = latitud;
@@ -54,25 +41,13 @@ public class Sucursal implements Serializable {
         this.activo = activo;
     }
 
-    //Sala
-    public List<Sala> getSalaList() {
-        return SalaList;
-    }
-
-    public void setSalaList(List<Sala> listSala) {
-        this.SalaList = listSala;
-    }
-
-    //Sucursal
-
     public Integer getIdSucursal() {
         return idSucursal;
     }
 
-    public void setIdSucursal(Integer idSucursal) {
-        this.idSucursal = idSucursal;
+    public void setIdSucursal(Integer idSala) {
+        this.idSucursal = idSala;
     }
-
 
     public String getNombre() {
         return nombre;
@@ -115,7 +90,13 @@ public class Sucursal implements Serializable {
     }
 
 
-
+    //    public List<Sala> getSalaList() {
+//        return salaList;
+//    }
+//
+//    public void setSalaList(List<Sala> salaList) {
+//        this.salaList = salaList;
+//    }
 
 
 }

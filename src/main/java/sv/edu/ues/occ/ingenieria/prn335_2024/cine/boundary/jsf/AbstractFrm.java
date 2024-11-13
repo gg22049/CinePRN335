@@ -70,25 +70,21 @@ public abstract class AbstractFrm<T> implements Serializable {
 
             @Override
             public int count(Map<String, FilterMeta> map) {
-                AbstractDataPersistence<T> dataBean = getDataPersist();
                 int resultado=0;
-                if (dataBean != null) {
                     try{
-                        resultado = dataBean.count();
-
+                        resultado = contar();
                     }catch(Exception e){
                         Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+
                     }
-                }
                 return resultado;
             }
 
             @Override
             public List<T> load(int desde, int max, Map<String, SortMeta> map, Map<String, FilterMeta> map1) {
-                AbstractDataPersistence<T> dataBean = getDataPersist();
                 List<T> resultado = null;
                     try {
-                        resultado = dataBean.findRange(desde, max);
+                        resultado = cargarDatos(desde, max);
                     }catch (Exception e) {
                         Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                         return List.of();
@@ -114,26 +110,45 @@ public abstract class AbstractFrm<T> implements Serializable {
         };
     }
 
-    //Metodos invasivos por revisar
-    protected List<T> listaDeRegistros;
-
-    public List<T> cargarDatos(int first, int max) {
+    /**
+     * Metodo para obtener los registros de una table de la base de datos y sustentar el modelo
+     * @param first Numero desde el cual inicia la recuperacion
+     * @param max Numero hasta el cual llega la recuperacion
+     * @return Retorna una lista de los registros obtenidos
+     */
+    public List<T> cargarDatos( int first, int max) {
+        AbstractDataPersistence<T> dataBean = getDataPersist();
         try {
-            AbstractDataPersistence<T> dataBean= getDataPersist();
             return dataBean.findRange(first,max);
         }catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+            FacesContext fc = getFacesContext();
+            FacesMessage mensaje = new FacesMessage();
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Error al cargar los datos" + e.getMessage());
+            fc.addMessage(null, mensaje);
         }
         return null;
     }
 
+    /**
+     * Metodo para obtener la cantidad de registros de una tabla de la base de datos y sustentar el modelo
+     * @return Retorna un entero
+     */
     public int contar(){
+        AbstractDataPersistence<T> dataBean = getDataPersist();
+    if (dataBean != null) {
         try {
-            AbstractDataPersistence<T> dataBean= getDataPersist();
             return dataBean.count();
         }catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+            FacesContext fc = getFacesContext();
+            FacesMessage mensaje = new FacesMessage();
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Error al contar los registros" + e.getMessage());
+            fc.addMessage(null, mensaje);
         }
+    }
         return 0;
     }
 
@@ -214,6 +229,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             FacesMessage mensaje = new FacesMessage();
             try {
                 AbstractDataPersistence<T> dataBean = getDataPersist();
+                System.out.println(registro.getClass().toString());
                 dataBean.create(registro);
                 this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
@@ -223,7 +239,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al guardar el nuevo registro");
+                mensaje.setSummary("Error al guardar el nuevo registro xd");
                 fc.addMessage(null, mensaje);
             }
         }
@@ -268,7 +284,7 @@ public abstract class AbstractFrm<T> implements Serializable {
                 this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
-                mensaje.setSummary("El registro se actualizo exitosamente");
+                mensaje.setSummary("El registro se elimino exitosamente");
                 fc.addMessage(null, mensaje);
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);

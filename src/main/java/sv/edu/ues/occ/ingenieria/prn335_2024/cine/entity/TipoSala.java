@@ -43,7 +43,7 @@ public class TipoSala implements Serializable {
     }
 
     public TipoSala (int idEsperado){
-        this.idTipoSala = idEsperado;
+      this.idTipoSala = idEsperado;
     }
 
     public TipoSala(Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular) {

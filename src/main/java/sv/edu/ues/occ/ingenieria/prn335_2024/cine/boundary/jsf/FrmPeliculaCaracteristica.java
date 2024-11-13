@@ -10,7 +10,6 @@ import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.PeliculaCaracteristicaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoPeliculaBean;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Pelicula;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.PeliculaCaracteristica;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoPelicula;
 
@@ -85,7 +84,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         return PeliculaCaracteristica.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 
-    //Metodos que no funcionan
     @Override
     public int contar(){
         try {
@@ -110,17 +108,18 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         return null;
     }
 
-    //Clases nuevas y cosas que no funcionan
-
-    public PeliculaCaracteristica crearNuevo(){
-        PeliculaCaracteristica pc = new PeliculaCaracteristica();
-        if(idPelicula!=null){
-            pc.setIdPelicula(new Pelicula(idPelicula));
+    public void validarVailador(FacesContext fc, UIComponent component, Object valor){
+        UIInput input= (UIInput) component;
+        if (registro!=null && this.registro.getIdTipoPelicula()!=null) {
+            String nuevo = valor.toString();
+            Pattern pattern=Pattern.compile(this.registro.getIdTipoPelicula().getExpresionRegular());
+            Matcher matcher=pattern.matcher(nuevo);
+            if (matcher.find()) {
+                input.setValue(true);
+                return;
+            }
         }
-        if (tipoPeliculaList!=null && tipoPeliculaList.isEmpty()){
-            pc.setIdTipoPelicula(tipoPeliculaList.getFirst());
-        }
-        return pc;
+        input.setValue(false);
     }
 
     public Integer getIdTipoPeliculaSeleccionado() {
@@ -134,20 +133,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         if (this.registro!=null && this.tipoPeliculaList!=null && !this.tipoPeliculaList.isEmpty()){
             this.registro.setIdTipoPelicula(this.tipoPeliculaList.stream().filter(r->r.getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null));
         }
-    }
-
-    public void validarVailador(FacesContext fc, UIComponent component, Object valor){
-        UIInput input= (UIInput) component;
-        if (registro!=null && this.registro.getIdTipoPelicula()!=null) {
-            String nuevo = valor.toString();
-            Pattern pattern=Pattern.compile(this.registro.getIdTipoPelicula().getExpresionRegular());
-            Matcher matcher=pattern.matcher(nuevo);
-            if (matcher.find()) {
-                input.setValue(true);
-                return;
-            }
-        }
-        input.setValue(false);
     }
 
     //Getter & Setter

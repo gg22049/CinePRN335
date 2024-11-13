@@ -1,6 +1,7 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "sala", schema = "public")
 public class Sala implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sala", nullable = false)
     private Integer idSala;
 
@@ -42,7 +44,8 @@ public class Sala implements Serializable {
     @OneToMany(mappedBy = "idSala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Programacion> ProgramacionList;
 
-    @Size(max = 155)
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
     @Column(name = "nombre", length = 155)
     private String nombre;
 
