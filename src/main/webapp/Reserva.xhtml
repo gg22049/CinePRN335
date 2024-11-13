@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:composition xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:p="http://primefaces.org/ui"
+               xmlns:h="jakarta.faces.html"
+               xmlns:f="jakarta.faces.facelets"
+               template="WEB-INF/templates/principal.xhtml"
+               xmlns:crud="jakarta.faces.composite/crud"
+               xmlns:datos="jakarta.faces.composite/datos">
+
+    <f:define name="titulo">
+        #{frmReserva.titulo}
+    </f:define>
+
+    <f:define name="cuerpo">
+        <h:panelGroup id="pnlGpDatos">
+            <datos:TablaDatos frm="#{frmReserva}" rowkey="#{r.idReserva}">
+
+                <p:column headerText="ID" sortBy="#{r.idReserva}">
+                    <h:outputText value="#{r.idReserva}"/>
+                </p:column>
+                <p:column headerText="ID Programación" sortBy="#{r.idProgramacion}">
+                    <h:outputText value="#{r.idProgramacion}"/>
+                </p:column>
+                <p:column headerText="ID Tipo Reserva" sortBy="#{r.idTipoReserva}">
+                    <h:outputText value="#{r.idTipoReserva}"/>
+                </p:column>
+                <p:column headerText="Fecha de Reserva" sortBy="#{r.fechaReserva}">
+                    <h:outputText value="#{r.fechaReserva}"/>
+                </p:column>
+
+            </datos:TablaDatos>
+        </h:panelGroup>
+
+        <h:panelGroup id="pnlGpDetalle">
+            <h:form id="frmDetalle">
+                <h:panelGrid columns="2" rendered="#{frmReserva.estado!='NINGUNO'}">
+                    <h:outputLabel value="ID" for="txtId"/>
+                    <h:inputText id="txtId" value="#{frmReserva.registro.idReserva}" readonly="true" disabled="true"/>
+                    <h:outputLabel value="Programación" for="txtProgramación"/>
+                    <h:inputText id="txtProgramación" value="#{frmReserva.registro.idProgramacion}" required="true"/>
+                    <h:outputLabel value="Tipo Reserva" for="txtTipoReserva"/>
+                    <h:inputText  id="txtTipoReserva" value="#{frmReserva.registro.idTipoReserva}"/>
+                    <h:outputLabel value="Fecha de Reserva" for="txtFechaReserva"/>
+                    <h:inputText  id="txtFechaReserva" value="#{frmReserva.registro.fechaReserva}"/>
+                    <h:outputLabel value="Estado" for="txtEstado"/>
+                    <h:inputText id="txtEstado" value="#{frmReserva.registro.estado}"/>
+                    <h:outputLabel value="observaciones" for="txtObservaciones"/>
+                    <h:inputText id="txtObservaciones" value="#{frmReserva.registro.observaciones}"/>
+                </h:panelGrid>
+                <h:panelGrid>
+                    <crud:BtnTop frm="#{frmReserva}"/>
+                </h:panelGrid>
+            </h:form>
+        </h:panelGroup>
+    </f:define>
+
+</f:composition>

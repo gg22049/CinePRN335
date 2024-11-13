@@ -46,7 +46,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>14.0.5</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
             <classifier>jakarta</classifier>
         </dependency>
 
@@ -95,6 +95,17 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- Plugin para quitar la advetencia de la prueba de covertura -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M7</version>
+                <configuration>
+                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 </project>
