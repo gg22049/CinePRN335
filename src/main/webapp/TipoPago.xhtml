@@ -14,7 +14,7 @@
 
     <f:define name="cuerpo">
         <h:panelGroup id="pnlGpDatos">
-            <datos:TablaDatos frm="#{frmTipoPago}" rowkey="#{r.idTipoPago}" update=":pnlGpDetalle :pnlGpDatos">
+            <datos:TablaDatos frm="#{frmTipoPago}" rowkey="#{r.idTipoPago}">
 
                 <p:column headerText="ID" sortBy="#{r.idTipoPago}">
                     <h:outputText value="#{r.idTipoPago}"/>
@@ -30,8 +30,8 @@
         </h:panelGroup>
 
         <h:panelGroup id="pnlGpDetalle">
-            <h:form id="frmDetalle" rendered="#{frmTipoPago.estado!='NINGUNO'}">
-                <h:panelGrid columns="2">
+            <h:form id="frmDetalle">
+                <h:panelGrid columns="2" rendered="#{frmTipoPago.estado!='NINGUNO'}">
                     <h:outputLabel value="ID" for="txtId"/>
                     <h:inputText id="txtId" value="#{frmTipoPago.registro.idTipoPago}" readonly="true" disabled="true"/>
                     <h:outputLabel value="Nombre" for="txtNombre"/>
@@ -39,7 +39,7 @@
                     <h:outputLabel value="Activo" for="chkActivo"/>
                     <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPago.registro.activo}"/>
                 </h:panelGrid>
-                <h:panelGrid columns="3">
+                <h:panelGrid>
                     <crud:BtnTop frm="#{frmTipoPago}"/>
                 </h:panelGrid>
             </h:form>

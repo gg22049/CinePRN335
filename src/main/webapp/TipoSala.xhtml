@@ -14,7 +14,7 @@
 
     <f:define name="cuerpo">
         <h:panelGroup id="pnlGpDatos">
-            <datos:TablaDatos frm="#{frmTipoSala}" rowkey="#{r.idTipoSala}" update=":pnlGpDetalle :pnlGpDatos">
+            <datos:TablaDatos frm="#{frmTipoSala}" rowkey="#{r.idTipoSala}">
 
                 <p:column headerText="ID" sortBy="#{r.idTipoSala}">
                     <h:outputText value="#{r.idTipoSala}"/>
@@ -52,8 +52,6 @@
                        <h:panelGrid>
                            <crud:BtnTop frm="#{frmTipoSala}"/>
                        </h:panelGrid>
-                       <h:outputText>
-                       </h:outputText>
                    </h:form>
                </h:panelGroup>
            </f:define>

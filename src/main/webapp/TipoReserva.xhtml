@@ -14,7 +14,7 @@
 
     <f:define name="cuerpo">
         <h:panelGroup id="pnlGpDatos">
-            <datos:TablaDatos frm="#{frmTipoReserva}" rowkey="#{r.idTipoReserva}" update=":pnlGpDetalle :pnlGpDatos">
+            <datos:TablaDatos frm="#{frmTipoReserva}" rowkey="#{r.idTipoReserva}">
                 <p:column headerText="ID" sortBy="#{r.idTipoReserva}">
                     <h:outputText value="#{r.idTipoReserva}"/>
                 </p:column>
@@ -31,8 +31,8 @@
         </h:panelGroup>
 
         <h:panelGroup id="pnlGpDetalle">
-            <h:form id="frmDetalle" rendered="#{frmTipoReserva.estado!='NINGUNO'}">
-                <h:panelGrid columns="2">
+            <h:form id="frmDetalle">
+                <h:panelGrid columns="2" rendered="#{frmTipoReserva.estado!='NINGUNO'}">
                     <h:outputLabel value="ID" for="txtId"/>
                     <h:inputText id="txtId" value="#{frmTipoReserva.registro.idTipoReserva}" readonly="true" disabled="true"/>
                     <h:outputLabel value="Nombre" for="txtNombre"/>

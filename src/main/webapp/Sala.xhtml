@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:composition xmlns="http://www.w3.org/1999/xhtml"
+               xmlns:p="http://primefaces.org/ui"
+               xmlns:h="jakarta.faces.html"
+               xmlns:f="jakarta.faces.facelets"
+               xmlns:c="jakarta.faces.core"
+               template="WEB-INF/templates/principal.xhtml"
+               xmlns:crud="jakarta.faces.composite/crud">
+
+    <f:define name="titulo">
+        #{frmSala.titulo}
+    </f:define>
+
+    <f:define name="cuerpo">
+
+        <h:panelGroup id="pnlGpDatos">
+            <h:form>
+                <h:panelGrid rendered="#{frmSala.estado == 'NINGUNO'}">
+                    <p:dataTable id="tablaDatos" var="r" sortMode="single" paginatorPosition="bottom" reflow="true"
+                                 paginator="true" rows="10" styleClass="dt-products" lazy="true"
+                                 value="#{frmSala.modelo}"
+                                 selection="#{frmSala.registro}"
+                                 rowKey="#{r.idSala}">
+
+                        <p:ajax event="rowSelect" update=":pnlGpDetalle :pnlGpDatos"
+                                listener="#{frmSala.selecionarRegistro}" process="@this"/>
+
+                        <p:column headerText="Id sala" sortBy="#{r.idSala}">
+                            <h:outputText value="#{r.idSala}"/>
+                        </p:column>
+                        <p:column headerText="Id Sucursal" sortBy="#{r.idSucursal}">
+                            <h:outputText value="#{r.idSucursal}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{r.nombre}">
+                            <h:outputText value="#{r.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Activo" sortBy="#{r.activo}">
+                            <h:outputText value="#{r.activo}"/>
+                        </p:column>
+                        <p:column headerText="Observaciones" sortBy="#{r.observaciones}">
+                            <h:outputText value="#{r.observaciones}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                    <crud:BtnTop frm="#{frmSala}"/>
+                </h:panelGrid>
+            </h:form>
+        </h:panelGroup>
+
+        <h:panelGroup id="pnlGpDetalle">
+            <p:tabView id="tabDetalle" cache="false" rendered="#{frmSala.estado=='MODIFICAR'}" dynamic="true">
+
+                <p:ajax process="@this" event="tabChange" listener="#{frmSala.cambiarTab}"/>
+
+                <p:tab title="Detalle" closable="false">
+                    <h:panelGrid>
+                        <h:form id="frmDetalle" rendered="#{frmSala.estado=='MODIFICAR'}">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Id Sala" for="txtIdSala"/>
+                                <h:inputText id="txtIdSala" value="#{frmSala.registro.idSala}" readonly="true" disabled="true"/>
+                                <h:outputLabel value="Id" for="txtIdSucursal"/>
+                                <h:inputText id="txtIdSucursal" value="#{frmSala.registro.idSucursal.idSucursal}" readonly="true" disabled="true"/>
+                                <h:outputLabel value="Nombre" for="txtNombre"/>
+                                <h:inputText  id="txtNombre" value="#{frmSala.registro.nombre}" required="true"/>
+                                <h:outputLabel value="Activo" for="txtActivo"/>
+                                <h:inputTextarea size="50" id="txtActivo" value="#{frmSala.registro.activo}"/>
+                                <h:outputLabel value="Observaciones" for="txtObservaciones"/>
+                                <h:inputTextarea size="50" id="txtObservaciones" value="#{frmSala.registro.observaciones}"/>
+                            </h:panelGrid>
+                            <h:panelGrid>
+                                <crud:BtnTop frm="#{frmSala}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </h:panelGrid>
+                </p:tab>
+
+                <p:tab title="Tipos" disabled="#{frmSala.estado!='MODIFICAR'}" closable="false">
+                    <h:panelGroup id="tiposPnlGpDatos">
+                        <h:form>
+                            <h:panelGrid rendered="#{frmSala.frmSalaCaracteristica.estado == 'NINGUNO'}">
+                                <p:dataTable id="tiposTablaDatos" var="r" value="#{frmSala.frmSalaCaracteristica.modelo}"
+                                             sortMode="single" selection="#{frmSala.frmSalaCaracteristica.registro}"
+                                             paginatorPosition="bottom" reflow="true" rowKey="#{r.idSalaCaracteristica}"
+                                             paginator="true" rows="10" styleClass="dt-products" lazy="true">
+
+                                    <p:ajax event="rowSelect" update="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos" process="@this"
+                                            listener="#{frmSala.frmSalaCaracteristica.selecionarRegistro}"/>
+
+                                    <p:column headerText="Id Caracteristica Sala" sortBy="#{r.idSalaCaracteristica}">
+                                        <h:outputText value="#{r.idSalaCaracteristica}"/>
+                                    </p:column>
+                                    <p:column headerText="Id Tipo" sortBy="#{r.idTipoSala.idTipoSala}">
+                                        <h:outputText value="#{r.idTipoSala.idTipoSala}"/>
+                                    </p:column>
+                                    <p:column headerText="Id Sala" sortBy="#{r.idSala.idSala}">
+                                        <h:outputText value="#{r.idSala.idSala}"/>
+                                    </p:column>
+                                    <p:column headerText="Valor" sortBy="#{r.valor}">
+                                        <h:outputText value="#{r.valor}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+                        </h:form>
+                    </h:panelGroup>
+
+                    <h:panelGroup id="tiposPnlGpDetalle">
+                        <h:panelGrid>
+                            <h:form>
+                                <h:panelGrid rendered="#{frmSala.frmSalaCaracteristica.estado !='NINGUNO'}">
+                                    <h:outputLabel value="ID" for="TiposTxtId"/>
+                                    <h:inputText id="TiposTxtId" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
+                                    <h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
+                                    <h:selectOneMenu id="listTipoSala" value="#{frmSala.frmSalaCaracteristica.idTipoSalaSeleccionado}">
+                                        <c:selectItems value="#{frmSala.frmSalaCaracteristica.tipoSalaList}" var="tp"
+                                                       itemLabel="#{tp.nombre}" itemValue="#{tp.idTipoSala}"/>
+                                        <p:ajax execute="@this" update="txtValor"/>
+                                    </h:selectOneMenu>
+                                    <p:outputLabel value="Valor" for="txtValor"/>
+                                    <!--Valor Quemado Corregir, hacerlo dinamico-->`
+                                    <p:inputTextarea id="txtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
+                                                     value="#{frmSala.frmSalaCaracteristica.registro.valor}"
+                                                     rows="3" cols="10"/>
+                                </h:panelGrid>
+                                <h:panelGrid>
+                                    <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
+                                </h:panelGrid>
+                            </h:form>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                </p:tab>
+
+            </p:tabView>
+        </h:panelGroup>
+
+    </f:define>
+</f:composition>

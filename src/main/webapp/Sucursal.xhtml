@@ -14,7 +14,7 @@
 
    <f:define name="cuerpo">
       <h:panelGroup id="pnlGpDatos">
-         <datos:TablaDatos frm="#{frmSucursal}" rowkey="#{r.idSucursal}" update=":pnlGpDetalle :pnlGpDatos">
+         <datos:TablaDatos frm="#{frmSucursal}" rowkey="#{r.idSucursal}">
 
             <p:column headerText="ID" sortBy="#{r.idSucursal}">
                <h:outputText value="#{r.idSucursal}"/>
@@ -39,8 +39,8 @@
       </h:panelGroup>
 
       <h:panelGroup id="pnlGpDetalle">
-         <h:form id="frmDetalle" rendered="#{frmSucursal.estado!='NINGUNO'}">
-            <h:panelGrid columns="2">
+         <h:form id="frmDetalle">
+            <h:panelGrid columns="2" rendered="#{frmSucursal.estado!='NINGUNO'}">
                <h:outputLabel value="ID" for="txtId"/>
                <h:inputText id="txtId" value="#{frmSucursal.registro.idSucursal}" readonly="true" disabled="true"/>
                <h:outputLabel value="Nombre" for="txtNombre"/>
@@ -54,7 +54,7 @@
                <h:outputLabel value="Comentarios" for="txtComentarios"/>
                <h:inputTextarea size="50" id="txtComentarios" value="#{frmSucursal.registro.comentarios}"/>
             </h:panelGrid>
-            <h:panelGrid columns="3">
+            <h:panelGrid>
                <crud:BtnTop frm="#{frmSucursal}"/>
             </h:panelGrid>
          </h:form>

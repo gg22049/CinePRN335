@@ -14,7 +14,7 @@
 
    <f:define name="cuerpo">
       <h:panelGroup id="pnlGpDatos">
-         <datos:TablaDatos frm="#{frmTipoProducto}" rowkey="#{r.idTipoProducto}" update=":pnlGpDetalle :pnlGpDatos">
+         <datos:TablaDatos frm="#{frmTipoProducto}" rowkey="#{r.idTipoProducto}">
 
             <p:column headerText="ID" sortBy="#{r.idTipoProducto}">
                <h:outputText value="#{r.idTipoProducto}"/>
@@ -33,8 +33,8 @@
       </h:panelGroup>
 
       <h:panelGroup id="pnlGpDetalle">
-         <h:form id="frmDetalle" rendered="#{frmTipoProducto.estado!='NINGUNO'}">
-            <h:panelGrid columns="2">
+         <h:form id="frmDetalle">
+            <h:panelGrid columns="2" rendered="#{frmTipoProducto.estado!='NINGUNO'}">
                <h:outputLabel value="ID" for="txtId"/>
                <h:inputText id="txtId" value="#{frmTipoProducto.registro.idTipoProducto}" readonly="true" disabled="true"/>
                <h:outputLabel value="Nombre" for="txtNombre"/>
@@ -44,7 +44,7 @@
                <h:outputLabel value="Comentarios" for="txtComentarios"/>
                <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoProducto.registro.comentarios}"/>
             </h:panelGrid>
-            <h:panelGrid columns="3">
+            <h:panelGrid>
                <crud:BtnTop frm="#{frmTipoProducto}"/>
             </h:panelGrid>
          </h:form>

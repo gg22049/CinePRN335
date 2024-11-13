@@ -14,7 +14,7 @@
 
    <f:define name="cuerpo">
       <h:panelGroup id="pnlGpDatos">
-         <datos:TablaDatos frm="#{frmTipoPelicula}" rowkey="#{r.idTipoPelicula}" update=":pnlGpDetalle :pnlGpDatos">
+         <datos:TablaDatos frm="#{frmTipoPelicula}" rowkey="#{r.idTipoPelicula}">
 
             <p:column headerText="ID" sortBy="#{r.idTipoPelicula}">
                <h:outputText value="#{r.idTipoPelicula}"/>
@@ -36,8 +36,8 @@
       </h:panelGroup>
 
       <h:panelGroup id="pnlGpDetalle">
-         <h:form id="frmDetalle" rendered="#{frmTipoPelicula.estado!='NINGUNO'}">
-            <h:panelGrid columns="2">
+         <h:form id="frmDetalle">
+            <h:panelGrid columns="2" rendered="#{frmTipoPelicula.estado!='NINGUNO'}">
                <h:outputLabel value="ID" for="txtId"/>
                <h:inputText id="txtId" value="#{frmTipoPelicula.registro.idTipoPelicula}" readonly="true" disabled="true"/>
                <h:outputLabel value="Nombre" for="txtNombre"/>
@@ -49,7 +49,7 @@
                <h:outputLabel value="Comentarios" for="txtComentarios"/>
                <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoPelicula.registro.comentarios}"/>
             </h:panelGrid>
-            <h:panelGrid columns="3">
+            <h:panelGrid>
                <crud:BtnTop frm="#{frmTipoPelicula}"/>
             </h:panelGrid>
          </h:form>
