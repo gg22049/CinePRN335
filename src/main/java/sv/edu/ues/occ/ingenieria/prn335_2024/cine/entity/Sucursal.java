@@ -114,16 +114,6 @@ public class Sucursal implements Serializable {
         this.activo = activo;
     }
 
-    /**
-     * public List<Sala> getSalaList() {
-     *         return salaList;
-     *     }
-     *
-     * public void setSalaList(List<Sala> salaList) {
-     *         this.salaList = salaList;
-     *     }
-     *
-     */
 
 
 
