@@ -15,8 +15,12 @@ public class TipoPelicula implements Serializable {
     @Column(name = "id_tipo_pelicula", nullable = false)
     private Integer idTipoPelicula;
 
-//    @OneToMany(mappedBy = "pelicula_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<PeliculaCaracteristica> peliculasCaracteristicaList;
+    /** *Relacion: TipoPelicula/PeliculaCaracteristica
+     * henry(hp19021)
+     * TipoPelicula (id)(M) <-> (fk)(1) PeliculaCaracteristica
+     */
+    @OneToMany(mappedBy = "idTipoPelicula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PeliculaCaracteristica> PeliculaCaracteristicasList;
 
     @NotBlank(message = "Debe ingresar un nombre valido")
     @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
@@ -34,7 +38,12 @@ public class TipoPelicula implements Serializable {
     @Column(name = "expresion_regular")
     private String expresionRegular;
 
+    //TipoPelicula
     public TipoPelicula() {
+    }
+
+    public TipoPelicula(Integer idTipoPelicula) {
+        this.idTipoPelicula = idTipoPelicula;
     }
 
     public TipoPelicula(Integer idTipoPelicula, String nombre, Boolean activo, String comentarios, String expresionRegular) {
@@ -43,6 +52,16 @@ public class TipoPelicula implements Serializable {
         this.activo = activo;
         this.comentarios = comentarios;
         this.expresionRegular = expresionRegular;
+    }
+
+    //PeliculaCaracteristica
+
+    public List<PeliculaCaracteristica> getPeliculaCaracteristicasList() {
+        return PeliculaCaracteristicasList;
+    }
+
+    public void setPeliculaCaracteristicasList(List<PeliculaCaracteristica> peliculaCaracteristicasList) {
+        PeliculaCaracteristicasList = peliculaCaracteristicasList;
     }
 
     public Integer getIdTipoPelicula() {
@@ -83,11 +102,4 @@ public class TipoPelicula implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-//    public List<PeliculaCaracteristica> getPeliculasCaracteristicaList() {
-//        return peliculasCaracteristicaList;
-//    }
-//
-//    public void setPeliculasCaracteristicaList(List<PeliculaCaracteristica> peliculasCaracteristicaList) {
-//        this.peliculasCaracteristicaList = peliculasCaracteristicaList;
-//    }
 }

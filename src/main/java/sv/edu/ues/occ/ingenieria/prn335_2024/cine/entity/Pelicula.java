@@ -13,11 +13,19 @@ public class Pelicula implements Serializable {
     @Column(name = "id_pelicula", nullable = false)
     private Long idPelicula;
 
-//    @OneToMany(mappedBy = "programacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Programacion> programacionList;
-//
-//    @OneToMany(mappedBy = "pelicula_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<PeliculaCaracteristica> peliculaCaracteristicaList;
+    /** *Relacion: Pelicula/PeliculaCaracteristica
+     * henry(hp19021)
+     * Pelicula (id)(M) <-> (fk)(1) PeliculaCaracteristica
+     */
+    @OneToMany(mappedBy = "idPelicula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PeliculaCaracteristica> PeliculaCaracteristicasList;
+
+    /** *Relacion: Pelicula/Programacion
+     * henry(hp19021)
+     * Pelicula (id)(M) <-> (fk)(1) Programacion
+     */
+    @OneToMany(mappedBy = "idPelicula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Programacion> ProgramacionList;
 
     @Size(max = 255)
     @Column(name = "nombre")
@@ -27,6 +35,7 @@ public class Pelicula implements Serializable {
     @Column(name = "sinopsis")
     private String sinopsis;
 
+    //pelicula
     public Pelicula() {
     }
 
@@ -38,6 +47,15 @@ public class Pelicula implements Serializable {
         this.idPelicula = idPelicula;
         this.nombre = nombre;
         this.sinopsis = sinopsis;
+    }
+
+    //PeliculaCaracteristica
+    public List<PeliculaCaracteristica> getPeliculaCaracteristicasList() {
+        return PeliculaCaracteristicasList;
+    }
+
+    public void setPeliculaCaracteristicasList(List<PeliculaCaracteristica> peliculaCaracteristicasList) {
+        PeliculaCaracteristicasList = peliculaCaracteristicasList;
     }
 
     public Long getIdPelicula() {
@@ -64,19 +82,4 @@ public class Pelicula implements Serializable {
         this.sinopsis = sinopsis;
     }
 
-//    public List<Programacion> getProgramacionList() {
-//        return programacionList;
-//    }
-//
-//    public void setProgramacionList(List<Programacion> programacionList) {
-//        this.programacionList = programacionList;
-//    }
-//
-//    public List<PeliculaCaracteristica> getPeliculaCaracteristicaList() {
-//        return peliculaCaracteristicaList;
-//    }
-//
-//    public void setPeliculaCaracteristicaList(List<PeliculaCaracteristica> peliculaCaracteristicaList) {
-//        this.peliculaCaracteristicaList = peliculaCaracteristicaList;
-//    }
 }

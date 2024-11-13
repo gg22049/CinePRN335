@@ -16,10 +16,18 @@ public class PeliculaCaracteristica implements Serializable {
     @Column(name = "id_pelicula_caracteristica", nullable = false)
     private Long idPeliculaCaracteristica;
 
+    /** *Relacion: PeliculaCaracteristica/TipoPelicula
+     * henry(hp19021)
+     * PeliculaCaracteristica (M)(id) <-> (fk)(1) TipoPelicula
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_pelicula")
     private TipoPelicula idTipoPelicula;
 
+    /** *Relacion: PeliculaCaracteristica/Pelicula
+     * henry(hp19021)
+     * PeliculaCaracteristica (id)(M) <-> (fk)(1) Pelicula
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pelicula")
     private Pelicula idPelicula;
@@ -28,7 +36,12 @@ public class PeliculaCaracteristica implements Serializable {
     @Column(name = "valor")
     private String valor;
 
+    //PeliculaCaracteristica
     public PeliculaCaracteristica() {
+    }
+
+    public PeliculaCaracteristica(Long idPeliculaCaracteristica) {
+        this.idPeliculaCaracteristica = idPeliculaCaracteristica;
     }
 
     public PeliculaCaracteristica(Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor) {
@@ -38,14 +51,7 @@ public class PeliculaCaracteristica implements Serializable {
         this.valor = valor;
     }
 
-    public Long getIdPeliculaCaracteristica() {
-        return idPeliculaCaracteristica;
-    }
-
-    public void setIdPeliculaCaracteristica(Long idPeliculaCaracteristica) {
-        this.idPeliculaCaracteristica = idPeliculaCaracteristica;
-    }
-
+    //TipoPelicula
     public TipoPelicula getIdTipoPelicula() {
         return idTipoPelicula;
     }
@@ -54,12 +60,22 @@ public class PeliculaCaracteristica implements Serializable {
         this.idTipoPelicula = idTipoPelicula;
     }
 
+    //Pelicula
     public Pelicula getIdPelicula() {
         return idPelicula;
     }
 
     public void setIdPelicula(Pelicula idPelicula) {
         this.idPelicula = idPelicula;
+    }
+
+
+    public Long getIdPeliculaCaracteristica() {
+        return idPeliculaCaracteristica;
+    }
+
+    public void setIdPeliculaCaracteristica(Long idPeliculaCaracteristica) {
+        this.idPeliculaCaracteristica = idPeliculaCaracteristica;
     }
 
     public String getValor() {

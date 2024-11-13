@@ -11,10 +11,18 @@ public class SalaCaracteristica implements Serializable {
     @Column(name = "id_sala_caracteristica", nullable = false)
     private Long idSalaCaracteristica;
 
+    /** *Relacion: SalaCaracterista/TipoSala
+     * henry(hp19021):
+     * SalaCaracterisca (fk)(M) <-> (1)(id) TipoSala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_sala")
     private TipoSala idTipoSala;
 
+    /** *Relacion: SalaCaracterista/Sala
+     * henry(hp19021):
+     * SalaCaracterisca (fk)(M) <-> (1)(id) Sala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sala")
     private Sala idSala;
@@ -23,7 +31,11 @@ public class SalaCaracteristica implements Serializable {
     @Column(name = "valor")
     private String valor;
 
-    public SalaCaracteristica() {
+    //SalaCaracteristica
+    public SalaCaracteristica() {}
+
+    public SalaCaracteristica(Long idSalaCaracteristica) {
+        this.idSalaCaracteristica = idSalaCaracteristica;
     }
 
     public SalaCaracteristica(Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor) {
@@ -33,14 +45,16 @@ public class SalaCaracteristica implements Serializable {
         this.valor = valor;
     }
 
-    public Long getIdSalaCaracteristica() {
-        return idSalaCaracteristica;
+    //Sala
+    public Sala getIdSala() {
+        return idSala;
     }
 
-    public void setIdSalaCaracteristica(Long idSalaCaracteristica) {
-        this.idSalaCaracteristica = idSalaCaracteristica;
+    public void setIdSala(Sala idSala) {
+        this.idSala = idSala;
     }
 
+    //TipoSala
     public TipoSala getIdTipoSala() {
         return idTipoSala;
     }
@@ -49,12 +63,13 @@ public class SalaCaracteristica implements Serializable {
         this.idTipoSala = idTipoSala;
     }
 
-    public Sala getIdSala() {
-        return idSala;
+
+    public Long getIdSalaCaracteristica() {
+        return idSalaCaracteristica;
     }
 
-    public void setIdSala(Sala idSala) {
-        this.idSala = idSala;
+    public void setIdSalaCaracteristica(Long idSalaCaracteristica) {
+        this.idSalaCaracteristica = idSalaCaracteristica;
     }
 
     public String getValor() {

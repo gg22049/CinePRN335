@@ -11,7 +11,15 @@ import java.util.List;
 public class Sucursal implements Serializable {
     @Id
     @Column(name = "id_sucursal", nullable = false)
-    private Integer idSala;
+    private Integer idSucursal;
+
+    /**
+     * Relacion: Sucursal/Sala
+     * henry(hp19021):
+     * Sucursal (1)(id) <-> (fk)(M)Sala
+     */
+    @OneToMany(mappedBy = "idSucursal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Sala> SalaList;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -30,17 +38,31 @@ public class Sucursal implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
-    public Sucursal() {
+    //Sucursal
+    public Sucursal() {}
+
+    public Sucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
     }
 
-    public Sucursal(Integer idSala, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
-        this.idSala = idSala;
+    public Sucursal(Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
+        this.idSucursal = idSucursal;
         this.nombre = nombre;
         this.longitud = longitud;
         this.latitud = latitud;
         this.comentarios = comentarios;
         this.activo = activo;
     }
+
+    //Sala
+    public List<Sala> getSalaList() {
+        return SalaList;
+    }
+
+    public void setSalaList(List<Sala> listSala) {
+        this.SalaList = listSala;
+    }
+
 
     public String getNombre() {
         return nombre;
@@ -82,14 +104,18 @@ public class Sucursal implements Serializable {
         this.activo = activo;
     }
 
+    /**
+     * public List<Sala> getSalaList() {
+     *         return salaList;
+     *     }
+     *
+     * public void setSalaList(List<Sala> salaList) {
+     *         this.salaList = salaList;
+     *     }
+     *
+     */
 
-    //    public List<Sala> getSalaList() {
-//        return salaList;
-//    }
-//
-//    public void setSalaList(List<Sala> salaList) {
-//        this.salaList = salaList;
-//    }
+
 
 
 }

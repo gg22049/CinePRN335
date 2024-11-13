@@ -15,8 +15,12 @@ public class TipoAsiento implements Serializable {
     @Column(name = "id_tipo_asiento", nullable = false)
     private Integer idTipoAsiento;
 
-//    @OneToMany(mappedBy = "asiento_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<AsientoCaracteristica> asientoCaracteristicaList;
+    /** *Relacion: TipoAsiento/AsientoCaracteristica
+     * henry(hp19021)
+     * TipoAsiento (id)(M) <-> (fk)(1) AsientoCaracteristica
+     */
+    @OneToMany(mappedBy = "idTipoAsiento", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AsientoCaracteristica> AsientoCaracteristicaList;
 
     @NotBlank(message = "Debe ingresar un nombre valido")
     @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
@@ -34,7 +38,12 @@ public class TipoAsiento implements Serializable {
     @Column(name = "expresion_regular")
     private String expresionRegular;
 
+    //TipoAsiento
     public TipoAsiento() {
+    }
+
+    public TipoAsiento(Integer idTipoAsiento) {
+        this.idTipoAsiento = idTipoAsiento;
     }
 
     public TipoAsiento(Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular) {
@@ -43,6 +52,15 @@ public class TipoAsiento implements Serializable {
         this.activo = activo;
         this.comentarios = comentarios;
         this.expresionRegular = expresionRegular;
+    }
+
+    //AsientoCaracteristica
+    public List<AsientoCaracteristica> getAsientoCaracteristicaList() {
+        return AsientoCaracteristicaList;
+    }
+
+    public void setAsientoCaracteristicaList(List<AsientoCaracteristica> asientoCaracteristicaList) {
+        AsientoCaracteristicaList = asientoCaracteristicaList;
     }
 
     public Integer getIdTipoAsiento() {
@@ -85,11 +103,5 @@ public class TipoAsiento implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-//    public List<AsientoCaracteristica> getAsientoCaracteristicaList() {
-//        return asientoCaracteristicaList;
-//    }
-//
-//    public void setAsientoCaracteristicaList(List<AsientoCaracteristica> asientoCaracteristicaList) {
-//        this.asientoCaracteristicaList = asientoCaracteristicaList;
-//    }
+
 }

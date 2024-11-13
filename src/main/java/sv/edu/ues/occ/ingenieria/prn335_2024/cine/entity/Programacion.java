@@ -13,16 +13,28 @@ public class Programacion implements Serializable {
     @Column(name = "id_programacion", nullable = false)
     private Long idProgramacion;
 
+    /** *Relacion: Programacion/Sala
+     * henry(hp19021):
+     * Programacion (fk)(M) <-> (1)(id) Sala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sala")
     private Sala idSala;
 
+    /** *Relacion: Programacion/Pelicula
+     * henry(hp19021):
+     * Programacion (fk)(M) <-> (1)(id) Pelicula
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pelicula")
     private Pelicula idPelicula;
 
-//    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Reserva> reservaList;
+    /** *Relacion: Programacion/Reserva
+     * henry(hp19021)
+     * Programacion (id)(M) <-> (fk)(1) Reserva
+     */
+    @OneToMany(mappedBy = "idProgramacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> ReservaList;
 
     @Column(name = "desde")
     private OffsetDateTime desde;
@@ -34,7 +46,12 @@ public class Programacion implements Serializable {
     @Column(name = "comentarios")
     private String comentarios;
 
+    //programacion
     public Programacion() {
+    }
+
+    public Programacion(Long idProgramacion) {
+        this.idProgramacion = idProgramacion;
     }
 
     public Programacion(Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios) {
@@ -46,14 +63,7 @@ public class Programacion implements Serializable {
         this.comentarios = comentarios;
     }
 
-    public Long getIdProgramacion() {
-        return idProgramacion;
-    }
-
-    public void setIdProgramacion(Long idProgramacion) {
-        this.idProgramacion = idProgramacion;
-    }
-
+    //Sala
     public Sala getIdSala() {
         return idSala;
     }
@@ -62,12 +72,31 @@ public class Programacion implements Serializable {
         this.idSala = idSala;
     }
 
+    //Pelicula
     public Pelicula getIdPelicula() {
         return idPelicula;
     }
 
     public void setIdPelicula(Pelicula idPelicula) {
         this.idPelicula = idPelicula;
+    }
+
+    //Programacion
+    public Long getIdProgramacion() {
+        return idProgramacion;
+    }
+
+    public void setIdProgramacion(Long idProgramacion) {
+        this.idProgramacion = idProgramacion;
+    }
+
+    //Reserva
+    public List<Reserva> getReservaList() {
+        return ReservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        ReservaList = reservaList;
     }
 
     public OffsetDateTime getDesde() {
