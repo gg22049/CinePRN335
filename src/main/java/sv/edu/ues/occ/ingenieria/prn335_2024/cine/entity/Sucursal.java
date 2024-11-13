@@ -63,6 +63,16 @@ public class Sucursal implements Serializable {
         this.SalaList = listSala;
     }
 
+    //Sucursal
+
+    public Integer getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
+    }
+
 
     public String getNombre() {
         return nombre;
