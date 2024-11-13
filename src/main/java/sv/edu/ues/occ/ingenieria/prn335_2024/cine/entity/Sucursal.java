@@ -63,6 +63,15 @@ public class Sucursal implements Serializable {
         this.SalaList = listSala;
     }
 
+    //Sucursal
+    public Integer getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Integer idSucursal) {
+        this.idSucursal = idSucursal;
+    }
+
 
     public String getNombre() {
         return nombre;
@@ -104,16 +113,6 @@ public class Sucursal implements Serializable {
         this.activo = activo;
     }
 
-    /**
-     * public List<Sala> getSalaList() {
-     *         return salaList;
-     *     }
-     *
-     * public void setSalaList(List<Sala> salaList) {
-     *         this.salaList = salaList;
-     *     }
-     *
-     */
 
 
 
