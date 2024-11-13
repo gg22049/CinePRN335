@@ -14,7 +14,7 @@
 
     <f:define name="cuerpo">
         <h:panelGroup id="pnlGpDatos">
-            <datos:TablaDatos frm="#{frmTipoSala}" rowkey="#{r.idTipoSala}" update=":pnlGpDetalle :pnlGpDatos   @form">
+            <datos:TablaDatos frm="#{frmTipoSala}" rowkey="#{r.idTipoSala}" update=":pnlGpDetalle :pnlGpDatos">
 
                 <p:column headerText="ID" sortBy="#{r.idTipoSala}">
                     <h:outputText value="#{r.idTipoSala}"/>
@@ -35,28 +35,26 @@
             </datos:TablaDatos>
         </h:panelGroup>
 
-        <h:panelGroup id="pnlGpDetalle">
-            <h:form id="frmDetalle">
-                <h:panelGrid columns="2" rendered="#{frmTipoSala.estado!='NINGUNO'}">
-                    <h:outputLabel value="ID" for="txtId"/>
-                    <h:inputText id="txtId" value="#{frmTipoSala.registro.idTipoSala}" readonly="true" disabled="true"/>
-                    <h:outputLabel value="Nombre" for="txtNombre"/>
-                    <h:inputText id="txtNombre" value="#{frmTipoSala.registro.nombre}" required="true"/>
-                    <h:outputLabel value="Activo" for="chkActivo"/>
-                    <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoSala.registro.activo}"/>
-                    <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
-                    <h:inputText id="txtExpresionRegular" value="#{frmTipoSala.registro.expresionRegular}"/>
-                    <h:outputLabel value="Comentarios" for="txtComentarios"/>
-                    <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoSala.registro.comentarios}"/>
-                </h:panelGrid>
-                <h:panelGrid>
-                    <crud:BtnTop frm="#{frmTipoSala}"/>
-                </h:panelGrid>
-                <h:outputText>
-                    #{frmTipoSala.registro.nombre}
-                    #{frmTipoSala.registro.idTipoSala}
-                </h:outputText>
-            </h:form>
-        </h:panelGroup>
-    </f:define>
-</f:composition>
+               <h:panelGroup id="pnlGpDetalle">
+                   <h:form id="frmDetalle">
+                       <h:panelGrid columns="2" rendered="#{frmTipoSala.estado!='NINGUNO'}">
+                           <h:outputLabel value="ID" for="txtId"/>
+                           <h:inputText id="txtId" value="#{frmTipoSala.registro.idTipoSala}" readonly="true" disabled="true"/>
+                           <h:outputLabel value="Nombre" for="txtNombre"/>
+                           <h:inputText id="txtNombre" value="#{frmTipoSala.registro.nombre}" required="true"/>
+                           <h:outputLabel value="Activo" for="chkActivo"/>
+                           <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoSala.registro.activo}"/>
+                           <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
+                           <h:inputText id="txtExpresionRegular" value="#{frmTipoSala.registro.expresionRegular}"/>
+                           <h:outputLabel value="Comentarios" for="txtComentarios"/>
+                           <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoSala.registro.comentarios}"/>
+                       </h:panelGrid>
+                       <h:panelGrid>
+                           <crud:BtnTop frm="#{frmTipoSala}"/>
+                       </h:panelGrid>
+                       <h:outputText>
+                       </h:outputText>
+                   </h:form>
+               </h:panelGroup>
+           </f:define>
+       </f:composition>

@@ -109,8 +109,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         return null;
     }
 
-    //Clases nuevas y cosas que no funcionan
-
     public void validarVailador(FacesContext fc, UIComponent component, Object valor){
         UIInput input= (UIInput) component;
         if (registro!=null && this.registro.getIdTipoPelicula()!=null) {
@@ -123,17 +121,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
             }
         }
         input.setValue(false);
-    }
-
-    public PeliculaCaracteristica crearNuevo(){
-        PeliculaCaracteristica pc = new PeliculaCaracteristica();
-        if(idPelicula!=null){
-            pc.setIdPelicula(new Pelicula(idPelicula));
-        }
-        if (tipoPeliculaList!=null && tipoPeliculaList.isEmpty()){
-            pc.setIdTipoPelicula(tipoPeliculaList.getFirst());
-        }
-        return pc;
     }
 
     public Integer getIdTipoPeliculaSeleccionado() {

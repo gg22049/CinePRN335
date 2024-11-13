@@ -14,7 +14,7 @@
 
    <f:define name="cuerpo">
       <h:panelGroup id="pnlGpDatos">
-         <datos:TablaDatos frm="#{frmTipoProducto}" rowkey="#{r.idTipoProducto}" update=":pnlGpDetalle :pnlGpDatos @form">
+         <datos:TablaDatos frm="#{frmTipoProducto}" rowkey="#{r.idTipoProducto}" update=":pnlGpDetalle :pnlGpDatos">
 
             <p:column headerText="ID" sortBy="#{r.idTipoProducto}">
                <h:outputText value="#{r.idTipoProducto}"/>

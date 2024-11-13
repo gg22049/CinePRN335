@@ -21,7 +21,7 @@
         <h:form>
             <h:panelGrid>
                 <p:dataTable id="tablaDatos" var="r" sortMode="single" paginatorPosition="bottom" reflow="true"
-                             paginator="true" rows="10" styleClass="dt-products" lazy="true" rendered="#{empty cc.attrs.frm.registro}"
+                             paginator="true" rows="10" styleClass="dt-products" lazy="true" rendered="#{cc.attrs.frm.estado=='NINGUNO'}"
                              value="#{cc.attrs.frm.modelo}"
                              selection="#{cc.attrs.frm.registro}"
                              rowKey="#{cc.attrs.rowkey}"

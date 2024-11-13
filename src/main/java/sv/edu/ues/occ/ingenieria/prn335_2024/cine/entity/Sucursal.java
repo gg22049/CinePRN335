@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "sucursal", schema = "public")
 public class Sucursal implements Serializable {
     @Id
     @Column(name = "id_sucursal", nullable = false)
-    private Integer idSala;
+    private Integer idSucursal;
 
     @Size(max = 155)
     @Column(name = "nombre", length = 155)
@@ -34,12 +33,20 @@ public class Sucursal implements Serializable {
     }
 
     public Sucursal(Integer idSala, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo) {
-        this.idSala = idSala;
+        this.idSucursal = idSala;
         this.nombre = nombre;
         this.longitud = longitud;
         this.latitud = latitud;
         this.comentarios = comentarios;
         this.activo = activo;
+    }
+
+    public Integer getIdSucursal() {
+        return idSucursal;
+    }
+
+    public void setIdSucursal(Integer idSala) {
+        this.idSucursal = idSala;
     }
 
     public String getNombre() {

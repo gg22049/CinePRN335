@@ -231,6 +231,7 @@ public abstract class AbstractFrm<T> implements Serializable {
                 AbstractDataPersistence<T> dataBean = getDataPersist();
                 System.out.println(registro.getClass().toString());
                 dataBean.create(registro);
+                this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
                 mensaje.setSummary("Registro guardado exitosamente");
@@ -255,6 +256,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             try{
                 AbstractDataPersistence<T> dataBean= getDataPersist();
                 dataBean.update(registro);
+                this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
                 mensaje.setSummary("El registro se actualizo exitosamente");
@@ -279,6 +281,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             try{
                 AbstractDataPersistence<T> dataBean= getDataPersist();
                 dataBean.delete(registro);
+                this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
                 mensaje.setSummary("El registro se elimino exitosamente");
