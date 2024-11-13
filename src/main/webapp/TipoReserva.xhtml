@@ -6,59 +6,47 @@
                xmlns:f="jakarta.faces.facelets"
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud"
+               xmlns:datos="jakarta.faces.composite/datos"
 >
     <f:define name="titulo">
         #{frmTipoReserva.titulo}
     </f:define>
 
     <f:define name="cuerpo">
-        <h:panelGrid>
-            <h:panelGroup id="pnlGpDatos">
-                <h:form>
-                    <h:panelGrid>
-                        <p:dataTable id="tablaDatos" var="r" value="#{frmTipoReserva.modelo}" rendered="#{empty frmTipoReserva.registro}"
-                                     sortMode="single" selection="#{frmTipoReserva.registro}"
-                                     paginatorPosition="bottom" reflow="true" rowKey="#{r.idTipoReserva}"
-                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                     paginator="true" rows="10" styleClass="dt-products" lazy="true">
-
-                            <p:ajax event="rowSelect" update=":pnlGpDetalle @form" process="@this"
-                                    listener="#{frmTipoReserva.selecionarRegistro}"/>
-
-                            <p:column headerText="ID" sortBy="#{r.idTipoReserva}">
-                                <h:outputText value="#{r.idTipoReserva}"/>
-                            </p:column>
-                            <p:column headerText="Nombre" sortBy="#{r.nombre}">
-                                <h:outputText value="#{r.nombre}"/>
-                            </p:column>
-                            <p:column headerText="Activo" sortBy="#{r.activo}">
-                                <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
-                            </p:column>
-                            <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
-                                <h:outputText value="#{r.comentarios}"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:panelGrid>
-                    <h:panelGrid>
-                        <crud:BtnTop frm="#{frmTipoReserva}"/>
-                    </h:panelGrid>
-                </h:form>
-            </h:panelGroup>
-        </h:panelGrid>
+        <h:panelGroup id="pnlGpDatos">
+            <datos:TablaDatos frm="#{frmTipoReserva}" rowkey="#{r.idTipoReserva}" update=":pnlGpDetalle :pnlGpDatos @form">
+                <p:column headerText="ID" sortBy="#{r.idTipoReserva}">
+                    <h:outputText value="#{r.idTipoReserva}"/>
+                </p:column>
+                <p:column headerText="Nombre" sortBy="#{r.nombre}">
+                    <h:outputText value="#{r.nombre}"/>
+                </p:column>
+                <p:column headerText="Activo" sortBy="#{r.activo}">
+                    <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
+                </p:column>
+                <p:column headerText="Comentarios" sortBy="#{r.comentarios}">
+                    <h:outputText value="#{r.comentarios}"/>
+                </p:column>
+            </datos:TablaDatos>
+        </h:panelGroup>
 
         <h:panelGroup id="pnlGpDetalle">
-            <h:form id="frmDetalle" rendered="#{not empty frmTipoReserva.registro}">
+            <h:form id="frmDetalle" rendered="#{frmTipoReserva.estado!='NINGUNO'}">
                 <h:panelGrid columns="2">
                     <h:outputLabel value="ID" for="txtId"/>
                     <h:inputText id="txtId" value="#{frmTipoReserva.registro.idTipoReserva}" readonly="true" disabled="true"/>
                     <h:outputLabel value="Nombre" for="txtNombre"/>
-                    <h:inputText size="50" id="txtNombre" value="#{frmTipoReserva.registro.nombre}" required="true"/>
+                    <h:inputText id="txtNombre" value="#{frmTipoReserva.registro.nombre}" required="true"/>
                     <h:outputLabel value="Activo" for="chkActivo"/>
                     <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoReserva.registro.activo}"/>
                     <h:outputLabel value="Comentarios" for="txtComentarios"/>
                     <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoReserva.registro.comentarios}"/>
                 </h:panelGrid>
+                <h:panelGroup>
+                    <crud:BtnTop frm="#{frmTipoReserva}"/>
+                </h:panelGroup>
             </h:form>
         </h:panelGroup>
+
     </f:define>
 </f:composition>

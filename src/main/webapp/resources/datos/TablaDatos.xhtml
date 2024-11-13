@@ -4,34 +4,31 @@
         xmlns:cc="jakarta.faces.composite"
         xmlns:h="jakarta.faces.html"
         xmlns:p="primefaces"
-        xmlns:crud="jakarta.faces.composite/crud"
         >
 
-
-
-
     <cc:interface>
-        <cc:attribute name="value" required="true"/>
-        <cc:attribute name="selection" required="true"/>
+        <cc:attribute name="frm"
+                      type="sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.AbstractFrm"
+                      required="true"
+                      displayName="Formulario"
+                      shortDescription="Formulario para operar"/>
         <cc:attribute name="update" required="true"/>
-        <cc:attribute name="listener" required="true"/>
-        <cc:attribute name="frm" required="true"/>
+        <cc:attribute name="rowkey" required="true"/>
         <cc:insertChildren/>
     </cc:interface>
 
     <cc:implementation>
-        <h:form rendered="#{frmTipoSala.estado=='NINGUNO'}">
+        <h:form>
             <h:panelGrid>
                 <p:dataTable id="tablaDatos" var="r" sortMode="single" paginatorPosition="bottom" reflow="true"
-                             paginator="true" rows="10" styleClass="dt-products" lazy="true"
-                             value="#{cc.attrs.value}"
-                             selection="#{cc.attrs.selection}" >
-                    <p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.listener}" process="@this"/>
+                             paginator="true" rows="10" styleClass="dt-products" lazy="true" rendered="#{empty cc.attrs.frm.registro}"
+                             value="#{cc.attrs.frm.modelo}"
+                             selection="#{cc.attrs.frm.registro}"
+                             rowKey="#{cc.attrs.rowkey}"
+                            >
+                    <p:ajax event="rowSelect" update="#{cc.attrs.update}" listener="#{cc.attrs.frm.selecionarRegistro}" process="@this"/>
                     <cc:insertChildren/>
                 </p:dataTable>
-            </h:panelGrid>
-            <h:panelGrid>
-                <crud:BtnTop frm="#{cc.attrs.frm}"/>
             </h:panelGrid>
         </h:form>
     </cc:implementation>
