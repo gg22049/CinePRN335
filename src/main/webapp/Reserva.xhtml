@@ -5,6 +5,7 @@
                xmlns:h="jakarta.faces.html"
                xmlns:f="jakarta.faces.facelets"
                template="WEB-INF/templates/principal.xhtml"
+               xmlns:c="jakarta.faces.core"
                xmlns:crud="jakarta.faces.composite/crud"
                xmlns:datos="jakarta.faces.composite/datos">
 
@@ -13,46 +14,119 @@
     </f:define>
 
     <f:define name="cuerpo">
-        <h:panelGroup id="pnlGpDatos">
-            <datos:TablaDatos frm="#{frmReserva}" rowkey="#{r.idReserva}">
+        <style>
+            .label {
+                width: 20%;
+                padding: 4px;
+            }
 
-                <p:column headerText="ID" sortBy="#{r.idReserva}">
-                    <h:outputText value="#{r.idReserva}"/>
-                </p:column>
-                <p:column headerText="ID Programación" sortBy="#{r.idProgramacion}">
-                    <h:outputText value="#{r.idProgramacion}"/>
-                </p:column>
-                <p:column headerText="ID Tipo Reserva" sortBy="#{r.idTipoReserva}">
-                    <h:outputText value="#{r.idTipoReserva}"/>
-                </p:column>
-                <p:column headerText="Fecha de Reserva" sortBy="#{r.fechaReserva}">
-                    <h:outputText value="#{r.fechaReserva}"/>
-                </p:column>
+            .value {
+                width: 80%;
+                padding: 4px;
+            }
 
-            </datos:TablaDatos>
-        </h:panelGroup>
+            .grid {
+                width: 100%;
+            }
 
-        <h:panelGroup id="pnlGpDetalle">
-            <h:form id="frmDetalle">
-                <h:panelGrid columns="2" rendered="#{frmReserva.estado!='NINGUNO'}">
-                    <h:outputLabel value="ID" for="txtId"/>
-                    <h:inputText id="txtId" value="#{frmReserva.registro.idReserva}" readonly="true" disabled="true"/>
-                    <h:outputLabel value="Programación" for="txtProgramación"/>
-                    <h:inputText id="txtProgramación" value="#{frmReserva.registro.idProgramacion}" required="true"/>
-                    <h:outputLabel value="Tipo Reserva" for="txtTipoReserva"/>
-                    <h:inputText  id="txtTipoReserva" value="#{frmReserva.registro.idTipoReserva}"/>
-                    <h:outputLabel value="Fecha de Reserva" for="txtFechaReserva"/>
-                    <h:inputText  id="txtFechaReserva" value="#{frmReserva.registro.fechaReserva}"/>
-                    <h:outputLabel value="Estado" for="txtEstado"/>
-                    <h:inputText id="txtEstado" value="#{frmReserva.registro.estado}"/>
-                    <h:outputLabel value="observaciones" for="txtObservaciones"/>
-                    <h:inputText id="txtObservaciones" value="#{frmReserva.registro.observaciones}"/>
-                </h:panelGrid>
-                <h:panelGrid>
-                    <crud:BtnTop frm="#{frmReserva}"/>
-                </h:panelGrid>
-            </h:form>
-        </h:panelGroup>
+            .error {
+                color: red;
+            }
+
+            .outputLabel {
+                font-weight: bold;
+            }
+
+            .grid {
+                width: 33%;
+                padding: 4px;
+            }
+        </style>
+
+        <h:form>
+
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+
+            <p:wizard flowListener="#{reservaWizardBean.onFlowProcess}">
+                <!-- Paso 1: Fecha y Tipo de Reserva -->
+                <p:tab id="fecha" title="Fecha">
+                    <p:panel header="Seleccionar fecha">
+                        <p:messages/>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Seleccione día: *"/>
+                            <p:calendar value="#{frmReserva.registro.fechaReserva}" required="true" pattern="yyyy-MM-dd" showButtonPanel="true" label="Seleccione un día" />
+                            <h:outputText value="Tipo de Reserva: *"/>
+                            <p:selectOneMenu id="tipoReservaOption" value="#{frmReserva.registro.idTipoReserva}">
+                                <c:selectItems value="#{frmReserva.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.nombre}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+
+                <p:tab id="funcion" title="Función">
+                    <p:panel header="Selecciona una pelicula">
+                        <p:messages/>
+                        <h:panelGrid columns="2" columnClasses="label, value">
+                            <h:outputText value="Seleccione una Pelicula: "/>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="asientos" title="Asientos">
+                    <p:panel header="Asientos">
+                        <p:messages/>
+                        <h:panelGrid columns="2" columnClasses="label, value">
+
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="confirm" title="Confirmation">
+                    <p:panel header="Confirmation">
+                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Firstname: "/>
+                                <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Lastname: "/>
+                                <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Age: "/>
+                                <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Street: "/>
+                                <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Postal: "/>
+                                <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
+
+                                <h:outputText value="City: "/>
+                                <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="Email: "/>
+                                <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Phone "/>
+                                <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
+
+                                <h:outputText value="Info: "/>
+                                <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
+
+                                <h:outputText/>
+                                <h:outputText/>
+                            </h:panelGrid>
+                        </h:panelGrid>
+
+                        <p:commandButton value="Submit" action="#{userWizard.save}" update="growl" process="@this"/>
+                    </p:panel>
+                </p:tab>
+            </p:wizard>
+        </h:form>
     </f:define>
 
 </f:composition>
