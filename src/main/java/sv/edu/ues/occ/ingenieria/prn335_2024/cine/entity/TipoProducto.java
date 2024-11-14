@@ -9,6 +9,32 @@ import java.util.List;
 
 @Entity
 @Table(name = "tipo_producto", schema = "public")
+@NamedQueries({
+    /** hp19021: ⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Integer idTipoProducto, String nombre, Boolean activo, String comentarios) {*/
+    @NamedQuery(name = "TipoProducto.findAll", query = "SELECT t FROM TipoProducto t"),
+
+    /** hp19021: ⬇️ Necesita idTipoProducto(PK)[Integer] de la tabla (TipoProducto)
+     * orden de retorno
+     * (Integer idTipoProducto, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoProducto.findByIdTipoProducto", query = "SELECT t FROM TipoProducto t WHERE t.idTipoProducto = :idTipoProducto"),
+
+    /** hp19021: ⬇️ Necesita nombre(Columna)[String] de la tabla (TipoProductos)
+     * orden de retorno
+     * (Integer idTipoProducto, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoProducto.findByNombre", query = "SELECT t FROM TipoProducto t WHERE t.nombre = :nombre"),
+
+    /** hp19021: ⬇️ Necesita activo(Columna)[Boolean] de la tabla (TipoPelicula)
+     * orden de retorno
+     * (Integer idTipoProducto, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoProducto.findByActivo", query = "SELECT t FROM TipoProducto t WHERE t.activo = :activo"),
+
+    /** hp19021: ⬇️ Necesita comentarios(Columna)[String] de la tabla (TipoPelicula)
+     * orden de retorno
+     * (Integer idTipoProducto, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoProducto.findByComentarios", query = "SELECT t FROM TipoProducto t WHERE t.comentarios = :comentarios")})
+
 public class TipoProducto implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

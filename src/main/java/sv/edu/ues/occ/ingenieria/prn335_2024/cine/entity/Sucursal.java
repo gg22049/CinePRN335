@@ -8,6 +8,42 @@ import java.util.List;
 
 @Entity
 @Table(name = "sucursal", schema = "public")
+@NamedQueries({
+    /** hp19021: ⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findAll", query = "SELECT s FROM Sucursal s"),
+
+    /** hp19021: ⬇️ Necesita idSucursal(PK)[Long] de la tabla (Sucursal)
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findByIdSucursal", query = "SELECT s FROM Sucursal s WHERE s.idSucursal = :idSucursal"),
+
+    /** hp19021: ⬇️ Necesita nombre(columna)[String] de la tabla (Sucursal)
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findByNombre", query = "SELECT s FROM Sucursal s WHERE s.nombre = :nombre"),
+
+    /** hp19021: ⬇️ Necesita logitud(Columna)[Double] de la tabla (Sucursal)
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findByLongitud", query = "SELECT s FROM Sucursal s WHERE s.longitud = :longitud"),
+
+    /** hp19021: ⬇️ Necesita latitud(Columna)[Double] de la tabla (Sucursal)
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findByLatitud", query = "SELECT s FROM Sucursal s WHERE s.latitud = :latitud"),
+
+    /** hp19021: ⬇️ Necesita comentarios(Columna)[String] de la tabla (Sucursal)
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findByComentarios", query = "SELECT s FROM Sucursal s WHERE s.comentarios = :comentarios"),
+
+    /** hp19021: ⬇️ Necesita activo(Columna)[Boolean] de la tabla (Sucursal)
+     * orden de retorno
+     * (Integer idSucursal, String nombre, Double longitud, Double latitud, String comentarios, Boolean activo)*/
+    @NamedQuery(name = "Sucursal.findByActivo", query = "SELECT s FROM Sucursal s WHERE s.activo = :activo")})
+
 public class Sucursal implements Serializable {
     @Id
     @Column(name = "id_sucursal", nullable = false)

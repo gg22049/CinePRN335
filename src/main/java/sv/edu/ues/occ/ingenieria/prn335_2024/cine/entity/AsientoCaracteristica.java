@@ -6,6 +6,22 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "asiento_caracteristica", schema = "public")
+@NamedQueries({
+    /** hp19021: ⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
+    @NamedQuery(name = "AsientoCaracteristica.findAll", query = "SELECT a FROM AsientoCaracteristica a"),
+
+    /** hp19021: ⬇️ Necesita idAsientoCaracteristica(PK)[Long] de la tabla (AsientoCaracteristica)
+     * orden de retorno
+     * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
+    @NamedQuery(name = "AsientoCaracteristica.findByIdAsientoCaracteristica", query = "SELECT a FROM AsientoCaracteristica a WHERE a.idAsientoCaracteristica = :idAsientoCaracteristica"),
+
+    /** hp19021: ⬇️ Necesita valor(columna)[String] de la tabla (AsientoCaracteristica)
+     * orden de retorno
+     * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
+    @NamedQuery(name = "AsientoCaracteristica.findByValor", query = "SELECT a FROM AsientoCaracteristica a WHERE a.valor = :valor")})
+
 public class AsientoCaracteristica implements Serializable {
     @Id
     @Column(name = "id_asiento_caracteristica", nullable = false)

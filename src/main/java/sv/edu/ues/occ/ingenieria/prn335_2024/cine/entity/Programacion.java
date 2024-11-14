@@ -8,6 +8,32 @@ import java.util.List;
 
 @Entity
 @Table(name = "programacion", schema = "public")
+@NamedQueries({
+    /** hp19021: ⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findAll", query = "SELECT p FROM Programacion p"),
+
+    /** hp19021: ⬇️ Necesita idProgramacion(PK)[Long] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByIdProgramacion", query = "SELECT p FROM Programacion p WHERE p.idProgramacion = :idProgramacion"),
+
+    /** hp19021: ⬇️ Necesita desde(columna)[OffsetDateTime] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByDesde", query = "SELECT p FROM Programacion p WHERE p.desde = :desde"),
+
+    /** hp19021: ⬇️ Necesita hasta(columna)[OffsetDateTime] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByHasta", query = "SELECT p FROM Programacion p WHERE p.hasta = :hasta"),
+
+    /** hp19021: ⬇️ Necesita comentarios(columna)[String] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByComentarios", query = "SELECT p FROM Programacion p WHERE p.comentarios = :comentarios")})
+
 public class Programacion implements Serializable {
     @Id
     @Column(name = "id_programacion", nullable = false)
