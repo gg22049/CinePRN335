@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "tipo_sala", schema = "public")
@@ -14,8 +15,12 @@ public class TipoSala implements Serializable {
     @Column(name = "id_tipo_sala", nullable = false)
     private Integer idTipoSala;
 
-//    @OneToMany(mappedBy="sala_caracteristica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<SalaCaracteristica> salaCaracteristicaList;
+    /** *Relacion: TipoSala/SalaCaracteristica
+     * henry(hp19021)
+     * TipoSala (id)(M) <-> (fk)(1) SalaCaracteristica
+     */
+    @OneToMany(mappedBy = "idTipoSala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<SalaCaracteristica> salaCaracteristicaList;
 
     @NotBlank(message = "Debe ingresar un nombre valido")
     @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
@@ -33,6 +38,7 @@ public class TipoSala implements Serializable {
     @Column(name = "expresion_regular")
     private String expresionRegular;
 
+    //TipoSala
     public TipoSala() {
     }
 
@@ -46,6 +52,15 @@ public class TipoSala implements Serializable {
         this.activo = activo;
         this.comentarios = comentarios;
         this.expresionRegular = expresionRegular;
+    }
+
+    //SalaCaracteristica
+    public List<SalaCaracteristica> getSalaCaracteristicaList() {
+        return salaCaracteristicaList;
+    }
+
+    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
+        this.salaCaracteristicaList = salaCaracteristicaList;
     }
 
     public Integer getIdTipoSala() {
@@ -88,11 +103,4 @@ public class TipoSala implements Serializable {
         this.expresionRegular = expresionRegular;
     }
 
-//    public List<SalaCaracteristica> getSalaCaracteristicaList() {
-//        return salaCaracteristicaList;
-//    }
-//
-//    public void setSalaCaracteristicaList(List<SalaCaracteristica> salaCaracteristicaList) {
-//        this.salaCaracteristicaList = salaCaracteristicaList;
-//    }
 }

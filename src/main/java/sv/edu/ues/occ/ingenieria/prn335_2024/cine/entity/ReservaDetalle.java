@@ -13,22 +13,33 @@ public class ReservaDetalle implements Serializable {
     @Column(name = "id_reserva_detalle", nullable = false)
     private Long idReservaDetalle;
 
+    /** *Relacion: ReservaDetalle/Reserva
+     * henry(hp19021):
+     * Programacion (fk)(M) <-> (1)(id) Sala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reserva")
     private Reserva idReserva;
 
+    /** *Relacion: ReservaDetalle/Asiento
+     * henry(hp19021):
+     * Programacion (fk)(M) <-> (1)(id) Sala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_asiento")
     private Asiento idAsiento;
 
-//    @OneToMany(mappedBy = "factura_detalle_sala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<FacturaDetalleSala> facturaDetalleSalaList;
 
     @Size(max = 155)
     @Column(name = "estado", length = 155)
     private String estado;
 
+    //REservaDetalle
     public ReservaDetalle() {
+    }
+
+    public ReservaDetalle(Long idReservaDetalle) {
+        this.idReservaDetalle = idReservaDetalle;
     }
 
     public ReservaDetalle(Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado) {
@@ -38,14 +49,7 @@ public class ReservaDetalle implements Serializable {
         this.estado = estado;
     }
 
-    public Long getIdReservaDetalle() {
-        return idReservaDetalle;
-    }
-
-    public void setIdReservaDetalle(Long idReservaDetalle) {
-        this.idReservaDetalle = idReservaDetalle;
-    }
-
+    //ReservaDetalle
     public Reserva getIdReserva() {
         return idReserva;
     }
@@ -54,12 +58,22 @@ public class ReservaDetalle implements Serializable {
         this.idReserva = idReserva;
     }
 
+    //Asiento
     public Asiento getIdAsiento() {
         return idAsiento;
     }
 
     public void setIdAsiento(Asiento idAsiento) {
         this.idAsiento = idAsiento;
+    }
+
+
+    public Long getIdReservaDetalle() {
+        return idReservaDetalle;
+    }
+
+    public void setIdReservaDetalle(Long idReservaDetalle) {
+        this.idReservaDetalle = idReservaDetalle;
     }
 
     public String getEstado() {

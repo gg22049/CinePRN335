@@ -14,16 +14,28 @@ public class Reserva implements Serializable {
     @Column(name = "id_reserva", nullable = false)
     private Long idReserva;
 
+    /** *Relacion: Reserva/Programacion
+     * henry(hp19021):
+     * Programacion (fk)(M) <-> (1)(id) Sala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_programacion")
     private Programacion idProgramacion;
 
+    /** *Relacion: Reserva/TipoReserva
+     * henry(hp19021):
+     * Programacion (fk)(M) <-> (1)(id) Sala
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_reserva")
     private TipoReserva idTipoReserva;
 
-//    @OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<ReservaDetalle> reservaDetalleList;
+    /** *Relacion: Reserva/RerservaDetalle
+     * henry(hp19021)
+     * Reserva (id)(M) <-> (fk)(1) RerservaDetalle
+     */
+    @OneToMany(mappedBy = "idReserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReservaDetalle> ReservaDetalleList;
 
     @Column(name = "fecha_reserva")
     private OffsetDateTime fechaReserva;
@@ -36,7 +48,12 @@ public class Reserva implements Serializable {
     @Column(name = "observaciones")
     private String observaciones;
 
+    //Reserva
     public Reserva() {
+    }
+
+    public Reserva(Long idReserva) {
+        this.idReserva = idReserva;
     }
 
     public Reserva(Long idReserva, Programacion idProgramacion, TipoReserva idTipoReserva, OffsetDateTime fechaReserva, String estado, String observaciones) {
@@ -48,6 +65,7 @@ public class Reserva implements Serializable {
         this.observaciones = observaciones;
     }
 
+    //Reserva
     public Long getIdReserva() {
         return idReserva;
     }
@@ -56,6 +74,7 @@ public class Reserva implements Serializable {
         this.idReserva = idReserva;
     }
 
+    //Programacion
     public Programacion getIdProgramacion() {
         return idProgramacion;
     }
@@ -64,12 +83,22 @@ public class Reserva implements Serializable {
         this.idProgramacion = idProgramacion;
     }
 
+    //TipoReserva
     public TipoReserva getIdTipoReserva() {
         return idTipoReserva;
     }
 
     public void setIdTipoReserva(TipoReserva idTipoReserva) {
         this.idTipoReserva = idTipoReserva;
+    }
+
+    //ReservaDetalle
+    public List<ReservaDetalle> getReservaDetalleList() {
+        return ReservaDetalleList;
+    }
+
+    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
+        ReservaDetalleList = reservaDetalleList;
     }
 
     public OffsetDateTime getFechaReserva() {
@@ -96,11 +125,4 @@ public class Reserva implements Serializable {
         this.observaciones = observaciones;
     }
 
-//    public List<ReservaDetalle> getReservaDetalleList() {
-//        return reservaDetalleList;
-//    }
-//
-//    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
-//        this.reservaDetalleList = reservaDetalleList;
-//    }
 }

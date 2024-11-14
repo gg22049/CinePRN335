@@ -15,8 +15,12 @@ public class TipoReserva implements Serializable {
     @Column(name = "id_tipo_reserva", nullable = false)
     private Integer idTipoReserva;
 
-//    @OneToMany(mappedBy = "reserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Reserva> reservaList;
+    /** *Relacion: TipoReserva/Reserva
+     * henry(hp19021)
+     * TipoReserva (id)(M) <-> (fk)(1) Reserva
+     */
+    @OneToMany(mappedBy = "idTipoReserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Reserva> ReservaList;
 
     @NotBlank(message = "Debe ingresar un nombre valido")
     @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
@@ -30,7 +34,12 @@ public class TipoReserva implements Serializable {
     @Column(name = "comentarios")
     private String comentarios;
 
+    //TipoReserva
     public TipoReserva() {
+    }
+
+    public TipoReserva(Integer idTipoReserva) {
+        this.idTipoReserva = idTipoReserva;
     }
 
     public TipoReserva(Integer idTipoReserva, String nombre, Boolean activo, String comentarios) {
@@ -38,6 +47,15 @@ public class TipoReserva implements Serializable {
         this.nombre = nombre;
         this.activo = activo;
         this.comentarios = comentarios;
+    }
+
+    //Reserva
+    public List<Reserva> getReservaList() {
+        return ReservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        ReservaList = reservaList;
     }
 
     public Integer getIdTipoReserva() {
@@ -72,11 +90,4 @@ public class TipoReserva implements Serializable {
         this.comentarios = comentarios;
     }
 
-//    public List<Reserva> getReservaList() {
-//        return reservaList;
-//    }
-//
-//    public void setReservaList(List<Reserva> reservaList) {
-//        this.reservaList = reservaList;
-//    }
 }
