@@ -97,17 +97,17 @@
                <h:panelGroup id="tiposPnlGpDetalle">
                   <h:panelGrid>
                      <h:form>
-                        <h:panelGrid rendered="#{frmPelicula.frmPeliculaCaracteristica.estado !='NINGUNO'}">
+                        <h:panelGrid columns="2" rendered="#{frmPelicula.frmPeliculaCaracteristica.estado !='NINGUNO'}">
                            <h:outputLabel value="ID" for="TiposTxtId"/>
                            <h:inputText id="TiposTxtId" value="#{frmPelicula.frmPeliculaCaracteristica.registro.idPeliculaCaracteristica}" readonly="true" disabled="true"/>
                            <h:outputLabel value="Tipos de Pelicula" for="listTipoPelicula"/>
                            <h:selectOneMenu id="listTipoPelicula" value="#{frmPelicula.frmPeliculaCaracteristica.idTipoPeliculaSeleccionado}">
-                              <c:selectItems value="#{frmPelicula.frmPeliculaCaracteristica.tipoPeliculaList}" var="tp"
+                              <c:selectItems value="#{frmPelicula.frmPeliculaCaracteristica.idPelicula}" var="tp"
                                              itemLabel="#{tp.nombre}" itemValue="#{tp.idTipoPelicula}"/>
                               <p:ajax execute="@this" update="txtValor"/>
                            </h:selectOneMenu>
-                           <p:outputLabel value="Valor" for="txtValor"/>
-                           <!--Valor Quemado Corregir, hacerlo dinamico-->`
+                           <p:outputLabel value="Valor" for="tabDetalle:txtValor"/>
+                           <!--Valor Quemado Corregir, hacerlo dinamico-->
                            <p:inputTextarea id="txtValor" validator="#{frmPelicula.frmPeliculaCaracteristica.validarVailador}"
                                             value="#{frmPelicula.frmPeliculaCaracteristica.registro.valor}"
                                             rows="3" cols="10"/>

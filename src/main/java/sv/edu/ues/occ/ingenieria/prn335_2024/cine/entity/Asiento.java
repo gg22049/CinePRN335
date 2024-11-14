@@ -3,11 +3,16 @@ package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
+import javax.xml.namespace.QName;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "asiento", schema = "public")
+@NamedQueries({
+            @NamedQuery(name="Asiento.cantidadPaginador", query ="select count(a) from Asiento a where a.idSala.idSala = :idSala "),
+            @NamedQuery(name="Asiento.ListBySelected", query = "select a from Asiento a where a.idSala.idSala = :idSala order by a.idAsiento asc")
+})
 public class Asiento implements Serializable {
     @Id
     @Column(name = "id_asiento", nullable = false)

@@ -29,7 +29,7 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     AsientoCaracteristicaBean bean;
 
     @Inject
-    TipoAsientoBean tpBean;
+    TipoAsientoBean taBean;
 
     @Inject
     FacesContext fc;
@@ -42,7 +42,7 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     public void init() {
         super.init();
         try {
-            this.tipoAsientoList=tpBean.findRange(0, Integer.MAX_VALUE);
+            this.tipoAsientoList=taBean.findRange(0,Integer.MAX_VALUE);
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }

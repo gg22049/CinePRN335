@@ -27,10 +27,10 @@ public class AsientoBean extends AbstractDataPersistence<Asiento> implements Ser
         return em;
     }
 
-    public List<Asiento> caracteristicaSelected(final Long idAsiento, int first, int max ){
+    public List<Asiento> caracteristicaSelected(final Long idSala, int first, int max ){
         try{
             TypedQuery<Asiento> q = em.createNamedQuery("Asiento.ListBySelected", Asiento.class);
-            q.setParameter("idAsiento", idAsiento);
+            q.setParameter("idSala", idSala);
             q.setFirstResult(first);
             q.setMaxResults(max);
             return q.getResultList();
@@ -40,10 +40,10 @@ public class AsientoBean extends AbstractDataPersistence<Asiento> implements Ser
         return List.of();
     }
 
-    public int countAsiento(final Long idAsiento){
+    public int countAsiento(final Long idSala){
         try{
             TypedQuery<Long> q = em.createNamedQuery("Asiento.cantidadPaginador", Long.class);
-            q.setParameter("idAsiento", idAsiento);
+            q.setParameter("idSala", idSala);
             return q.getSingleResult().intValue();
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);

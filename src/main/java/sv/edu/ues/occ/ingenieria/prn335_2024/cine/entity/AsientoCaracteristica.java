@@ -6,6 +6,10 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "asiento_caracteristica", schema = "public")
+@NamedQueries({
+        @NamedQuery(name="AsientoCaracteristica.ListBySelected",query = "select a from AsientoCaracteristica a where a.idAsiento = :idAsiento order by a.idAsientoCaracteristica asc"),
+        @NamedQuery(name="AsientoCaracteristica.cantidadPaginador",query = "select count(a) from AsientoCaracteristica a where a.idAsiento = :idAsiento")
+})
 public class AsientoCaracteristica implements Serializable {
     @Id
     @Column(name = "id_asiento_caracteristica", nullable = false)

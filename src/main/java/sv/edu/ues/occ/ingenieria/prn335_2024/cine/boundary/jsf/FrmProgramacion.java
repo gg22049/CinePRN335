@@ -3,11 +3,14 @@ package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.LazyScheduleModel;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.ProgramacionBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
 
@@ -31,7 +34,6 @@ public class FrmProgramacion implements Serializable {
 
     protected Long idSala;
     protected Programacion registro;
-    protected ESTADO_CRUD estado = ESTADO_CRUD.NINGUNO;
     protected LazyScheduleModel scheduleModel;
 
     @PostConstruct
@@ -66,6 +68,28 @@ public class FrmProgramacion implements Serializable {
         }
     }
 
+    public void btnGuardarHandler(ActionEvent actionEvent) {
+        if (registro != null) {
+            FacesMessage mensaje = new FacesMessage();
+            try {
+                bean.create(registro);
+                this.registro = new Programacion();
+                mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+                mensaje.setSummary("Registro guardado exitosamente");
+                fc.addMessage(null, mensaje);
+            }catch(Exception e) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+                mensaje.setSummary("Error al guardar el nuevo registro xd");
+                fc.addMessage(null, mensaje);
+            }
+        }
+    }
+
+    public void onDateSelect(SelectEvent event) {
+        registro = (Programacion) event.getObject();
+    }
+
     public LazyScheduleModel getScheduleModel() {
         return scheduleModel;
     }
@@ -76,5 +100,13 @@ public class FrmProgramacion implements Serializable {
 
     public void setIdSala(Long idSala) {
         this.idSala = idSala;
+    }
+
+    public Programacion getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(Programacion registro) {
+        this.registro = registro;
     }
 }
