@@ -129,7 +129,6 @@
                     </h:panelGroup>
                 </p:tab>
 
-<!--                aqui van los asientos-->
                 <p:tab title="Asientos" closable="false" disabled="#{frmSala.estado!='MODIFICAR'}">
                     <h:panelGroup id="asientosPnlGpDatos">
                         <h:form>
@@ -155,10 +154,39 @@
                             </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
+
+                    <h:panelGroup id="asientosPnlGpDetalle">
+                        <h:form>
+                            <h:panelGrid rendered="#{frmSala.frmAsiento.estado != 'NINGUNO'}">
+                                <h:outputText value="Id Asiento" for="asientosTxtId"/>
+                                <h:inputText id="asientosTxtId" value="#{frmSala.frmAsiento.registro.idAsiento}"/>
+                                <h:outputText value="Nombre" for="asientosTxtNomnbre"/>
+                                <h:inputText id="asientosTxtNomnbre" value="#{frmSala.frmAsiento.registro.nombre}"/>
+                                <h:selectOneMenu id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.idTipoAsientoSeleccionado}">
+                                    <c:selectItem Value="#{frmSala.frmAsiento.frmAsientoCaracteristica.tipoAsientoList}" var="ta"
+                                                  itemValue="#{tp.idTipoSala}" itemLabel="#{tp.nombre}">
+                                    </c:selectItem>
+                                </h:selectOneMenu>
+                                <h:outputText for="asientostxtValor" value="Valor"/>
+                                <p:inputTextarea id="asientostxtValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}"
+                                                rows="3" cols="7" validator="#{frmSala.frmAsiento.frmAsientoCaracteristica.validarVailador}"/>
+                                <h:panelGrid>
+                                    <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:asientosPnlGpDetalle tabDetalle:asientosPnlGpDatos"/>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                        </h:form>
+                    </h:panelGroup>
                 </p:tab>
 
-
 <!--                aqui va la programacion-->
+                <p:tab title="Programacion" disabled="#{frmSala.estado!='MODIFICAR'}">
+                    <h:panelGroup id="CalendarioProgramacion">
+                        <h:form>
+                            <p:schedule value="#{frmSala.frmProgramacion.scheduleModel}" widgetVar="Calendario" lazy="true"/>
+                        </h:form>
+                    </h:panelGroup>
+                </p:tab>
 
             </p:tabView>
         </h:panelGroup>
