@@ -24,19 +24,19 @@
         <h:panelGrid>
             <p:commandButton value="#{abstractFrm['abstractFrm.new']}" icon="pi pi-plus" actionListener="#{cc.attrs.frm.btnNuevoHandler}"
                              styleClass="ui-button-secondary" style="margin-right: .5rem"
-                             update="#{cc.attrs.actualizar}" process="@this" rendered="#{cc.attrs.frm.estado=='NINGUNO'}"/>
+                             update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado=='NINGUNO'}"/>
             <p:commandButton value="#{abstractFrm['abstractFrm.update']}" icon="pi pi-refresh" actionListener="#{cc.attrs.frm.btnModificarHandler}"
                              styleClass="ui-button-secondary" style="margin-right: .5rem"
-                             update="#{cc.attrs.actualizar}" process="@this" rendered="#{cc.attrs.frm.estado=='MODIFICAR'}"/>
+                             update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado=='MODIFICAR'}"/>
             <p:commandButton value="#{abstractFrm['abstractFrm.create']}" icon="pi pi-save" actionListener="#{cc.attrs.frm.btnGuardarHandler}"
                              styleClass="ui-button-success" style="margin-right: .5rem"
-                             update="#{cc.attrs.actualizar}" process="@this" rendered="#{cc.attrs.frm.estado=='CREAR'}"/>
+                             update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado=='CREAR'}"/>
             <p:commandButton value="#{abstractFrm['abstractFrm.delete']}" icon="pi pi-trash" actionListener="#{cc.attrs.frm.btnEliminarHandler}"
                              styleClass="ui-button-danger" style="margin-right: .5rem"
-                             update="#{cc.attrs.actualizar}" process="@this" rendered="#{cc.attrs.frm.estado=='MODIFICAR'}"/>
+                             update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado=='MODIFICAR'}"/>
             <p:commandButton value="#{abstractFrm['abstractFrm.cancel']}" icon="pi pi-times-circle" actionListener="#{cc.attrs.frm.btnCancelarHandler}"
                              styleClass="ui-button-secondary" style="margin-right: .5rem"
-                             update="#{cc.attrs.actualizar}" process="@this" rendered="#{cc.attrs.frm.estado!='NINGUNO'}"/>
+                             update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado!='NINGUNO'}"/>
         </h:panelGrid>
     </cc:implementation>
 

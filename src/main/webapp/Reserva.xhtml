@@ -43,17 +43,16 @@
             }
         </style>
 
-        <h:form>
+        <h:form id="reservaFrm">
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:wizard flowListener="#{reservaWizardBean.onFlowProcess}">
-                <!-- Paso 1: Fecha y Tipo de Reserva -->
+                <!-- Paso 1: Fecha y Tipo de Reserva formato de fecha no compatible
                 <p:tab id="fecha" title="Fecha">
                     <p:panel header="Seleccionar Fecha">
                         <p:messages/>
                         <h:panelGrid columns="2">
-                            <!-- formato de fecha no compatible
                             <h:outputText value="Seleccione día: *"/>
                             <p:calendar value="#{reservaWizardBean.reserva.fechaReserva}"
                                         label="Seleccione un día" required="true"
@@ -62,8 +61,15 @@
                             <h:outputText value="Tipo de Reserva: *"/>
                             <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.reserva.idTipoReserva}">
                                 <c:selectItems value="#{frmReserva.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
-                            </p:selectOneMenu>-->
+                            </p:selectOneMenu>
                         </h:panelGrid>
+                    </p:panel>
+                </p:tab>-->
+
+                <p:tab id="ejemplo" title="Ejemplo">
+                    <p:panel header="Ejemplo">
+                        <h:outputText value="Seleccione ID de Programación:"/>
+                        <h:inputText value="${reservaWizardBean.reserva.idProgramacion.idProgramacion}"/>
                     </p:panel>
                 </p:tab>
 
@@ -78,10 +84,12 @@
                             </p:selectOneMenu>
                         </h:panelGrid>
 
-                        <h:outputText value="#{reservaWizardBean.reserva.idProgramacion}"/>
+                        <h:outputText value="Reserva: #{reservaWizardBean.reserva.idTipoReserva}"/>
 
+                        <h:outputText value="#{reservaWizardBean.reserva.idProgramacion}"/>
                         <h:outputText value="Detalles #{prn.idPelicula.nombre}"/>
                         <h:panelGrid id="sinopsisPanel" columns="1">
+
 
                         </h:panelGrid>
                     </p:panel>
