@@ -32,6 +32,7 @@ public abstract class AbstractDataPersistence<T> {
      * @throws IllegalStateException si se produce un error en el proceso
      * @throws IllegalArgumentException si la entidad es nula
      */
+    /*
     public void create(final T entity) throws  IllegalStateException, IllegalArgumentException {
         EntityManager em = null;
 
@@ -47,8 +48,27 @@ public abstract class AbstractDataPersistence<T> {
         }catch (Exception ex){
             throw new  IllegalStateException("Error al acceder al repositorio",ex);
         }
+    }*/
 
+    public void create(final T entity) throws IllegalStateException, IllegalArgumentException {
+        EntityManager em = getEntityManager();
+        if (entity == null) {
+            throw new IllegalArgumentException("El parámetro no puede ser nulo.");
+        }
+
+        em = getEntityManager();
+        if (em == null) {
+            throw new IllegalStateException("No se pudo acceder al repositorio.");
+        }
+
+        try {
+            em.persist(entity); // Persistimos la entidad
+            em.flush();         // Sincronizamos con la base de datos
+        } catch (Exception ex) {
+            throw new IllegalStateException("Error al intentar guardar la entidad: " + ex.getMessage(), ex);
+        }
     }
+
 
     /**
      * Método para traer todos los objetos
@@ -90,6 +110,7 @@ public abstract class AbstractDataPersistence<T> {
      * @throws IllegalArgumentException la entidad brindada es nula
      * @throws IllegalStateException error en proceso de eliminado
      */
+    /*
     public void delete(final T entity) throws IllegalArgumentException, IllegalStateException{
         EntityManager em = null;
 
@@ -103,9 +124,32 @@ public abstract class AbstractDataPersistence<T> {
             }
             em.remove(entity);
         }catch (Exception ex){
-            throw new  IllegalStateException("Error al acceder al repositorio",ex);
+            throw new  IllegalStateException("Error al acceder al repositorio: " + ex ,ex);
+        }
+    }*/
+    public void delete(final T entity) throws IllegalArgumentException, IllegalStateException {
+        if (entity == null) {
+            throw new IllegalArgumentException("El parámetro no puede ser nulo.");
+        }
+
+        EntityManager em = getEntityManager();
+        if (em == null) {
+            throw new IllegalStateException("No se pudo acceder al repositorio.");
+        }
+
+        try {
+            if (!em.contains(entity)) {
+                // Si la entidad no está gestionada, fusiónala primero
+                T managedEntity = em.merge(entity);
+                em.remove(managedEntity); // Ahora eliminamos la entidad gestionada
+            } else {
+                em.remove(entity); // Si ya está gestionada, eliminar directamente
+            }
+        } catch (Exception ex) {
+            throw new IllegalStateException("Error al intentar eliminar la entidad: " + ex.getMessage(), ex);
         }
     }
+
 
     /**
      * Metodo para acualizar con campos de un registro
@@ -114,6 +158,7 @@ public abstract class AbstractDataPersistence<T> {
      * @throws IllegalArgumentException La entidad a actualizar es nula
      * @throws IllegalStateException Error en proceso de actualizacion
      */
+    /*
     public T update(final T entity) throws IllegalArgumentException, IllegalStateException{
         EntityManager em = null;
 
@@ -129,7 +174,32 @@ public abstract class AbstractDataPersistence<T> {
         }catch (Exception ex){
             throw new  IllegalStateException("Error al acceder al repositorio",ex);
         }
+    }*/
+
+    public T update(final T entity) throws IllegalArgumentException, IllegalStateException {
+        EntityManager em = null;
+        if (entity == null) {
+            throw new IllegalArgumentException("El parámetro no puede ser nulo.");
+        }
+
+        em = getEntityManager();
+        if (em == null) {
+            throw new IllegalStateException("No se pudo acceder al repositorio.");
+        }
+
+        try {
+            System.out.println("Actualizando entidad: " + entity);
+            T mergedEntity = em.merge(entity);
+            em.flush(); // Sincronizamos inmediatamente los cambios
+            System.out.println("Entidad actualizada: " + mergedEntity);
+            return mergedEntity;
+        } catch (Exception ex) {
+            throw new IllegalStateException("Error al intentar actualizar la entidad: " + ex.getMessage(), ex);
+        }
+
     }
+
+
 
     /**
      * Metodo para buscar listas de registros por rango

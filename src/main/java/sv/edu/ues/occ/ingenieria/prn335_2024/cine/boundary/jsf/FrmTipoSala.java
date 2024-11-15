@@ -50,8 +50,10 @@ public class FrmTipoSala extends AbstractFrm<TipoSala> implements Serializable {
     @Override
     public void instanciarRegistro() {
         this.registro = new TipoSala();
+        this.registro.setNombre("Nombre de la Sala");
         this.registro.setExpresionRegular(".");
         this.registro.setActivo(true);
+        this.registro.setComentarios("Comentarios aquí.");
     }
 
     @Override
@@ -59,4 +61,14 @@ public class FrmTipoSala extends AbstractFrm<TipoSala> implements Serializable {
         return TipoSala.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 
+    /**
+     * Metodo para crear nuevo pero creo no sirve :v
+     */
+    @Override
+    public void nuevoRegistro(){
+        this.registro.setNombre(registro.getNombre());
+        this.registro.setExpresionRegular(registro.getExpresionRegular());
+        this.registro.setActivo(registro.getActivo());
+        this.registro.setComentarios(registro.getComentarios());
+    }
 }

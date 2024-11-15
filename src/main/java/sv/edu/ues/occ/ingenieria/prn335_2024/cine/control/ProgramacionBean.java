@@ -34,8 +34,20 @@ public class ProgramacionBean extends AbstractDataPersistence<Programacion> impl
     /*WHERE FUNCTION('DATE', prn.desde) = "2024-09-23"*/
     public List<Programacion> obtenerProgramacionesDelDia() {
         return getEntityManager()
-                .createQuery("SELECT prn FROM Programacion prn", Programacion.class).getResultList();
+                .createQuery("SELECT prn FROM Programacion prn JOIN prn.idPelicula p JOIN prn.idSala s WHERE prn.desde >= '2024-09-23T00:00:00' AND prn.desde < '2024-09-24T00:00:00'", Programacion.class).getResultList();
     }
+    /*
+    return getEntityManager().createQuery("SELECT prn FROM Programacion prn JOIN prn.idPelicula p JOIN prn.idSala s WHERE prn.desde >= '2024-10-23T00:00:00' AND prn.desde < '2024-10-24T00:00:00'", Programacion.class).getResultList();
+    SELECT p.nombre,
+    s.nombre,
+    s.idSucursal.nombre,
+    prn.desde,
+    prn.hasta
+    FROM Programacion prn
+    JOIN prn.idPelicula p
+    JOIN prn.idSala s
+    WHERE prn.desde >= '2024-10-23T00:00:00'
+    AND prn.desde < '2024-10-24T00:00:00'*/
 
     /*
         return getEntityManager()
