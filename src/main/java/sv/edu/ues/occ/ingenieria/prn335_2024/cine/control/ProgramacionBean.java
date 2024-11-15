@@ -32,8 +32,6 @@ public class ProgramacionBean extends AbstractDataPersistence<Programacion> impl
         try{
             TypedQuery<Programacion> q = em.createNamedQuery("Programacion.ListBySelected", Programacion.class);
             q.setParameter("idSala", idSala);
-            q.setParameter("start",start);
-            q.setParameter("end",end);
             return q.getResultList();
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -41,10 +39,10 @@ public class ProgramacionBean extends AbstractDataPersistence<Programacion> impl
         return List.of();
     }
 
-    public int contar(final Long idProgramacion){
+    public int contar(final Long idSala){
         try{
             TypedQuery<Long> q = em.createNamedQuery("Programacion.cantidadPaginador", Long.class);
-            q.setParameter("idProgramacion", idProgramacion);
+            q.setParameter("idSala", idSala);
             return q.getSingleResult().intValue();
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);

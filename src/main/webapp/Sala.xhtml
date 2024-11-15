@@ -83,7 +83,7 @@
                                              paginatorPosition="bottom" reflow="true" rowKey="#{r.idSalaCaracteristica}"
                                              paginator="true" rows="10" styleClass="dt-products" lazy="true">
 
-                                    <p:ajax event="rowSelect" update="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos" process="@this"
+                                    <p:ajax event="rowSelect" update="tabDetalle:tiposPnlGpDatos tabDetalle:tiposPnlGpDetalle" process="@this"
                                             listener="#{frmSala.frmSalaCaracteristica.selecionarRegistro}"/>
 
                                     <p:column headerText="Id Caracteristica Sala" sortBy="#{r.idSalaCaracteristica}">
@@ -99,29 +99,33 @@
                                         <h:outputText value="#{r.valor}"/>
                                     </p:column>
                                 </p:dataTable>
+                                <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
                             </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
+
                     <h:panelGroup id="tiposPnlGpDetalle">
                         <h:panelGrid>
                             <h:form>
-                                <h:panelGrid columns="2" rendered="#{frmSala.frmSalaCaracteristica.estado !='NINGUNO'}">
-                                    <h:outputLabel value="ID" for="TiposTxtId"/>
-                                    <h:inputText id="TiposTxtId" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
-                                    <h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
-                                    <h:selectOneMenu id="listTipoSala" value="#{frmSala.frmSalaCaracteristica.idTipoSalaSeleccionado}">
-                                        <c:selectItems value="#{frmSala.frmSalaCaracteristica.modelo}" var="tp"
-                                                       itemLabel="#{tp.valor}" itemValue="#{tp.idTipoSala}"/>
-                                        <p:ajax execute="@this" update="txtValor"/>
-                                    </h:selectOneMenu>
-                                    <p:outputLabel value="Valor" for="txtValor"/>
-                                    <p:inputTextarea id="txtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
-                                                     value="#{frmSala.frmSalaCaracteristica.registro.valor}"
-                                                     rows="3" cols="10"/>
-                                </h:panelGrid>
-                                <h:panelGrid>
-                                    <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
-                                </h:panelGrid>
+                                <h:panelGroup rendered="#{frmSala.frmSalaCaracteristica.estado!='NINGUNO'}">
+                                    <h:panelGrid columns="2">
+                                        <h:outputLabel value="ID" for="TiposTxtId"/>
+                                        <h:inputText id="TiposTxtId" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
+                                        <!--h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
+                                        <h:selectOneMenu id="listTipoSala" value="#{frmSala.frmSalaCaracteristica.idTipoSalaSeleccionado}">
+                                            <c:selectItems value="#{frmSala.frmSalaCaracteristica.tipoSalaList}" var="tp"
+                                                           itemLabel="#{tp.valor}" itemValue="#{tp.idTipoSala}"/>
+                                            <p:ajax execute="@this" update="txtValor"/>
+                                        </h:selectOneMenu-->
+                                        <p:outputLabel value="Valor" for="txtValor"/>
+                                        <p:inputTextarea id="txtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
+                                                         value="#{frmSala.frmSalaCaracteristica.registro.valor}"
+                                                         rows="3" cols="10"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid>
+                                        <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
                             </h:form>
                         </h:panelGrid>
                     </h:panelGroup>
@@ -133,9 +137,10 @@
                             <h:panelGrid rendered="#{frmSala.frmAsiento.estado=='NINGUNO'}">
                                 <p:dataTable id="AsientosDatos" reflow="true" sortMode="single" var="r"
                                              paginator="true" rows="10" styleClass="dt-products" lazy="true" paginatorPosition="bottom"
-                                             value="#{frmSala.frmAsiento.modelo}" selection="#{frmSala.frmAsiento.registro}" rowKey="#{r.idAsiento}"
-                                >
+                                             value="#{frmSala.frmAsiento.modelo}" selection="#{frmSala.frmAsiento.registro}" rowKey="#{r.idAsiento}">
+
                                     <p:ajax event="rowSelect" update="tabDetalle:asientosPnlGpDatos tabDetalle:asientosPnlGpDetalle" listener="#{frmSala.frmAsiento.selecionarRegistro}"/>
+
                                         <p:column headerText="Id Asiento" sortBy="#{r.idAsiento}">
                                             <h:outputText value="#{r.idAsiento}"/>
                                         </p:column>
@@ -149,6 +154,7 @@
                             </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
+
                     <h:panelGroup id="asientosPnlGpDetalle">
                         <h:form>
                             <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado != 'NINGUNO'}">
@@ -157,8 +163,8 @@
                                 <h:outputText value="Nombre" for="asientosTxtNomnbre"/>
                                 <h:inputText id="asientosTxtNomnbre" value="#{frmSala.frmAsiento.registro.nombre}"/>
                                 <!--h:outputText value="Tipo" for="tipoAsientoList"/>
-                                <h:selectOneMenu id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.modelo}">
-                                    <c:selectItems Value="#{frmSala.frmAsiento.frmAsientoCaracteristica.modelo}" var="ta"
+                                <h:selectOneMenu id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.tipoAsientoList}">
+                                    <c:selectItems Value="#{frmSala.frmAsiento.frmAsientoCaracteristica.tipoAsientoList}" var="ta"
                                                   itemValue="#{ta.idTipoAsiento}" itemLabel="#{ta.nombre}"/>
                                 </h:selectOneMenu-->
                                 <h:outputText for="asientostxtValor" value="Valor"/>
@@ -172,16 +178,13 @@
                     </h:panelGroup>
                 </p:tab>
 
-<!--                aqui va la programacion listener no hace nada, no pinta el calendario-->
                 <p:tab title="Programacion" disabled="#{frmSala.estado!='MODIFICAR'}">
                     <h:panelGroup id="CalendarioProgramacion">
                         <h:form>
-                            <h:panelGrid>
-                                <p:schedule value="#{frmSala.frmProgramacion.scheduleModel}" widgetVar="Calendario" lazy="true" selectable="true">
-                                    <p:ajax event="dateSelect" listener="#{frmSala.frmProgramacion.onDateSelect}" update="eventoDialogo"/>
-                                </p:schedule>
+                            <h:panelGrid rendered="#{frmSala.frmProgramacion.idSala!=null}">
+                                <p:schedule value="#{frmSala.frmProgramacion.scheduleModel}"/>
                             </h:panelGrid>
-                            <!--p:dialog widgetVar="eventoDialogo" id="eventoDialogo" header="Agregar Programacion" modal="true" draggable="false" resizable="false">
+                            <p:dialog widgetVar="eventoDialogo" id="eventoDialogo" header="Agregar Programacion" modal="true" draggable="false" resizable="false">
                                 <h:panelGrid columns="2">
                                     <h:outputText value="Id" for="prnId"/>
                                     <h:inputText id="prnId" value="#{frmSala.frmProgramacion.registro.idSala}" readonly="true" disabled="true"/>
@@ -195,7 +198,7 @@
                                 <p:commandButton value="#{abstractFrm['abstractFrm.create']}"
                                                  process="@this" update="tabDetalle:calendarioProgramacion" actionListener="#{frmSala.frmProgramacion.btnGuardarHandler}"
                                                  styleClass="ui-button-success" style="margin-right: .5rem" con="pi pi-save" oncomplete="PF('eventoDialogo').hide())"/>
-                                </p:dialog-->
+                                </p:dialog>
                         </h:form>
                     </h:panelGroup>
                 </p:tab>
