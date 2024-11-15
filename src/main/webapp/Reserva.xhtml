@@ -50,25 +50,39 @@
             <p:wizard flowListener="#{reservaWizardBean.onFlowProcess}">
                 <!-- Paso 1: Fecha y Tipo de Reserva -->
                 <p:tab id="fecha" title="Fecha">
-                    <p:panel header="Seleccionar fecha">
+                    <p:panel header="Seleccionar Fecha">
                         <p:messages/>
                         <h:panelGrid columns="2">
+                            <!-- formato de fecha no compatible
                             <h:outputText value="Seleccione día: *"/>
-                            <p:calendar value="#{frmReserva.registro.fechaReserva}" required="true" pattern="yyyy-MM-dd" showButtonPanel="true" label="Seleccione un día" />
+                            <p:calendar value="#{reservaWizardBean.reserva.fechaReserva}"
+                                        label="Seleccione un día" required="true"
+                                        pattern="yyyy-MM-dd HH:mm:ssXXX"
+                                        showButtonPanel="true" mindate="#{reservaWizardBean.minDate}"/>
                             <h:outputText value="Tipo de Reserva: *"/>
-                            <p:selectOneMenu id="tipoReservaOption" value="#{frmReserva.registro.idTipoReserva}">
-                                <c:selectItems value="#{frmReserva.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.nombre}" />
-                            </p:selectOneMenu>
+                            <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.reserva.idTipoReserva}">
+                                <c:selectItems value="#{frmReserva.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
+                            </p:selectOneMenu>-->
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
 
-
+                <!-- Paso 2: Seleccionar una programción -->
                 <p:tab id="funcion" title="Función">
-                    <p:panel header="Selecciona una pelicula">
+                    <p:panel header="Seleccionar Función">
                         <p:messages/>
                         <h:panelGrid columns="2" columnClasses="label, value">
-                            <h:outputText value="Seleccione una Pelicula: "/>
+                            <h:outputText value="Seleccione función: "/>
+                            <p:selectOneMenu id="programacionOption" value="#{reservaWizardBean.reserva.idProgramacion}" ajax="true" process="@this" update="sinopsisPanel">
+                                <c:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn" itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})" itemValue="#{prn.idProgramacion}" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                        <h:outputText value="#{reservaWizardBean.reserva.idProgramacion}"/>
+
+                        <h:outputText value="Detalles #{prn.idPelicula.nombre}"/>
+                        <h:panelGrid id="sinopsisPanel" columns="1">
+
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
@@ -85,44 +99,10 @@
                 <p:tab id="confirm" title="Confirmation">
                     <p:panel header="Confirmation">
                         <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Firstname: "/>
-                                <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
 
-                                <h:outputText value="Lastname: "/>
-                                <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Age: "/>
-                                <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: "/>
-                                <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Postal: "/>
-                                <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
-
-                                <h:outputText value="City: "/>
-                                <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
-                            </h:panelGrid>
-
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Email: "/>
-                                <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Phone "/>
-                                <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
-
-                                <h:outputText value="Info: "/>
-                                <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
-
-                                <h:outputText/>
-                                <h:outputText/>
-                            </h:panelGrid>
                         </h:panelGrid>
 
-                        <p:commandButton value="Submit" action="#{userWizard.save}" update="growl" process="@this"/>
+                        <p:commandButton value="Submit" action="#{reservaWizardBean.save}" update="growl" process="@this"/>
                     </p:panel>
                 </p:tab>
             </p:wizard>
