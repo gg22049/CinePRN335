@@ -37,7 +37,7 @@
                   </p:column>
 
                </p:dataTable>
-               <crud:BtnTop frm="#{frmPelicula}"/>
+               <crud:BtnTop frm="#{frmPelicula}" styleClass=""/>
             </h:panelGrid>
          </h:form>
       </h:panelGroup>
@@ -54,12 +54,14 @@
                         <h:outputLabel value="ID" for="txtId"/>
                         <h:inputText id="txtId" value="#{frmPelicula.registro.idPelicula}" readonly="true" disabled="true"/>
                         <h:outputLabel value="Nombre" for="txtNombre"/>
-                        <h:inputText  id="txtNombre" value="#{frmPelicula.registro.nombre}" required="true"/>
+                        <h:inputText  id="txtNombre" value="#{frmPelicula.registro.nombre}" required="true"
+                                      requiredMessage="El nombre de la película es obligatorio"/>
                         <h:outputLabel value="Sinopsis" for="txtSinopsis"/>
-                        <h:inputTextarea size="50" id="txtSinopsis" value="#{frmPelicula.registro.sinopsis}"/>
+                        <h:inputTextarea size="50" id="txtSinopsis" value="#{frmPelicula.registro.sinopsis}" required="true"
+                                         requiredMessage="La sinopsis es obligatoria"/>
                      </h:panelGrid>
                      <h:panelGrid>
-                        <crud:BtnTop frm="#{frmPelicula}"/>
+                        <crud:BtnTop frm="#{frmPelicula.estado}" styleClass=""/>
                      </h:panelGrid>
                   </h:form>
                </h:panelGrid>
@@ -107,13 +109,13 @@
                               <p:ajax execute="@this" update="txtValor"/>
                            </h:selectOneMenu>
                            <p:outputLabel value="Valor" for="txtValor"/>
-                           <!--Valor Quemado Corregir, hacerlo dinamico-->`
                            <p:inputTextarea id="txtValor" validator="#{frmPelicula.frmPeliculaCaracteristica.validarVailador}"
                                             value="#{frmPelicula.frmPeliculaCaracteristica.registro.valor}"
-                                            rows="3" cols="10"/>
+                                            rows="3" cols="10" required="true"
+                                            requiredMessage="El valor es obligatorio"/>
                         </h:panelGrid>
                         <h:panelGrid>
-                           <crud:BtnTop frm="#{frmPelicula.frmPeliculaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
+                           <crud:BtnTop frm="#{frmPelicula.frmPeliculaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos" styleClass=""/>
                         </h:panelGrid>
                      </h:form>
                   </h:panelGrid>

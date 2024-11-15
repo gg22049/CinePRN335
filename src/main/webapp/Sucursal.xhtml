@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <f:composition xmlns="http://www.w3.org/1999/xhtml"
                xmlns:p="http://primefaces.org/ui"
                xmlns:h="jakarta.faces.html"
@@ -20,7 +22,7 @@
                     <h:outputText value="#{r.nombre}"/>
                 </p:column>
                 <p:column headerText="Activo" sortBy="#{r.activo}">
-                    <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
+                    <h:outputText value="#{r.activo ? 'Activo' : 'Inactivo'}"/>
                 </p:column>
                 <p:column headerText="Longitud" sortBy="#{r.longitud}">
                     <h:outputText value="#{r.longitud}"/>
@@ -36,22 +38,27 @@
 
         <h:panelGroup id="pnlGpDetalle">
             <h:form id="frmDetalle">
-                <h:panelGrid columns="2" rendered="#{frmSucursal.estado!='NINGUNO'}">
+                <h:panelGrid columns="2" rendered="#{frmSucursal.estado != 'NINGUNO'}">
                     <h:outputLabel value="ID" for="txtId"/>
                     <h:inputText id="txtId" value="#{frmSucursal.registro.idSucursal}" readonly="true" disabled="true"/>
+
                     <h:outputLabel value="Nombre" for="txtNombre"/>
-                    <h:inputText id="txtNombre" value="#{frmSucursal.registro.nombre}" required="true" aria-required="true"/>
+                    <h:inputText id="txtNombre" value="#{frmSucursal.registro.nombre}" required="true"/>
+
                     <h:outputLabel value="Activo" for="chkActivo"/>
                     <h:selectBooleanCheckbox id="chkActivo" value="#{frmSucursal.registro.activo}"/>
+
                     <h:outputLabel value="Longitud" for="txtLongitud"/>
-                    <h:inputText id="txtLongitud" value="#{frmSucursal.registro.longitud}" pattern="\d+(\.\d+)?" required="true"/>
+                    <h:inputText id="txtLongitud" value="#{frmSucursal.registro.longitud}"/>
+
                     <h:outputLabel value="Latitud" for="txtLatitud"/>
-                    <h:inputText id="txtLatitud" value="#{frmSucursal.registro.latitud}" pattern="\d+(\.\d+)?" required="true"/>
+                    <h:inputText id="txtLatitud" value="#{frmSucursal.registro.latitud}"/>
+
                     <h:outputLabel value="Comentarios" for="txtComentarios"/>
-                    <h:inputTextarea size="50" id="txtComentarios" value="#{frmSucursal.registro.comentarios}"/>
+                    <h:inputTextarea id="txtComentarios" value="#{frmSucursal.registro.comentarios}"/>
                 </h:panelGrid>
                 <h:panelGrid>
-                    <crud:BtnTop frm="#{frmSucursal}"/>
+                    <crud:BtnTop frm="#{frmSucursal}" styleClass=""/>
                 </h:panelGrid>
             </h:form>
         </h:panelGroup>
