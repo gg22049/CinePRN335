@@ -229,7 +229,6 @@ public abstract class AbstractFrm<T> implements Serializable {
             FacesMessage mensaje = new FacesMessage();
             try {
                 AbstractDataPersistence<T> dataBean = getDataPersist();
-                System.out.println(registro.getClass().toString());
                 dataBean.create(registro);
                 this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
@@ -239,7 +238,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al guardar el nuevo registro xd");
+                mensaje.setSummary("Error al guardar el nuevo registro");
                 fc.addMessage(null, mensaje);
             }
         }

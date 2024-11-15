@@ -8,6 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "programacion", schema = "public")
+@NamedQueries({
+    @NamedQuery(name="Programacion.ListBySelected", query = "select p from Programacion p where p.idSala.idSala = :idSala order by p.idProgramacion asc"),
+    @NamedQuery(name="Programacion.cantidadPaginador", query = "select count(p) from Programacion p where p.idSala.idSala = :idSala")
+})
 public class Programacion implements Serializable {
     @Id
     @Column(name = "id_programacion", nullable = false)
