@@ -88,9 +88,9 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
                 this.frmAsiento.setIdSala(this.registro.getIdSala().longValue());
             }
         }else if (tce.getTab().getTitle().equals("Programacion")){
-            if(this.registro!=null && this.frmProgramacion !=null){
-                this.frmProgramacion.setIdSala(this.registro.getIdSala().longValue());
-            }
+//            if(this.registro!=null && this.frmProgramacion !=null){
+//                this.frmProgramacion.setIdSala(this.registro.getIdSala().longValue());
+//            }
         }
     }
 }

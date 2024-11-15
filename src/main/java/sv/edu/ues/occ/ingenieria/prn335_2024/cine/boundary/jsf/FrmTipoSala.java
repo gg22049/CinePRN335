@@ -64,7 +64,7 @@ public class FrmTipoSala extends AbstractFrm<TipoSala> implements Serializable {
     /**
      * Metodo para crear nuevo pero creo no sirve :v
      */
-    @Override
+
     public void nuevoRegistro(){
         this.registro.setNombre(registro.getNombre());
         this.registro.setExpresionRegular(registro.getExpresionRegular());

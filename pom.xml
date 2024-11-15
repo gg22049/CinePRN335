@@ -46,7 +46,7 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>14.0.5</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
             <classifier>jakarta</classifier>
         </dependency>
 
