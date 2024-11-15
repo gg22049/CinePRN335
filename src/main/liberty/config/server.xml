@@ -46,7 +46,7 @@
             databaseName="cine_prn335"
             portNumber="5432"
             user="postgres"
-            password="post1234"
+            password="abc123"
     />
     </dataSource>
 </server>
