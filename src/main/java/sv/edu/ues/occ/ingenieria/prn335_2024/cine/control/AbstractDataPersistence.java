@@ -51,6 +51,16 @@ public abstract class AbstractDataPersistence<T> {
     }
 
     /**
+     * Método para traer todos los objetos
+     * @return
+     */
+    public List<T> obtenerTodos() {
+        return getEntityManager()
+                .createQuery("SELECT e FROM " + tipoDato.getSimpleName() + " e", tipoDato)
+                .getResultList();
+    }
+
+    /**
      * Metodo para buscar registros en la base de datos
      * @param id llave para realizar la busqueda
      * @return retorna la entidad buscada si se encuentra, sino retorna nulo
