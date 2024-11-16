@@ -106,7 +106,7 @@
                     <h:panelGroup id="tiposPnlGpDetalle">
                         <h:panelGrid>
                             <h:form>
-                                <h:panelGrid rendered="#{frmSala.frmSalaCaracteristica.estado !='NINGUNO'}">
+                                <h:panelGrid columns="2" rendered="#{frmSala.frmSalaCaracteristica.estado !='NINGUNO'}">
                                     <h:outputLabel value="ID" for="TiposTxtId"/>
                                     <h:inputText id="TiposTxtId" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
                                     <h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
@@ -116,7 +116,6 @@
                                         <p:ajax execute="@this" update="txtValor"/>
                                     </h:selectOneMenu>
                                     <p:outputLabel value="Valor" for="txtValor"/>
-                                    <!--Valor Quemado Corregir, hacerlo dinamico-->`
                                     <p:inputTextarea id="txtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
                                                      value="#{frmSala.frmSalaCaracteristica.registro.valor}"
                                                      rows="3" cols="10"/>
