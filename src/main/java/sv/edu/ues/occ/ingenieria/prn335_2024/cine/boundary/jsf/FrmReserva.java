@@ -51,6 +51,9 @@ public class FrmReserva extends AbstractFrm<Reserva> implements Serializable {
         return null;
     }
 
+    /**
+     * Para crear el objeto reserva
+     */
     @Override
     public void instanciarRegistro() {
         this.registro = new Reserva();
@@ -61,7 +64,6 @@ public class FrmReserva extends AbstractFrm<Reserva> implements Serializable {
     public String getTituloPagina(){
         return Reserva.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
-
 
     /**
      * Para traer lista de tipo de reserva

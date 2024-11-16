@@ -208,8 +208,8 @@ public abstract class AbstractFrm<T> implements Serializable {
      */
     public void btnNuevoHandler(ActionEvent actionEvent) {
         try{
-           this.instanciarRegistro();
-           this.estado = ESTADO_CRUD.CREAR;
+            this.estado = ESTADO_CRUD.CREAR;
+            this.instanciarRegistro();
         }catch(Exception e) {
             FacesContext fc = getFacesContext();
             FacesMessage mensaje = new FacesMessage();
@@ -229,8 +229,8 @@ public abstract class AbstractFrm<T> implements Serializable {
             FacesMessage mensaje = new FacesMessage();
             try {
                 AbstractDataPersistence<T> dataBean = getDataPersist();
-                System.out.println(registro.getClass().toString());
                 dataBean.create(registro);
+                Logger.getLogger(getClass().getName()).log(Level.INFO, "Registro guardado: " + registro);
                 this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -239,7 +239,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al guardar el nuevo registro xd");
+                mensaje.setSummary("Error al guardar el nuevo registro." + e.getMessage());
                 fc.addMessage(null, mensaje);
             }
         }
@@ -256,15 +256,15 @@ public abstract class AbstractFrm<T> implements Serializable {
             try{
                 AbstractDataPersistence<T> dataBean= getDataPersist();
                 dataBean.update(registro);
+                mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+                mensaje.setSummary("El registro " + registro.getClass().getSimpleName() + " se actualizó exitosamente");
+                fc.addMessage(null, mensaje);
                 this.registro = null;
                 this.estado = ESTADO_CRUD.NINGUNO;
-                mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
-                mensaje.setSummary("El registro se actualizo exitosamente");
-                fc.addMessage(null, mensaje);
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("El registro no debe ser nulo para modificar");
+                mensaje.setSummary("El registro no debe ser nulo para modificar." + e.getMessage());
                 fc.addMessage(null, mensaje);
             }
         }
@@ -289,7 +289,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al eliminar el registro");
+                mensaje.setSummary("Error al eliminar el registro" + e.getMessage());
                 fc.addMessage(null, mensaje);
             }
         }

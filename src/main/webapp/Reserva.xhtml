@@ -48,7 +48,7 @@
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:wizard flowListener="#{reservaWizardBean.onFlowProcess}">
-                <!-- Paso 1: Fecha y Tipo de Reserva formato de fecha no compatible
+                <!-- Paso 1: Fecha y Tipo de Reserva, formato de fecha no compatible -->
                 <p:tab id="fecha" title="Fecha">
                     <p:panel header="Seleccionar Fecha">
                         <p:messages/>
@@ -59,17 +59,10 @@
                                         pattern="yyyy-MM-dd HH:mm:ssXXX"
                                         showButtonPanel="true" mindate="#{reservaWizardBean.minDate}"/>
                             <h:outputText value="Tipo de Reserva: *"/>
-                            <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.reserva.idTipoReserva}">
+                            <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.reserva.idTipoReserva}" ajax="true" process="@form">
                                 <c:selectItems value="#{frmReserva.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
-                    </p:panel>
-                </p:tab>-->
-
-                <p:tab id="ejemplo" title="Ejemplo">
-                    <p:panel header="Ejemplo">
-                        <h:outputText value="Seleccione ID de Programación:"/>
-                        <h:inputText value="${reservaWizardBean.reserva.idProgramacion.idProgramacion}"/>
                     </p:panel>
                 </p:tab>
 
@@ -79,17 +72,12 @@
                         <p:messages/>
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Seleccione función: "/>
-                            <p:selectOneMenu id="programacionOption" value="#{reservaWizardBean.reserva.idProgramacion}" ajax="true" process="@this" update="sinopsisPanel">
+                            <p:selectOneMenu id="programacionOption" value="#{reservaWizardBean.reserva.idProgramacion}" ajax="true" process="@form" update="sinopsisPanel">
                                 <c:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn" itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})" itemValue="#{prn.idProgramacion}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
 
-                        <h:outputText value="Reserva: #{reservaWizardBean.reserva.idTipoReserva}"/>
-
-                        <h:outputText value="#{reservaWizardBean.reserva.idProgramacion}"/>
-                        <h:outputText value="Detalles #{prn.idPelicula.nombre}"/>
                         <h:panelGrid id="sinopsisPanel" columns="1">
-
 
                         </h:panelGrid>
                     </p:panel>
