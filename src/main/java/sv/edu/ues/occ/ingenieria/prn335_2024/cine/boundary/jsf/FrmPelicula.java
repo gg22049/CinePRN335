@@ -46,7 +46,7 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
     @Override
     public Pelicula getObjeto(String id) {
         if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
-            return this.modelo.getWrappedData().stream().filter(r->r.getIdPelicula().toString().equals(id)).collect(Collectors.toList()).get(0);
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdPelicula().toString().equals(id)).findFirst().orElse(null);
         }
         return null;    }
 
