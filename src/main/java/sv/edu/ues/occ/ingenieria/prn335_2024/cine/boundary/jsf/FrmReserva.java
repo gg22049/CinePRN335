@@ -12,6 +12,7 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Reserva;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoReserva;
 
 import java.io.Serializable;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,7 @@ public class FrmReserva extends AbstractFrm<Reserva> implements Serializable {
     @Override
     public void instanciarRegistro() {
         this.registro = new Reserva();
-        this.registro.setEstado("CREADO");
+        this.registro.setObservaciones("Hola");
     }
 
     @Override

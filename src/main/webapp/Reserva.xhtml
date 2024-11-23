@@ -14,53 +14,87 @@
     </f:define>
 
     <f:define name="cuerpo">
-        <style>
-            .label {
-                width: 20%;
-                padding: 4px;
-            }
-
-            .value {
-                width: 80%;
-                padding: 4px;
-            }
-
-            .grid {
-                width: 100%;
-            }
-
-            .error {
-                color: red;
-            }
-
-            .outputLabel {
-                font-weight: bold;
-            }
-
-            .grid {
-                width: 33%;
-                padding: 4px;
-            }
-        </style>
 
         <h:form id="reservaFrm">
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:wizard flowListener="#{reservaWizardBean.onFlowProcess}">
+
+                <!-- Ejemplo-->
+                <p:tab id="EjemploID1" title="Ejemplo de ID1">
+                    <p:panel>
+                        <p:messages/>
+                        <h:panelGrid columns="1">
+                            <h:outputText value="ID Programación"/>
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="Tipo de Reserva xd"/>
+                            <h:outputText value="Observaciones: #{frmReserva.registro.observaciones}"/>
+                            <h:outputText value="Asientos"/>
+                            <!--
+                            <h:outputText value="Ejemplo de Id Programacion"/>
+                            <h:inputText value="#{reservaWizardBean.registro.idProgramacion.idProgramacion}" required="true" requiredMessage="Advertencia: Ingrese un id de Programación!!!."/>
+                            <h:outputText value="Ejemplo de Id TipoReserva"/>
+                            <h:inputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
+                            <h:outputText value="Observaciones"/>
+                            <h:inputText value="#{reservaWizardBean.registro.observaciones}"/>
+                            -->
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <p:tab id="EjemploID2" title="Ejemplo de ID2">
+                    <p:panel>
+                        <p:messages/>
+                        <h:panelGrid columns="1">
+                            <h:outputText value="ID Programación"/>
+                            <h:outputText value="Nombre:"/>
+                            <h:outputText value="Tipo de Reserva"/>
+                            <h:outputText value="Observaciones"/>
+                            <h:outputText value="Asientos"/>
+                            <!--
+                            <h:outputText value="Ejemplo de Id Programacion"/>
+                            <h:inputText value="#{reservaWizardBean.registro.idProgramacion.idProgramacion}" required="true" requiredMessage="Advertencia: Ingrese un id de Programación!!!."/>
+                            <h:outputText value="Ejemplo de Id TipoReserva"/>
+                            <h:inputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
+                            <h:outputText value="Observaciones"/>
+                            <h:inputText value="#{reservaWizardBean.registro.observaciones}"/>
+                            -->
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+                <!-- Ejemplo-->
+                <p:tab id="EjemploID3" title="Ejemplo de ID3">
+                    <p:panel>
+                        <p:messages/>
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Ejemplo de Id TipoReserva"/>
+                            <h:inputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
+                            <h:outputText value="Ejemplo de Id TipoReserva"/>
+                            <h:outputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
+                            <h:outputText value="Observaciones"/>
+                            <h:inputText value="#{reservaWizardBean.registro.observaciones}"/>
+                        </h:panelGrid>
+                    </p:panel>
+                </p:tab>
+
+
                 <!-- Paso 1: Fecha y Tipo de Reserva, formato de fecha no compatible -->
+                <!-- 2024-09-19 20:26:00+00-->
                 <p:tab id="fecha" title="Fecha">
                     <p:panel header="Seleccionar Fecha">
                         <p:messages/>
+                        <h:outputText value="Id Tipo Reserva: #{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
                         <h:panelGrid columns="2">
                             <h:outputText value="Seleccione día: *"/>
-                            <p:calendar value="#{reservaWizardBean.reserva.fechaReserva}"
+                            <p:calendar value="#{reservaWizardBean.registro.fechaReserva}"
                                         label="Seleccione un día" required="true"
                                         pattern="yyyy-MM-dd HH:mm:ssXXX"
                                         showButtonPanel="true" mindate="#{reservaWizardBean.minDate}"/>
                             <h:outputText value="Tipo de Reserva: *"/>
-                            <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.reserva.idTipoReserva}" ajax="true" process="@form">
-                                <c:selectItems value="#{frmReserva.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
+                            <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}" ajax="true" process="@form">
+                                <c:selectItems value="#{reservaWizardBean.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </p:panel>
@@ -83,6 +117,7 @@
                     </p:panel>
                 </p:tab>
 
+
                 <p:tab id="asientos" title="Asientos">
                     <p:panel header="Asientos">
                         <p:messages/>
@@ -98,7 +133,7 @@
 
                         </h:panelGrid>
 
-                        <p:commandButton value="Submit" action="#{reservaWizardBean.save}" update="growl" process="@this"/>
+                        <p:commandButton value="Submit" action="#{reservaWizardBean.save}" update="growl" process="@form"/>
                     </p:panel>
                 </p:tab>
             </p:wizard>
