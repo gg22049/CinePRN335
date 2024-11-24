@@ -4,21 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="">
+    <list default="true" id="791eb962-7c46-46eb-a1f1-20198fa43424" name="Changes" comment="Varias cosas comentadas ingnorables y todo bien hasta sala tab asientos, falta menu desplegable">
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/rest/server/CineApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/rest/server/TipoSalaResource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/AbstractFrm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPeliculaCaracteristica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/boundary/jsf/FrmPeliculaCaracteristica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Pelicula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sv/edu/ues/occ/ingenieria/prn335_2024/cine/entity/Pelicula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/Pelicula.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/Pelicula.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoAsiento.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoPago.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoPelicula.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoProducto.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoReserva.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/TipoSala.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/datos/TablaDatos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/datos/TablaDatos.xhtml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,14 +22,36 @@
         <option value="Enum" />
         <option value="JUnit5 Test Class" />
         <option value="CSS File" />
-        <option value="Class" />
         <option value="Jsp File" />
         <option value="jsf" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ff6988ef6bfea41ddc0e4623d09f90086734a1f7" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;gg22049&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/gg22049/CinePRN335.git&quot;,
+    &quot;accountId&quot;: &quot;5ce61e5e-e10d-4e58-abcb-d67cd57ee6e7&quot;
+  }
+}</component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -354,6 +366,15 @@
       <workItem from="1731380262196" duration="6881000" />
       <workItem from="1731422282949" duration="19294000" />
       <workItem from="1731448908903" duration="1545000" />
+      <workItem from="1732027742088" duration="19495000" />
+      <workItem from="1732122122738" duration="3408000" />
+      <workItem from="1732136893729" duration="6880000" />
+      <workItem from="1732155686070" duration="11329000" />
+      <workItem from="1732218125681" duration="9327000" />
+      <workItem from="1732399823661" duration="14753000" />
+      <workItem from="1732423324000" duration="5366000" />
+      <workItem from="1732467283678" duration="4981000" />
+      <workItem from="1732472348565" duration="12253000" />
     </task>
     <task id="LOCAL-00001" summary="Constructores de las entidades">
       <option name="closed" value="true" />
@@ -427,7 +448,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731363687478</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Varias cosas comentadas ingnorables y todo bien hasta sala tab asientos, falta menu desplegable">
+      <option name="closed" value="true" />
+      <created>1732484566050</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1732484566050</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,6 +474,26 @@
     <option featureType="dependencySupport" implementationName="java:jakarta.faces:jakarta.faces-api" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/cesar" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -455,7 +504,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -485,7 +534,8 @@
     <MESSAGE value="Maquetado de los tipo" />
     <MESSAGE value="Maquetado con template, composite, opcion de traducir y menu de tipos" />
     <MESSAGE value="Comienzo de parcial 2, comienzo de generalizacion xhtml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Comienzo de parcial 2, comienzo de generalizacion xhtml" />
+    <MESSAGE value="Varias cosas comentadas ingnorables y todo bien hasta sala tab asientos, falta menu desplegable" />
+    <option name="LAST_COMMIT_MESSAGE" value="Varias cosas comentadas ingnorables y todo bien hasta sala tab asientos, falta menu desplegable" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
