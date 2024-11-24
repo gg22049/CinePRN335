@@ -56,6 +56,9 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
         }
         return null;    }
 
+    /**
+     * Para crear nueva sala
+     */
     @Override
     public void instanciarRegistro() {
         this.registro = new Sala();
