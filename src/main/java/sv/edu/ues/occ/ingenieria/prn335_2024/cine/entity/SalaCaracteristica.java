@@ -29,13 +29,12 @@ import java.io.Serializable;
      * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor),
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones),
      * (Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
-    //@NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idTipoSala.nombre ASC"),
+    @NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idTipoSala.nombre ASC"),
 
     /**⬇️ Necesita idSala(PK)[Integer] de la tabla(Sala)
      * orden de retorno:
      * ('numero de cuentas que cumplen con la relacion')*/
-    //@NamedQuery(name = "SalaCaracteristica.cantidadPaginador", query="SELECT count(sc) FROM SalaCaracteristica sc WHERE sc.idSala.idSala = :idSala"
-    })
+    @NamedQuery(name = "SalaCaracteristica.cantidadPaginador", query="SELECT count(sc) FROM SalaCaracteristica sc WHERE sc.idSala.idSala = :idSala")})
 
 public class SalaCaracteristica implements Serializable {
     @Id

@@ -10,27 +10,27 @@ import java.util.List;
 @Entity
 @Table(name = "sala", schema = "public")
 @NamedQueries({
-    /**⬇️ Necesita ser invocada
+    /** hp19021: ⬇️ Necesita ser invocada
      * orden de retorno
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
     @NamedQuery(name = "Sala.findAll", query = "SELECT s FROM Sala s"),
 
-    /**⬇️ Necesita idSala(PK)[Integer] de la tabla (Sala)
+    /** hp19021: ⬇️ Necesita idSala(PK)[Integer] de la tabla (Sala)
      * orden de retorno
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
     @NamedQuery(name = "Sala.findByIdSala", query = "SELECT s FROM Sala s WHERE s.idSala = :idSala"),
 
-    /**⬇️ Necesita nombre(columna)[String] de la tabla (Sala)
+    /** hp19021: ⬇️ Necesita nombre(columna)[String] de la tabla (Sala)
      * orden de retorno
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
     @NamedQuery(name = "Sala.findByNombre", query = "SELECT s FROM Sala s WHERE s.nombre = :nombre"),
 
-    /**⬇️ Necesita activo(columna)[Boolean] de la tabla (Sala)
+    /** hp19021: ⬇️ Necesita activo(columna)[Boolean] de la tabla (Sala)
      * orden de retorno
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
     @NamedQuery(name = "Sala.findByActivo", query = "SELECT s FROM Sala s WHERE s.activo = :activo"),
 
-    /**⬇️ Necesita observacion(columna)[String] de la tabla (Sala)
+    /** hp19021: ⬇️ Necesita observacion(columna)[String] de la tabla (Sala)
      * orden de retorno
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
     @NamedQuery(name = "Sala.findByObservaciones", query = "SELECT s FROM Sala s WHERE s.observaciones = :observaciones")})
@@ -42,6 +42,7 @@ public class Sala implements Serializable {
     private Integer idSala;
 
     /** *Relacion: Sala/Sucursal
+     * henry(hp19021)
      * Sala (fk)(M) <-> (1)(id) Sucursal
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -49,18 +50,21 @@ public class Sala implements Serializable {
     private Sucursal idSucursal;
 
     /** *Relacion: Sala/SalaCaracteristica
+     * henry(hp19021)
      * Sala (id)(M) <-> (fk)(1) SalaCaracteristica
      */
     @OneToMany(mappedBy = "idSala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<SalaCaracteristica> salaCaracteristicaList;
 
     /** *Relacion: Sala/Asiento
+     * henry(hp19021)
      * Sala (id)(M) <-> (fk)(1) Programacion
      */
     @OneToMany(mappedBy = "idSala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Asiento> AsientoList;
 
     /** *Relacion: Sala/Programacion
+     * henry(hp19021)
      * Sala (id)(M) <-> (fk)(1) SalaCaracteristica
      */
     @OneToMany(mappedBy = "idSala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

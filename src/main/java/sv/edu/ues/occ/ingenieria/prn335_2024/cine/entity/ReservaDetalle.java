@@ -9,17 +9,17 @@ import java.util.List;
 @Entity
 @Table(name = "reserva_detalle", schema = "public")
 @NamedQueries({
-    /**⬇️ Necesita ser invocada
+    /** hp19021: ⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado)*/
     @NamedQuery(name = "ReservaDetalle.findAll", query = "SELECT r FROM ReservaDetalle r"),
 
-    /**⬇️ Necesita idReservaDetalle(PK)[Long] de la tabla (ReservaDetalle)
+    /** hp19021: ⬇️ Necesita idReservaDetalle(PK)[Long] de la tabla (ReservaDetalle)
      * orden de retorno
      * (Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado)*/
     @NamedQuery(name = "ReservaDetalle.findByIdReservaDetalle", query = "SELECT r FROM ReservaDetalle r WHERE r.idReservaDetalle = :idReservaDetalle"),
 
-    /**⬇️ Necesita estado(columna)[String] de la tabla (ReservaDetalle)
+    /** hp19021: ⬇️ Necesita estado(columna)[String] de la tabla (ReservaDetalle)
      * orden de retorno
      * (Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado)*/
     @NamedQuery(name = "ReservaDetalle.findByEstado", query = "SELECT r FROM ReservaDetalle r WHERE r.estado = :estado")})
@@ -30,6 +30,7 @@ public class ReservaDetalle implements Serializable {
     private Long idReservaDetalle;
 
     /** *Relacion: ReservaDetalle/Reserva
+     * henry(hp19021):
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,6 +38,7 @@ public class ReservaDetalle implements Serializable {
     private Reserva idReserva;
 
     /** *Relacion: ReservaDetalle/Asiento
+     * henry(hp19021):
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -98,4 +100,11 @@ public class ReservaDetalle implements Serializable {
         this.estado = estado;
     }
 
+//    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
+//        return facturaDetalleSalaList;
+//    }
+//
+//    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
+//        this.facturaDetalleSalaList = facturaDetalleSalaList;
+//    }
 }

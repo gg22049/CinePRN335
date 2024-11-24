@@ -10,27 +10,27 @@ import java.util.List;
 @Entity
 @Table(name = "reserva", schema = "public")
 @NamedQueries({
-        /**⬇️ Necesita ser invocada
+        /** hp19021: ⬇️ Necesita ser invocada
          * orden de retorno
          * (Long idReserva, Programacion idProgramacion, TipoReserva idTipoReserva, OffsetDateTime fechaReserva, String estado, String observaciones)*/
         @NamedQuery(name = "Reserva.findAll", query = "SELECT r FROM Reserva r"),
 
-        /**⬇️ Necesita idReserva(PK)[Long] de la tabla (Reserva)
+        /** hp19021: ⬇️ Necesita idReserva(PK)[Long] de la tabla (Reserva)
          * orden de retorno
          * (Long idReserva, Programacion idProgramacion, TipoReserva idTipoReserva, OffsetDateTime fechaReserva, String estado, String observaciones)*/
         @NamedQuery(name = "Reserva.findByIdReserva", query = "SELECT r FROM Reserva r WHERE r.idReserva = :idReserva"),
 
-        /**⬇️ Necesita fechaReserva(columna)[OffsetDateTime] de la tabla (Reserva)
+        /** hp19021: ⬇️ Necesita fechaReserva(columna)[OffsetDateTime] de la tabla (Reserva)
          * orden de retorno
          * (Long idReserva, Programacion idProgramacion, TipoReserva idTipoReserva, OffsetDateTime fechaReserva, String estado, String observaciones)*/
         @NamedQuery(name = "Reserva.findByFechaReserva", query = "SELECT r FROM Reserva r WHERE r.fechaReserva = :fechaReserva"),
 
-        /**⬇️ Necesita estado(columna)[String] de la tabla (Reserva)
+        /** hp19021: ⬇️ Necesita estado(columna)[String] de la tabla (Reserva)
          * orden de retorno
          * (Long idReserva, Programacion idProgramacion, TipoReserva idTipoReserva, OffsetDateTime fechaReserva, String estado, String observaciones)*/
         @NamedQuery(name = "Reserva.findByEstado", query = "SELECT r FROM Reserva r WHERE r.estado = :estado"),
 
-        /**⬇️ Necesita observaciones(columna)[String] de la tabla (Reserva)
+        /** hp19021: ⬇️ Necesita observaciones(columna)[String] de la tabla (Reserva)
          * orden de retorno
          * (Long idReserva, Programacion idProgramacion, TipoReserva idTipoReserva, OffsetDateTime fechaReserva, String estado, String observaciones)*/
         @NamedQuery(name = "Reserva.findByObservaciones", query = "SELECT r FROM Reserva r WHERE r.observaciones = :observaciones")})
@@ -40,6 +40,7 @@ public class Reserva implements Serializable {
     private Long idReserva;
 
     /** *Relacion: Reserva/Programacion
+     * henry(hp19021):
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,6 +48,7 @@ public class Reserva implements Serializable {
     private Programacion idProgramacion;
 
     /** *Relacion: Reserva/TipoReserva
+     * henry(hp19021):
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -54,6 +56,7 @@ public class Reserva implements Serializable {
     private TipoReserva idTipoReserva;
 
     /** *Relacion: Reserva/RerservaDetalle
+     * henry(hp19021)
      * Reserva (id)(M) <-> (fk)(1) RerservaDetalle
      */
     @OneToMany(mappedBy = "idReserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

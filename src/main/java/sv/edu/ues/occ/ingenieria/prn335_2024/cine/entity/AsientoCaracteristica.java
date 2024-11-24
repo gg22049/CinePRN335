@@ -9,17 +9,17 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name="AsientoCaracteristica.ListBySelected",query = "select a from AsientoCaracteristica a where a.idAsiento = :idAsiento order by a.idAsientoCaracteristica asc"),
     @NamedQuery(name="AsientoCaracteristica.cantidadPaginador",query = "select count(a) from AsientoCaracteristica a where a.idAsiento = :idAsiento"),
-    /**⬇️ Necesita ser invocada
+    /** hp19021: ⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
     @NamedQuery(name = "AsientoCaracteristica.findAll", query = "SELECT a FROM AsientoCaracteristica a"),
 
-    /**⬇️ Necesita idAsientoCaracteristica(PK)[Long] de la tabla (AsientoCaracteristica)
+    /** hp19021: ⬇️ Necesita idAsientoCaracteristica(PK)[Long] de la tabla (AsientoCaracteristica)
      * orden de retorno
      * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
     @NamedQuery(name = "AsientoCaracteristica.findByIdAsientoCaracteristica", query = "SELECT a FROM AsientoCaracteristica a WHERE a.idAsientoCaracteristica = :idAsientoCaracteristica"),
 
-    /**⬇️ Necesita valor(columna)[String] de la tabla (AsientoCaracteristica)
+    /** hp19021: ⬇️ Necesita valor(columna)[String] de la tabla (AsientoCaracteristica)
      * orden de retorno
      * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
     @NamedQuery(name = "AsientoCaracteristica.findByValor", query = "SELECT a FROM AsientoCaracteristica a WHERE a.valor = :valor")})
@@ -30,6 +30,7 @@ public class AsientoCaracteristica implements Serializable {
     private Long idAsientoCaracteristica;
 
     /** *Relacion: AsientoCaracterisca/Asiento
+     * henry(hp19021):
      * AsientoCaracterisca (fk)(M) <-> (1)(id) Asiento
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,6 +38,7 @@ public class AsientoCaracteristica implements Serializable {
     private Asiento idAsiento;
 
     /** *Relacion: AsientoCaracterisca/TipoAsiento
+     * henry(hp19021):
      * AsientoCaracterisca (fk)(M) <-> (1)(id) TipoAsiento
      */
     @ManyToOne(fetch = FetchType.LAZY)

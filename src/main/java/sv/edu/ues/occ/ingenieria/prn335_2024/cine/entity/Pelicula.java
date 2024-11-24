@@ -10,22 +10,22 @@ import java.util.List;
 @Entity
 @Table(name = "pelicula", schema = "public")
 @NamedQueries({
-    /**⬇️ Necesita ser invocada
+    /** hp19021: ⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idPelicula, String nombre, String sinopsis)*/
     @NamedQuery(name = "Pelicula.findAll", query = "SELECT p FROM Pelicula p"),
 
-    /**⬇️ Necesita idPelicula(PK)[Long] de la tabla (Pelicula)
+    /** hp19021: ⬇️ Necesita idPelicula(PK)[Long] de la tabla (Pelicula)
      * orden de retorno
      * (Long idPelicula, String nombre, String sinopsis)*/
     @NamedQuery(name = "Pelicula.findByIdPelicula", query = "SELECT p FROM Pelicula p WHERE p.idPelicula = :idPelicula"),
 
-    /**⬇️ Necesita nombre(columna)[String] de la tabla (Pelicula)
+    /** hp19021: ⬇️ Necesita nombre(columna)[String] de la tabla (Pelicula)
      * orden de retorno
      * (Long idPelicula, String nombre, String sinopsis)*/
     @NamedQuery(name = "Pelicula.findByNombre", query = "SELECT p FROM Pelicula p WHERE p.nombre = :nombre"),
 
-    /**⬇️ Necesita nombre(columna)[String] de la tabla (Pelicula)
+    /** hp19021: ⬇️ Necesita nombre(columna)[String] de la tabla (Pelicula)
      * orden de retorno
      * (Long idPelicula, String nombre, String sinopsis)*/
     @NamedQuery(name = "Pelicula.findBySinopsis", query = "SELECT p FROM Pelicula p WHERE p.sinopsis = :sinopsis")})
@@ -37,12 +37,14 @@ public class Pelicula implements Serializable {
     private Long idPelicula;
 
     /** *Relacion: Pelicula/PeliculaCaracteristica
+     * henry(hp19021)
      * Pelicula (id)(M) <-> (fk)(1) PeliculaCaracteristica
      */
     @OneToMany(mappedBy = "idPelicula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PeliculaCaracteristica> PeliculaCaracteristicasList;
 
     /** *Relacion: Pelicula/Programacion
+     * henry(hp19021)
      * Pelicula (id)(M) <-> (fk)(1) Programacion
      */
     @OneToMany(mappedBy = "idPelicula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

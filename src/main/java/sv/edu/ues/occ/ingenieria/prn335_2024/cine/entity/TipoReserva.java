@@ -10,27 +10,27 @@ import java.util.List;
 @Entity
 @Table(name = "tipo_reserva", schema = "public")
 @NamedQueries({
-    /**⬇️ Necesita ser invocada
+    /** hp19021: ⬇️ Necesita ser invocada
      * orden de retorno
      * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios) {*/
     @NamedQuery(name = "TipoReserva.findAll", query = "SELECT t FROM TipoReserva t"),
 
-    /**⬇️ Necesita idTipoReserva(PK)[Integer] de la tabla (TipoReserva)
+    /** hp19021: ⬇️ Necesita idTipoReserva(PK)[Integer] de la tabla (TipoReserva)
      * orden de retorno
      * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
     @NamedQuery(name = "TipoReserva.findByIdTipoReserva", query = "SELECT t FROM TipoReserva t WHERE t.idTipoReserva = :idTipoReserva"),
 
-    /**⬇️ Necesita nombre(Columna)[String] de la tabla (TipoReserva)
+    /** hp19021: ⬇️ Necesita nombre(Columna)[String] de la tabla (TipoReserva)
      * orden de retorno
      * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
     @NamedQuery(name = "TipoReserva.findByNombre", query = "SELECT t FROM TipoReserva t WHERE t.nombre = :nombre"),
 
-    /**⬇️ Necesita activo(Columna)[Boolean] de la tabla (TipoReserva)
+    /** hp19021: ⬇️ Necesita activo(Columna)[Boolean] de la tabla (TipoReserva)
      * orden de retorno
      * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
     @NamedQuery(name = "TipoReserva.findByActivo", query = "SELECT t FROM TipoReserva t WHERE t.activo = :activo"),
 
-    /**⬇️ Necesita comentarios(Columna)[String] de la tabla (TipoReserva)
+    /** hp19021: ⬇️ Necesita comentarios(Columna)[String] de la tabla (TipoReserva)
      * orden de retorno
      * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
     @NamedQuery(name = "TipoReserva.findByComentarios", query = "SELECT t FROM TipoReserva t WHERE t.comentarios = :comentarios")})
@@ -42,6 +42,7 @@ public class TipoReserva implements Serializable {
     private Integer idTipoReserva;
 
     /** *Relacion: TipoReserva/Reserva
+     * henry(hp19021)
      * TipoReserva (id)(M) <-> (fk)(1) Reserva
      */
     @OneToMany(mappedBy = "idTipoReserva", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
