@@ -9,6 +9,32 @@ import java.util.List;
 
 @Entity
 @Table(name = "tipo_reserva", schema = "public")
+@NamedQueries({
+    /** hp19021: ⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios) {*/
+    @NamedQuery(name = "TipoReserva.findAll", query = "SELECT t FROM TipoReserva t"),
+
+    /** hp19021: ⬇️ Necesita idTipoReserva(PK)[Integer] de la tabla (TipoReserva)
+     * orden de retorno
+     * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoReserva.findByIdTipoReserva", query = "SELECT t FROM TipoReserva t WHERE t.idTipoReserva = :idTipoReserva"),
+
+    /** hp19021: ⬇️ Necesita nombre(Columna)[String] de la tabla (TipoReserva)
+     * orden de retorno
+     * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoReserva.findByNombre", query = "SELECT t FROM TipoReserva t WHERE t.nombre = :nombre"),
+
+    /** hp19021: ⬇️ Necesita activo(Columna)[Boolean] de la tabla (TipoReserva)
+     * orden de retorno
+     * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoReserva.findByActivo", query = "SELECT t FROM TipoReserva t WHERE t.activo = :activo"),
+
+    /** hp19021: ⬇️ Necesita comentarios(Columna)[String] de la tabla (TipoReserva)
+     * orden de retorno
+     * (Integer idTipoReserva, String nombre, Boolean activo, String comentarios)*/
+    @NamedQuery(name = "TipoReserva.findByComentarios", query = "SELECT t FROM TipoReserva t WHERE t.comentarios = :comentarios")})
+
 public class TipoReserva implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

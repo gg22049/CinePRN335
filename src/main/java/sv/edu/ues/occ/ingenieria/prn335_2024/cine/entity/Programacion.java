@@ -10,15 +10,38 @@ import java.util.List;
 @Table(name = "programacion", schema = "public")
 @NamedQueries({
     @NamedQuery(name="Programacion.ListBySelected", query = "select p from Programacion p where p.idSala.idSala = :idSala order by p.idProgramacion asc"),
-    @NamedQuery(name="Programacion.cantidadPaginador", query = "select count(p) from Programacion p where p.idSala.idSala = :idSala")
-})
+    @NamedQuery(name="Programacion.cantidadPaginador", query = "select count(p) from Programacion p where p.idSala.idSala = :idSala"),
+    /**⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findAll", query = "SELECT p FROM Programacion p"),
+
+    /**⬇️ Necesita idProgramacion(PK)[Long] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByIdProgramacion", query = "SELECT p FROM Programacion p WHERE p.idProgramacion = :idProgramacion"),
+
+    /**⬇️ Necesita desde(columna)[OffsetDateTime] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByDesde", query = "SELECT p FROM Programacion p WHERE p.desde = :desde"),
+
+    /**⬇️ Necesita hasta(columna)[OffsetDateTime] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByHasta", query = "SELECT p FROM Programacion p WHERE p.hasta = :hasta"),
+
+    /**⬇️ Necesita comentarios(columna)[String] de la tabla (Programacion)
+     * orden de retorno
+     * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/
+    @NamedQuery(name = "Programacion.findByComentarios", query = "SELECT p FROM Programacion p WHERE p.comentarios = :comentarios")})
+
 public class Programacion implements Serializable {
     @Id
     @Column(name = "id_programacion", nullable = false)
     private Long idProgramacion;
 
     /** *Relacion: Programacion/Sala
-     * henry(hp19021):
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,7 +49,6 @@ public class Programacion implements Serializable {
     private Sala idSala;
 
     /** *Relacion: Programacion/Pelicula
-     * henry(hp19021):
      * Programacion (fk)(M) <-> (1)(id) Pelicula
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,7 +56,6 @@ public class Programacion implements Serializable {
     private Pelicula idPelicula;
 
     /** *Relacion: Programacion/Reserva
-     * henry(hp19021)
      * Programacion (id)(M) <-> (fk)(1) Reserva
      */
     @OneToMany(mappedBy = "idProgramacion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -127,11 +148,4 @@ public class Programacion implements Serializable {
         this.comentarios = comentarios;
     }
 
-//    public List<Reserva> getReservaList() {
-//        return reservaList;
-//    }
-//
-//    public void setReservaList(List<Reserva> reservaList) {
-//        this.reservaList = reservaList;
-//    }
 }

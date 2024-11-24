@@ -6,19 +6,42 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "sala_caracteristica", schema = "public")
-@NamedQueries(
-        {
-                @NamedQuery(name="SalaCaracteristica.ListBySelected", query="select sc from SalaCaracteristica  sc where sc.idSala.idSala = :idSala order by sc.idTipoSala.nombre asc"),
-                @NamedQuery(name="SalaCaracteristica.cantidadPaginador", query="select count(sc) from SalaCaracteristica sc where sc.idSala.idSala = :idSala ")
-        }
-)
+@NamedQueries({
+    @NamedQuery(name="SalaCaracteristica.ListBySelected", query="select sc from SalaCaracteristica  sc where sc.idSala.idSala = :idSala order by sc.idTipoSala.nombre asc"),
+    @NamedQuery(name="SalaCaracteristica.cantidadPaginador", query="select count(sc) from SalaCaracteristica sc where sc.idSala.idSala = :idSala "),
+    /**⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor)*/
+    @NamedQuery(name = "SalaCaracteristica.findAll", query = "SELECT s FROM SalaCaracteristica s"),
+
+    /**⬇️ Necesita idSalaCaracteristica(PK)[Long] de la tabla (SalaCaracteristica)
+     * orden de retorno
+     * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor)*/
+    @NamedQuery(name = "SalaCaracteristica.findByIdSalaCaracteristica", query = "SELECT s FROM SalaCaracteristica s WHERE s.idSalaCaracteristica = :idSalaCaracteristica"),
+
+    /**⬇️ Necesita valor(columna)[String] de la tabla (SalaCaracteristica)
+     * orden de retorno
+     * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor)*/
+    @NamedQuery(name = "SalaCaracteristica.findByValor", query = "SELECT s FROM SalaCaracteristica s WHERE s.valor = :valor"),
+
+    /**⬇️ Necesita idSala(PK)[Long] de la tabla(Sala)
+     * orden de retorno:
+     * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor),
+     * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones),
+     * (Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
+    @NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idTipoSala.nombre ASC"),
+
+    /**⬇️ Necesita idSala(PK)[Integer] de la tabla(Sala)
+     * orden de retorno:
+     * ('numero de cuentas que cumplen con la relacion')*/
+    @NamedQuery(name = "SalaCaracteristica.cantidadPaginador", query="SELECT count(sc) FROM SalaCaracteristica sc WHERE sc.idSala.idSala = :idSala")})
+
 public class SalaCaracteristica implements Serializable {
     @Id
     @Column(name = "id_sala_caracteristica", nullable = false)
     private Long idSalaCaracteristica;
 
     /** *Relacion: SalaCaracterista/TipoSala
-     * henry(hp19021):
      * SalaCaracterisca (fk)(M) <-> (1)(id) TipoSala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -26,7 +49,6 @@ public class SalaCaracteristica implements Serializable {
     private TipoSala idTipoSala;
 
     /** *Relacion: SalaCaracterista/Sala
-     * henry(hp19021):
      * SalaCaracterisca (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)

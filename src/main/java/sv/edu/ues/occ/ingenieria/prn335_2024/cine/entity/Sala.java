@@ -9,6 +9,32 @@ import java.util.List;
 
 @Entity
 @Table(name = "sala", schema = "public")
+@NamedQueries({
+    /** hp19021: ⬇️ Necesita ser invocada
+     * orden de retorno
+     * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
+    @NamedQuery(name = "Sala.findAll", query = "SELECT s FROM Sala s"),
+
+    /** hp19021: ⬇️ Necesita idSala(PK)[Integer] de la tabla (Sala)
+     * orden de retorno
+     * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
+    @NamedQuery(name = "Sala.findByIdSala", query = "SELECT s FROM Sala s WHERE s.idSala = :idSala"),
+
+    /** hp19021: ⬇️ Necesita nombre(columna)[String] de la tabla (Sala)
+     * orden de retorno
+     * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
+    @NamedQuery(name = "Sala.findByNombre", query = "SELECT s FROM Sala s WHERE s.nombre = :nombre"),
+
+    /** hp19021: ⬇️ Necesita activo(columna)[Boolean] de la tabla (Sala)
+     * orden de retorno
+     * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
+    @NamedQuery(name = "Sala.findByActivo", query = "SELECT s FROM Sala s WHERE s.activo = :activo"),
+
+    /** hp19021: ⬇️ Necesita observacion(columna)[String] de la tabla (Sala)
+     * orden de retorno
+     * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones)*/
+    @NamedQuery(name = "Sala.findByObservaciones", query = "SELECT s FROM Sala s WHERE s.observaciones = :observaciones")})
+
 public class Sala implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
