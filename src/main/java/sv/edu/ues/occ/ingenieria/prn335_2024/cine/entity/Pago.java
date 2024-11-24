@@ -8,6 +8,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "pago", schema = "public")
+@NamedQueries({
+        @NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p"),
+        @NamedQuery(name = "Pago.findByIdPago", query = "SELECT p FROM Pago p WHERE p.idPago = :idPago"),
+        @NamedQuery(name = "Pago.findByFecha", query = "SELECT p FROM Pago p WHERE p.fecha = :fecha")})
 public class Pago implements Serializable {
     @Id
     @Column(name = "id_pago", nullable = false)
@@ -21,8 +25,8 @@ public class Pago implements Serializable {
     @JoinColumn(name = "id_tipo_pago")
     private TipoPago idTipoPago;
 
-//    @OneToMany(mappedBy = "pago_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<FacturaDetalleSala> facturaDetalleSalaList;
+    @OneToMany(mappedBy = "idPago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PagoDetalle> pagoDetalleList;
 
     @Column(name = "fecha")
     private OffsetDateTime fecha;
@@ -30,11 +34,23 @@ public class Pago implements Serializable {
     public Pago() {
     }
 
+    public Pago(Long idPago) {
+        this.idPago = idPago;
+    }
+
     public Pago(Long idPago, Factura idFactura, TipoPago idTipoPago, OffsetDateTime fecha) {
         this.idPago = idPago;
         this.idFactura = idFactura;
         this.idTipoPago = idTipoPago;
         this.fecha = fecha;
+    }
+
+    public List<PagoDetalle> getPagoDetalleList() {
+        return pagoDetalleList;
+    }
+
+    public void setPagoDetalleList(List<PagoDetalle> pagoDetalleList) {
+        this.pagoDetalleList = pagoDetalleList;
     }
 
     public Long getIdPago() {
@@ -69,11 +85,4 @@ public class Pago implements Serializable {
         this.fecha = fecha;
     }
 
-//    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
-//        return facturaDetalleSalaList;
-//    }
-//
-//    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
-//        this.facturaDetalleSalaList = facturaDetalleSalaList;
-//    }
 }

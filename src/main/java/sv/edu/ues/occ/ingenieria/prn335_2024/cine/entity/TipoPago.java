@@ -9,14 +9,19 @@ import java.util.List;
 
 @Entity
 @Table(name = "tipo_pago", schema = "public")
+@NamedQueries({
+        @NamedQuery(name = "TipoPago.findAll", query = "SELECT t FROM TipoPago t"),
+        @NamedQuery(name = "TipoPago.findByIdTipoPago", query = "SELECT t FROM TipoPago t WHERE t.idTipoPago = :idTipoPago"),
+        @NamedQuery(name = "TipoPago.findByNombre", query = "SELECT t FROM TipoPago t WHERE t.nombre = :nombre"),
+        @NamedQuery(name = "TipoPago.findByActivo", query = "SELECT t FROM TipoPago t WHERE t.activo = :activo")})
 public class TipoPago implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_pago", nullable = false)
     private Integer idTipoPago;
 
-//    @OneToMany(mappedBy = "pago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private List<Pago> pagoList;
+    @OneToMany(mappedBy = "idTipoPago", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Pago> pagoList;
 
     @NotBlank(message = "Debe ingresar un nombre valido")
     @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
@@ -29,10 +34,22 @@ public class TipoPago implements Serializable {
     public TipoPago() {
     }
 
+    public TipoPago(Integer idTipoPago) {
+        this.idTipoPago = idTipoPago;
+    }
+
     public TipoPago(Integer idTipoPago, String nombre, Boolean activo) {
         this.idTipoPago = idTipoPago;
         this.nombre = nombre;
         this.activo = activo;
+    }
+
+    public List<Pago> getPagoList() {
+        return pagoList;
+    }
+
+    public void setPagoList(List<Pago> pagoList) {
+        this.pagoList = pagoList;
     }
 
     public Integer getIdTipoPago() {
@@ -59,11 +76,4 @@ public class TipoPago implements Serializable {
         this.activo = activo;
     }
 
-//    public List<Pago> getPagoList() {
-//        return pagoList;
-//    }
-//
-//    public void setPagoList(List<Pago> pagoList) {
-//        this.pagoList = pagoList;
-//    }
 }

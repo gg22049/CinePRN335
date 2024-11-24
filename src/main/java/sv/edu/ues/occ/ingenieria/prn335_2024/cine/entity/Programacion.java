@@ -72,8 +72,7 @@ public class Programacion implements Serializable {
     private String comentarios;
 
     //programacion
-    public Programacion() {
-    }
+    public Programacion() {}
 
     public Programacion(Long idProgramacion) {
         this.idProgramacion = idProgramacion;

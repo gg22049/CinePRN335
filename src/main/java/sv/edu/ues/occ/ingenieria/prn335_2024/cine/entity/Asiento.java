@@ -12,22 +12,22 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name="Asiento.cantidadPaginador", query ="select count(a) from Asiento a where a.idSala.idSala = :idSala "),
         @NamedQuery(name="Asiento.ListBySelected", query = "select a from Asiento a where a.idSala.idSala = :idSala order by a.idAsiento asc"),
-    /** hp19021: ⬇️ Necesita ser invocada
+    /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idAsiento, Sala idSala, String nombre, Boolean activo)*/
         @NamedQuery(name = "Asiento.findAll", query = "SELECT a FROM Asiento a"),
 
-    /** hp19021: ⬇️ Necesita idAsiento(PK)[Long] de la tabla (Asiento)
+    /**⬇️ Necesita idAsiento(PK)[Long] de la tabla (Asiento)
      * orden de retorno
      * (Long idAsiento, Sala idSala, String nombre, Boolean activo)*/
         @NamedQuery(name = "Asiento.findByIdAsiento", query = "SELECT a FROM Asiento a WHERE a.idAsiento = :idAsiento"),
 
-    /** hp19021: ⬇️ Necesita nombre(columna)[String] de la tabla (Asiento)
+    /**⬇️ Necesita nombre(columna)[String] de la tabla (Asiento)
      * orden de retorno
      * (Long idAsiento, Sala idSala, String nombre, Boolean activo)*/
         @NamedQuery(name = "Asiento.findByNombre", query = "SELECT a FROM Asiento a WHERE a.nombre = :nombre"),
 
-    /** hp19021: ⬇️ Necesita activo(columna)[Boolean] de la tabla (Asiento)
+    /**⬇️ Necesita activo(columna)[Boolean] de la tabla (Asiento)
      * orden de retorno
      * (Long idAsiento, Sala idSala, String nombre, Boolean activo)*/
         @NamedQuery(name = "Asiento.findByActivo", query = "SELECT a FROM Asiento a WHERE a.activo = :activo")})
@@ -38,7 +38,6 @@ public class Asiento implements Serializable {
     private Long idAsiento;
 
     /** *Relacion: Asiento/Sala
-     * henry(hp19021):
      * Asiento (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,7 +45,6 @@ public class Asiento implements Serializable {
     private Sala idSala;
 
     /** *Relacion: Asiento/AsientoCaracteristica
-     * henry(hp19021)
      * Asiento (id)(M) <-> (fk)(1) AsientoCaracteristica
      */
     @OneToMany(mappedBy = "idAsiento", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

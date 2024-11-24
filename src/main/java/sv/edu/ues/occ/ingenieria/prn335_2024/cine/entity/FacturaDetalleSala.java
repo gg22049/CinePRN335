@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "factura_detalle_sala", schema = "public")
+@NamedQueries({
+        @NamedQuery(name = "FacturaDetalleSala.findAll", query = "SELECT f FROM FacturaDetalleSala f"),
+        @NamedQuery(name = "FacturaDetalleSala.findByIdFacturaDetalleSala", query = "SELECT f FROM FacturaDetalleSala f WHERE f.idFacturaDetalleSala = :idFacturaDetalleSala"),
+        @NamedQuery(name = "FacturaDetalleSala.findByMonto", query = "SELECT f FROM FacturaDetalleSala f WHERE f.monto = :monto")})
 public class FacturaDetalleSala implements Serializable {
     @Id
     @Column(name = "id_factura_detalle_sala", nullable = false)
@@ -24,6 +28,10 @@ public class FacturaDetalleSala implements Serializable {
     private BigDecimal monto;
 
     public FacturaDetalleSala() {
+    }
+
+    public FacturaDetalleSala(Long idFacturaDetalleSala) {
+        this.idFacturaDetalleSala = idFacturaDetalleSala;
     }
 
     public FacturaDetalleSala(Long idFacturaDetalleSala, Factura idFactura, ReservaDetalle idReservaDetalle, BigDecimal monto) {

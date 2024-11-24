@@ -9,17 +9,17 @@ import java.util.List;
 @Entity
 @Table(name = "reserva_detalle", schema = "public")
 @NamedQueries({
-    /** hp19021: ⬇️ Necesita ser invocada
+    /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado)*/
     @NamedQuery(name = "ReservaDetalle.findAll", query = "SELECT r FROM ReservaDetalle r"),
 
-    /** hp19021: ⬇️ Necesita idReservaDetalle(PK)[Long] de la tabla (ReservaDetalle)
+    /**⬇️ Necesita idReservaDetalle(PK)[Long] de la tabla (ReservaDetalle)
      * orden de retorno
      * (Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado)*/
     @NamedQuery(name = "ReservaDetalle.findByIdReservaDetalle", query = "SELECT r FROM ReservaDetalle r WHERE r.idReservaDetalle = :idReservaDetalle"),
 
-    /** hp19021: ⬇️ Necesita estado(columna)[String] de la tabla (ReservaDetalle)
+    /**⬇️ Necesita estado(columna)[String] de la tabla (ReservaDetalle)
      * orden de retorno
      * (Long idReservaDetalle, Reserva idReserva, Asiento idAsiento, String estado)*/
     @NamedQuery(name = "ReservaDetalle.findByEstado", query = "SELECT r FROM ReservaDetalle r WHERE r.estado = :estado")})
@@ -29,22 +29,24 @@ public class ReservaDetalle implements Serializable {
     @Column(name = "id_reserva_detalle", nullable = false)
     private Long idReservaDetalle;
 
-    /** *Relacion: ReservaDetalle/Reserva
-     * henry(hp19021):
+    /**
+     * Relacion: ReservaDetalle/Reserva
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_reserva")
     private Reserva idReserva;
 
-    /** *Relacion: ReservaDetalle/Asiento
-     * henry(hp19021):
+    /**
+     * Relacion: ReservaDetalle/Asiento
      * Programacion (fk)(M) <-> (1)(id) Sala
      */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_asiento")
     private Asiento idAsiento;
 
+    @OneToMany(mappedBy = "idReservaDetalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FacturaDetalleSala> facturaDetalleSalaList;
 
     @Size(max = 155)
     @Column(name = "estado", length = 155)
@@ -63,6 +65,14 @@ public class ReservaDetalle implements Serializable {
         this.idReserva = idReserva;
         this.idAsiento = idAsiento;
         this.estado = estado;
+    }
+
+    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
+        return facturaDetalleSalaList;
+    }
+
+    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
+        this.facturaDetalleSalaList = facturaDetalleSalaList;
     }
 
     //ReservaDetalle
@@ -99,12 +109,4 @@ public class ReservaDetalle implements Serializable {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-//    public List<FacturaDetalleSala> getFacturaDetalleSalaList() {
-//        return facturaDetalleSalaList;
-//    }
-//
-//    public void setFacturaDetalleSalaList(List<FacturaDetalleSala> facturaDetalleSalaList) {
-//        this.facturaDetalleSalaList = facturaDetalleSalaList;
-//    }
 }

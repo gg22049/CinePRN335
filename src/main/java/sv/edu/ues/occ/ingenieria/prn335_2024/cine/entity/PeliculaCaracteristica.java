@@ -7,32 +7,32 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pelicula_caracteristica", schema = "public")
 @NamedQueries({
-    /** hp19021: ⬇️ Necesita ser invocada
+    /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor)*/
     @NamedQuery(name = "PeliculaCaracteristica.findAll", query = "SELECT p FROM PeliculaCaracteristica p"),
 
-    /** hp19021: ⬇️ Necesita idPeliculaCaracteristica(PK)[Long] de la tabla (PeliculaCaracteristica)
+    /**⬇️ Necesita idPeliculaCaracteristica(PK)[Long] de la tabla (PeliculaCaracteristica)
      * orden de retorno
      * (Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor)*/
     @NamedQuery(name = "PeliculaCaracteristica.findByIdPeliculaCaracteristica", query = "SELECT p FROM PeliculaCaracteristica p WHERE p.idPeliculaCaracteristica = :idPeliculaCaracteristica"),
 
-    /** hp19021: ⬇️ Necesita valor(columna)[String] de la tabla (PeliculaCaracteristica)
+    /**⬇️ Necesita valor(columna)[String] de la tabla (PeliculaCaracteristica)
      * orden de retorno
      * (Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor)*/
     @NamedQuery(name = "PeliculaCaracteristica.findByValor", query = "SELECT p FROM PeliculaCaracteristica p WHERE p.valor = :valor"),
 
-        /** hp19021: ⬇️ Necesita idPelicula(PK)[Long] de la tabla(Pelicula)
-         * orden de retorno:
-         * (Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor),
-         * (Long idPelicula, String nombre, String sinopsis),
-         * (Integer idTipoPelicula, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
-        @NamedQuery(name="PeliculaCaracteristica.ListBySelected", query="SELECT pc FROM PeliculaCaracteristica pc where pc.idPelicula.idPelicula = :idPelicula order by pc.idTipoPelicula.nombre asc "),
+    /**⬇️ Necesita idPelicula(PK)[Long] de la tabla(Pelicula)
+     * orden de retorno:
+     * (Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor),
+     * (Long idPelicula, String nombre, String sinopsis),
+     * (Integer idTipoPelicula, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
+    @NamedQuery(name="PeliculaCaracteristica.ListBySelected", query="SELECT pc FROM PeliculaCaracteristica pc where pc.idPelicula.idPelicula = :idPelicula order by pc.idTipoPelicula.nombre asc "),
 
-        /** hp19021: ⬇️ Necesita idSPeliculaCaracteristica(PK)[Integer] de la tabla(PeliculaCaracteristica)
-         * orden de retorno:
-         * ('numero de cuentas que cumplen con la relacion')*/
-        @NamedQuery(name="PeliculaCaracteristica.cantidadPaginador", query ="SELECT count(pc) FROM PeliculaCaracteristica pc where pc.idPelicula.idPelicula = :idPelicula")})
+    /**⬇️ Necesita idSPeliculaCaracteristica(PK)[Integer] de la tabla(PeliculaCaracteristica)
+     * orden de retorno:
+     * ('numero de cuentas que cumplen con la relacion')*/
+    @NamedQuery(name="PeliculaCaracteristica.cantidadPaginador", query ="SELECT count(pc) FROM PeliculaCaracteristica pc where pc.idPelicula.idPelicula = :idPelicula")})
 
 public class PeliculaCaracteristica implements Serializable {
     @Id
@@ -40,7 +40,6 @@ public class PeliculaCaracteristica implements Serializable {
     private Long idPeliculaCaracteristica;
 
     /** *Relacion: PeliculaCaracteristica/TipoPelicula
-     * henry(hp19021)
      * PeliculaCaracteristica (M)(id) <-> (fk)(1) TipoPelicula
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,7 +47,6 @@ public class PeliculaCaracteristica implements Serializable {
     private TipoPelicula idTipoPelicula;
 
     /** *Relacion: PeliculaCaracteristica/Pelicula
-     * henry(hp19021)
      * PeliculaCaracteristica (id)(M) <-> (fk)(1) Pelicula
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,8 +58,7 @@ public class PeliculaCaracteristica implements Serializable {
     private String valor;
 
     //PeliculaCaracteristica
-    public PeliculaCaracteristica() {
-    }
+    public PeliculaCaracteristica() {}
 
     public PeliculaCaracteristica(Long idPeliculaCaracteristica) {
         this.idPeliculaCaracteristica = idPeliculaCaracteristica;
