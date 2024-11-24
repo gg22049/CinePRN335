@@ -59,11 +59,4 @@ public class TipoPago implements Serializable {
         this.activo = activo;
     }
 
-//    public List<Pago> getPagoList() {
-//        return pagoList;
-//    }
-//
-//    public void setPagoList(List<Pago> pagoList) {
-//        this.pagoList = pagoList;
-//    }
 }

@@ -82,11 +82,4 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-//    public List<FacturaDetalleProducto> getFacturaDetalleProductoList() {
-//        return facturaDetalleProductoList;
-//    }
-//
-//    public void setFacturaDetalleProductoList(List<FacturaDetalleProducto> facturaDetalleProductoList) {
-//        this.facturaDetalleProductoList = facturaDetalleProductoList;
-//    }
 }

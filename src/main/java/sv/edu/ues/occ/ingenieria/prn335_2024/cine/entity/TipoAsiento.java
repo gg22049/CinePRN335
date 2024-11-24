@@ -10,32 +10,32 @@ import java.util.List;
 @Entity
 @Table(name = "tipo_asiento", schema = "public")
 @NamedQueries({
-        /** hp19021: ⬇️ Necesita ser invocada
+        /**⬇️ Necesita ser invocada
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
         @NamedQuery(name = "TipoAsiento.findAll", query = "SELECT t FROM TipoAsiento t"),
 
-        /** hp19021: ⬇️ Necesita idTipoAsiento(PK)[Integer] de la tabla (TipoAsiento)
+        /**⬇️ Necesita idTipoAsiento(PK)[Integer] de la tabla (TipoAsiento)
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
         @NamedQuery(name = "TipoAsiento.findByIdTipoAsiento", query = "SELECT t FROM TipoAsiento t WHERE t.idTipoAsiento = :idTipoAsiento"),
 
-        /** hp19021: ⬇️ Necesita nombre(Columna)[String] de la tabla (TipoAsiento)
+        /**⬇️ Necesita nombre(Columna)[String] de la tabla (TipoAsiento)
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
         @NamedQuery(name = "TipoAsiento.findByNombre", query = "SELECT t FROM TipoAsiento t WHERE t.nombre = :nombre"),
 
-        /** hp19021: ⬇️ Necesita activo(Columna)[Boolean] de la tabla (TipoAsiento)
+        /**⬇️ Necesita activo(Columna)[Boolean] de la tabla (TipoAsiento)
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
         @NamedQuery(name = "TipoAsiento.findByActivo", query = "SELECT t FROM TipoAsiento t WHERE t.activo = :activo"),
 
-        /** hp19021: ⬇️ Necesita comentarios(Columna)[String] de la tabla (TipoAsiento)
+        /**⬇️ Necesita comentarios(Columna)[String] de la tabla (TipoAsiento)
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
         @NamedQuery(name = "TipoAsiento.findByComentarios", query = "SELECT t FROM TipoAsiento t WHERE t.comentarios = :comentarios"),
 
-        /** hp19021: ⬇️ Necesita expresionRegular(Columna)[String] de la tabla (TipoAsiento)
+        /**⬇️ Necesita expresionRegular(Columna)[String] de la tabla (TipoAsiento)
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
         @NamedQuery(name = "TipoAsiento.findByExpresionRegular", query = "SELECT t FROM TipoAsiento t WHERE t.expresionRegular = :expresionRegular")})
@@ -46,7 +46,6 @@ public class TipoAsiento implements Serializable {
     private Integer idTipoAsiento;
 
     /** *Relacion: TipoAsiento/AsientoCaracteristica
-     * henry(hp19021)
      * TipoAsiento (id)(M) <-> (fk)(1) AsientoCaracteristica
      */
     @OneToMany(mappedBy = "idTipoAsiento", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
