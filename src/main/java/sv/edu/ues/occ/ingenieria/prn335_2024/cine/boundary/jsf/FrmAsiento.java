@@ -12,14 +12,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Named
 @Dependent
 public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
 
     @Inject
-    AsientoBean bean;
+    AsientoBean aBean;
 
     @Inject
     FacesContext fc;
@@ -31,7 +30,7 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
 
     @Override
     public AbstractDataPersistence<Asiento> getDataPersist() {
-        return this.bean;
+        return this.aBean;
     }
 
     @Override
@@ -50,9 +49,10 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
     @Override
     public Asiento getObjeto(String id) {
         if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
-            return this.modelo.getWrappedData().stream().filter(r->r.getIdAsiento().toString().equals(id)).collect(Collectors.toList()).get(0);
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdAsiento().toString().equals(id)).toList().getFirst();
         }
-        return null;    }
+        return null;
+    }
 
     @Override
     public void instanciarRegistro() {
@@ -64,15 +64,11 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
         return Asiento.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
 
-    public FrmAsientoCaracteristica getFrmAsientoCaracteristica() {
-        return frmAsientoCaracteristica;
-    }
-
     @Override
     public int contar(){
         try {
-            if (idSala!=null && bean!=null) {
-                return bean.countAsiento(this.idSala);
+            if (idSala!=null && aBean !=null) {
+                return aBean.countAsiento(this.idSala);
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -83,8 +79,8 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
     @Override
     public List<Asiento> cargarDatos(int findFrist, int findMax){
         try {
-            if (idSala!=null && bean!=null) {
-                return bean.caracteristicaSelected(this.idSala, findFrist, findMax);
+            if (idSala!=null && aBean !=null) {
+                return aBean.caracteristicaSelected(this.idSala, findFrist, findMax);
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -92,11 +88,20 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
         return null;
     }
 
+    //Getter && Setter
     public Long getIdSala() {
         return idSala;
     }
 
     public void setIdSala(Long idSala) {
         this.idSala = idSala;
+    }
+
+    public FrmAsientoCaracteristica getFrmAsientoCaracteristica() {
+        return frmAsientoCaracteristica;
+    }
+
+    public void setFrmAsientoCaracteristica(FrmAsientoCaracteristica frmAsientoCaracteristica) {
+        this.frmAsientoCaracteristica = frmAsientoCaracteristica;
     }
 }

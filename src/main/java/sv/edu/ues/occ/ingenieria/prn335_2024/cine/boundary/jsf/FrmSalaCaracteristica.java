@@ -25,24 +25,26 @@ import java.util.stream.Collectors;
 @Dependent
 public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> implements Serializable {
 
+    //Bean Dependiente
     @Inject
     SalaCaracteristicaBean bean;
 
+    //Bean Independiente
     @Inject
-    TipoSalaBean tpBean;
+    TipoSalaBean tsBean;
 
     @Inject
     FacesContext fc;
 
-    List<TipoSala> tipoSalaList;
-    Long idSala;
+    protected List<TipoSala> tipoSalaList;
+    protected Long idSala;
 
     @PostConstruct
     @Override
     public void init() {
         super.init();
         try {
-            this.tipoSalaList=tpBean.findRange(0, Integer.MAX_VALUE);
+            this.tipoSalaList= tsBean.findRange(0,Integer.MAX_VALUE);
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
@@ -152,4 +154,5 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     public void setIdSala(Long idSala) {
         this.idSala = idSala;
     }
+
 }

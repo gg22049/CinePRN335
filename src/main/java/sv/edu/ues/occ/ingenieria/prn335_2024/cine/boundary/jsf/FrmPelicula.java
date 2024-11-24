@@ -1,5 +1,7 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -8,9 +10,12 @@ import org.primefaces.event.TabChangeEvent;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.PeliculaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Pelicula;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoPelicula;
 
 import java.io.Serializable;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Named
 @ViewScoped
@@ -24,6 +29,24 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
 
     @Inject
     FrmPeliculaCaracteristica frmPeliculaCaracteristica;
+
+    protected List<TipoPelicula> tipoPeliculaList;
+    protected Integer idPelicula;
+
+    @PostConstruct
+    @Override
+    public void init() {
+        super.init();
+        try{
+            tipoPeliculaList = frmPeliculaCaracteristica.getTipoPeliculaList();
+        }catch (Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+            FacesMessage mensaje = new FacesMessage();
+            mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+            mensaje.setSummary("Error al encontrar el tipo de pelicula");
+            fc.addMessage(null, mensaje);
+        }
+    }
 
     @Override
     public AbstractDataPersistence<Pelicula> getDataPersist() {

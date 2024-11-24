@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.SalaCaracteristica;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoSala;
 
 import java.io.Serializable;
 import java.util.List;
@@ -49,6 +50,21 @@ public class SalaCaracteristicaBean extends AbstractDataPersistence<SalaCaracter
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
         return 0;
+    }
+
+    //laksdaksmd
+    public List<TipoSala> cargarTipoSalaList(final Long idSala){
+        //Metodo junto con NamedQuery
+        if(idSala!=null){
+            try {
+                TypedQuery<TipoSala> q = em.createNamedQuery("SalaCaracteristica.tiposByIdSala", TipoSala.class);
+                q.setParameter("idSala", idSala);
+                return q.getResultList();
+            }catch (Exception e){
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
+            }
+        }
+        return List.of();
     }
     
 }

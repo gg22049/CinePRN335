@@ -1,6 +1,8 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -8,12 +10,14 @@ import java.io.Serializable;
 @Table(name = "sala_caracteristica", schema = "public")
 @NamedQueries(
         {
-                @NamedQuery(name="SalaCaracteristica.ListBySelected", query="select sc from SalaCaracteristica  sc where sc.idSala.idSala = :idSala order by sc.idTipoSala.nombre asc"),
-                @NamedQuery(name="SalaCaracteristica.cantidadPaginador", query="select count(sc) from SalaCaracteristica sc where sc.idSala.idSala = :idSala ")
+                @NamedQuery(name="SalaCaracteristica.ListBySelected", query="select sc from SalaCaracteristica sc where sc.idSala.idSala = :idSala order by sc.idSalaCaracteristica asc"),
+                @NamedQuery(name="SalaCaracteristica.cantidadPaginador", query="select count(sc) from SalaCaracteristica sc where sc.idSala.idSala = :idSala "),
+                @NamedQuery(name="SalaCaracteristica.tiposByIdSala", query="select sc from SalaCaracteristica sc where sc.idSala.idSala = :idSala order by sc.idSala.idSala asc ")
         }
 )
 public class SalaCaracteristica implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sala_caracteristica", nullable = false)
     private Long idSalaCaracteristica;
 
@@ -26,6 +30,8 @@ public class SalaCaracteristica implements Serializable {
     private Sala idSala;
 
     @Lob
+    @NotBlank(message = "Debe ingresar un valor valido")
+    @Size(min=3, max = 155, message = "El valor debe tener entre 3 y 155 caracteres")
     @Column(name = "valor")
     private String valor;
 

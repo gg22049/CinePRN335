@@ -34,8 +34,8 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
     @Inject
     FacesContext fc;
 
-    List<TipoPelicula> tipoPeliculaList;
-    Long idPelicula;
+    protected List<TipoPelicula> tipoPeliculaList;
+    protected Long idPelicula;
 
     @PostConstruct
     @Override

@@ -31,6 +31,7 @@ public class TipoAsiento implements Serializable {
     private String comentarios;
 
     @Lob
+    @NotBlank(message = "Debe ingresar una expresion valido")
     @Column(name = "expresion_regular")
     private String expresionRegular;
 

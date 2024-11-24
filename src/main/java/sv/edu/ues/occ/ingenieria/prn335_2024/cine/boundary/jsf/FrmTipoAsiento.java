@@ -7,7 +7,6 @@ import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoAsientoBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoAsiento;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoSala;
 
 import java.io.Serializable;
 import java.util.stream.Collectors;

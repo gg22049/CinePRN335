@@ -1,6 +1,7 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import javax.xml.namespace.QName;
@@ -15,6 +16,7 @@ import java.util.List;
 })
 public class Asiento implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_asiento", nullable = false)
     private Long idAsiento;
 
@@ -28,7 +30,8 @@ public class Asiento implements Serializable {
     //@OneToMany(mappedBy = "reserva_detalle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     //private List<ReservaDetalle> reservaDetalleList;
 
-    @Size(max = 155)
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
     @Column(name = "nombre", length = 155)
     private String nombre;
 

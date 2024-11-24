@@ -7,6 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.AsientoCaracteristica;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.PeliculaCaracteristica;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoAsiento;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,6 +28,19 @@ public class AsientoCaracteristicaBean extends AbstractDataPersistence<AsientoCa
     @Override
     public EntityManager getEntityManager() {
         return em;
+    }
+
+    public List<TipoAsiento> tiposAsientosByIdAsiento(final Long idAsiento) {
+        if (idAsiento != null || em !=null) {
+            try {
+                TypedQuery<TipoAsiento> q = em.createNamedQuery("AsientoCaracteristica.TiposAsientosByIdAsiento", TipoAsiento.class);
+                q.setParameter("idAsiento", idAsiento);
+                return q.getResultList();
+            }catch (Exception e) {
+                Logger.getLogger(AsientoCaracteristicaBean.class.getName()).log(Level.SEVERE, e.getMessage(), e);
+            }
+        }
+        return List.of();
     }
 
     public List<AsientoCaracteristica> caracteristicaSelected(final Long idAsiento, int first, int max ){

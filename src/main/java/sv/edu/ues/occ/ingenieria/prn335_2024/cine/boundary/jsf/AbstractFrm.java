@@ -263,7 +263,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("El registro no debe ser nulo para modificar");
+                mensaje.setSummary("Error al modificar registro");
                 fc.addMessage(null, mensaje);
             }
         }
