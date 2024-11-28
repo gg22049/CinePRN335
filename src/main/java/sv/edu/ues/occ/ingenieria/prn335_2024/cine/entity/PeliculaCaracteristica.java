@@ -1,6 +1,8 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -27,7 +29,7 @@ import java.io.Serializable;
      * (Long idPeliculaCaracteristica, TipoPelicula idTipoPelicula, Pelicula idPelicula, String valor),
      * (Long idPelicula, String nombre, String sinopsis),
      * (Integer idTipoPelicula, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
-    @NamedQuery(name="PeliculaCaracteristica.ListBySelected", query="SELECT pc FROM PeliculaCaracteristica pc where pc.idPelicula.idPelicula = :idPelicula order by pc.idTipoPelicula.nombre asc "),
+    @NamedQuery(name="PeliculaCaracteristica.ListBySelected", query="SELECT pc FROM PeliculaCaracteristica pc where pc.idPelicula.idPelicula = :idPelicula order by pc.idPeliculaCaracteristica asc "),
 
     /**⬇️ Necesita idSPeliculaCaracteristica(PK)[Integer] de la tabla(PeliculaCaracteristica)
      * orden de retorno:
@@ -36,6 +38,7 @@ import java.io.Serializable;
 
 public class PeliculaCaracteristica implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pelicula_caracteristica", nullable = false)
     private Long idPeliculaCaracteristica;
 
@@ -54,6 +57,8 @@ public class PeliculaCaracteristica implements Serializable {
     private Pelicula idPelicula;
 
     @Lob
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
     @Column(name = "valor")
     private String valor;
 

@@ -22,5 +22,4 @@ public class TipoSalaBean extends AbstractDataPersistence<TipoSala> implements S
     public EntityManager getEntityManager() {
         return em;
     }
-
 }

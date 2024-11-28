@@ -2,5 +2,10 @@
 target/
 
 ### IntelliJ IDEA ###
-.idea
-workspace.xml
+.idea/
+cine.iml
+
+### Maven ###
+.mvn/wrapper/
+mvnw
+mvnw.cmd

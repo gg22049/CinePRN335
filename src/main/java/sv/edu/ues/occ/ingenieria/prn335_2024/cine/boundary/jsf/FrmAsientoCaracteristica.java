@@ -1,6 +1,5 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.Dependent;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
@@ -34,19 +33,8 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     @Inject
     FacesContext fc;
 
-    List<TipoAsiento> tipoAsientoList;
-    Long idAsiento;
-
-    @PostConstruct
-    @Override
-    public void init() {
-        super.init();
-        try {
-            this.tipoAsientoList=taBean.findRange(0,Integer.MAX_VALUE);
-        }catch (Exception e){
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
-        }
-    }
+    protected  List<TipoAsiento> tipoAsientoList;
+    protected Long idAsiento;
 
     @Override
     public AbstractDataPersistence<AsientoCaracteristica> getDataPersist() {
@@ -122,6 +110,7 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
         input.setValue(false);
     }
 
+    //Propiedades Sintericas
     public Integer getIdTipoAsientoSeleccionado() {
         if (this.registro!=null && this.registro.getIdTipoAsiento()!=null) {
             return this.registro.getIdTipoAsiento().getIdTipoAsiento();
@@ -152,4 +141,5 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     public void setIdAsiento(Long idAsiento) {
         this.idAsiento = idAsiento;
     }
+
 }

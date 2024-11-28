@@ -1,14 +1,15 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "sala_caracteristica", schema = "public")
 @NamedQueries({
-    @NamedQuery(name="SalaCaracteristica.ListBySelected", query="select sc from SalaCaracteristica  sc where sc.idSala.idSala = :idSala order by sc.idTipoSala.nombre asc"),
-    @NamedQuery(name="SalaCaracteristica.cantidadPaginador", query="select count(sc) from SalaCaracteristica sc where sc.idSala.idSala = :idSala "),
+    @NamedQuery(name="SalaCaracteristica.tiposByIdSala", query="select sc from SalaCaracteristica sc where sc.idSala.idSala = :idSala order by sc.idSala.idSala asc "),
     /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor)*/
@@ -29,16 +30,17 @@ import java.io.Serializable;
      * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor),
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones),
      * (Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
-    //@NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idTipoSala.nombre ASC"),
+    @NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idTipoSala.nombre ASC"),
 
     /**⬇️ Necesita idSala(PK)[Integer] de la tabla(Sala)
      * orden de retorno:
      * ('numero de cuentas que cumplen con la relacion')*/
-    //@NamedQuery(name = "SalaCaracteristica.cantidadPaginador", query="SELECT count(sc) FROM SalaCaracteristica sc WHERE sc.idSala.idSala = :idSala")
+    @NamedQuery(name = "SalaCaracteristica.cantidadPaginador", query="SELECT count(sc) FROM SalaCaracteristica sc WHERE sc.idSala.idSala = :idSala")
     })
 
 public class SalaCaracteristica implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sala_caracteristica", nullable = false)
     private Long idSalaCaracteristica;
 
@@ -57,6 +59,8 @@ public class SalaCaracteristica implements Serializable {
     private Sala idSala;
 
     @Lob
+    @NotBlank(message = "Debe ingresar un valor valido")
+    @Size(min=3, max = 155, message = "El valor debe tener entre 3 y 155 caracteres")
     @Column(name = "valor")
     private String valor;
 

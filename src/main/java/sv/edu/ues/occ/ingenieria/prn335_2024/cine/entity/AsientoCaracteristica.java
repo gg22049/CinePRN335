@@ -1,6 +1,8 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -9,6 +11,7 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name="AsientoCaracteristica.ListBySelected",query = "select a from AsientoCaracteristica a where a.idAsiento = :idAsiento order by a.idAsientoCaracteristica asc"),
     @NamedQuery(name="AsientoCaracteristica.cantidadPaginador",query = "select count(a) from AsientoCaracteristica a where a.idAsiento = :idAsiento"),
+    @NamedQuery(name="AsientoCaracteristica.TiposAsientosByIdAsiento", query = "select ac.idTipoAsiento from AsientoCaracteristica ac where ac.idAsiento.idAsiento = :idAsiento order by ac.idAsientoCaracteristica asc"),
     /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
@@ -22,10 +25,11 @@ import java.io.Serializable;
     /**⬇️ Necesita valor(columna)[String] de la tabla (AsientoCaracteristica)
      * orden de retorno
      * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
-    @NamedQuery(name = "AsientoCaracteristica.findByValor", query = "SELECT a FROM AsientoCaracteristica a WHERE a.valor = :valor")})
-
+    @NamedQuery(name = "AsientoCaracteristica.findByValor", query = "SELECT a FROM AsientoCaracteristica a WHERE a.valor = :valor")
+})
 public class AsientoCaracteristica implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_asiento_caracteristica", nullable = false)
     private Long idAsientoCaracteristica;
 
@@ -44,6 +48,8 @@ public class AsientoCaracteristica implements Serializable {
     private TipoAsiento idTipoAsiento;
 
     @Lob
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
     @Column(name = "valor")
     private String valor;
 
@@ -62,7 +68,14 @@ public class AsientoCaracteristica implements Serializable {
         this.valor = valor;
     }
 
-    //Asiento
+    public Long getIdAsientoCaracteristica() {
+        return idAsientoCaracteristica;
+    }
+
+    public void setIdAsientoCaracteristica(Long idAsientoCaracteristica) {
+        this.idAsientoCaracteristica = idAsientoCaracteristica;
+    }
+
     public Asiento getIdAsiento() {
         return idAsiento;
     }
@@ -78,15 +91,6 @@ public class AsientoCaracteristica implements Serializable {
 
     public void setIdTipoAsiento(TipoAsiento idTipoAsiento) {
         this.idTipoAsiento = idTipoAsiento;
-    }
-
-
-    public Long getIdAsientoCaracteristica() {
-        return idAsientoCaracteristica;
-    }
-
-    public void setIdAsientoCaracteristica(Long idAsientoCaracteristica) {
-        this.idAsientoCaracteristica = idAsientoCaracteristica;
     }
 
     public String getValor() {

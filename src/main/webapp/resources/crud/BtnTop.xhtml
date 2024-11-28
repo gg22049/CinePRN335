@@ -19,10 +19,11 @@
                       displayName="Actualizar componentes"
                       shortDescription="Area a refrescar por el componente"/>
     </cc:interface>
+
     <cc:implementation>
         <p:growl life="5000"/>
         <h:panelGrid>
-            <p:commandButton value="#{abstractFrm['abstractFrm.new']}" icon="pi pi-plus" actionListener="#{cc.attrs.frm.btnNuevoHandler}"
+            <p:commandButton value="#{abstractFrm['abstractFrm.new']}" actionListener="#{cc.attrs.frm.btnNuevoHandler}"
                              styleClass="ui-button-secondary" style="margin-right: .5rem"
                              update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado=='NINGUNO'}"/>
             <p:commandButton value="#{abstractFrm['abstractFrm.update']}" icon="pi pi-refresh" actionListener="#{cc.attrs.frm.btnModificarHandler}"

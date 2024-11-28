@@ -60,5 +60,4 @@ public class FrmTipoSala extends AbstractFrm<TipoSala> implements Serializable {
     public String getTituloPagina(){
         return TipoSala.class.getSimpleName().replaceAll("([a-z])([A-Z])", "$1 de $2");
     }
-
 }

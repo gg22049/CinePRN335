@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<f:composition xmlns="http://www.w3.org/1999/xhtml"
+<fc:composition xmlns="http://www.w3.org/1999/xhtml"
                xmlns:p="http://primefaces.org/ui"
                xmlns:h="jakarta.faces.html"
-               xmlns:f="jakarta.faces.facelets"
-               xmlns:c="jakarta.faces.core"
+               xmlns:fc="jakarta.faces.facelets"
+               xmlns:f="jakarta.faces.core"
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud">
 
-    <f:define name="titulo">
+    <fc:define name="titulo">
         #{frmSala.titulo}
-    </f:define>
+    </fc:define>
 
-    <f:define name="cuerpo">
+    <fc:define name="cuerpo">
 
         <h:panelGroup id="pnlGpDatos">
             <h:form>
@@ -41,7 +41,6 @@
                         <p:column headerText="Observaciones" sortBy="#{r.observaciones}">
                             <h:outputText value="#{r.observaciones}"/>
                         </p:column>
-
                     </p:dataTable>
                     <crud:BtnTop frm="#{frmSala}"/>
                 </h:panelGrid>
@@ -49,7 +48,10 @@
         </h:panelGroup>
 
         <h:panelGroup id="pnlGpDetalle">
-            <p:tabView id="tabDetalle" cache="false" rendered="#{frmSala.estado=='MODIFICAR'}" dynamic="true">
+            <p:commandButton actionListener="#{frmSala.btnCancelarHandler}" value="#{abstractFrm['abstractFrm.cancel']}"
+                             process="@this" update=":pnlGpDetalle :pnlGpDatos"
+                             styleClass="ui-button-secondary" style="margin-right: .5rem" icon="pi pi-times-circle" rendered="#{frmSala.estado=='MODIFICAR'}"/>
+            <p:tabView id="tabDetalle" cache="false" rendered="#{frmSala.estado!='NINGUNO'}" dynamic="true">
 
                 <p:ajax process="@this" event="tabChange" listener="#{frmSala.cambiarTab}"/>
 
@@ -59,12 +61,17 @@
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Id Sala" for="txtIdSala"/>
                                 <h:inputText id="txtIdSala" value="#{frmSala.registro.idSala}" readonly="true" disabled="true"/>
-                                <h:outputLabel value="Id" for="txtIdSucursal"/>
+                                <h:outputLabel value="Id Sucursal" for="txtIdSucursal"/>
                                 <h:inputText id="txtIdSucursal" value="#{frmSala.registro.idSucursal.idSucursal}" readonly="true" disabled="true"/>
                                 <h:outputLabel value="Nombre" for="txtNombre"/>
                                 <h:inputText  id="txtNombre" value="#{frmSala.registro.nombre}" required="true"/>
+                                <h:outputText value="Sucursa" for="sucursalList"/>
+                                <p:selectOneMenu id="sucursalList" value="#{frmSala.sucursalList}">
+                                    <f:selectItems value="#{frmSala.sucursalList}" var="s"
+                                                    itemLabel="#{s.nombre}" itemValue="#{s.idSucursal}"/>
+                                </p:selectOneMenu>
                                 <h:outputLabel value="Activo" for="txtActivo"/>
-                                <h:inputTextarea size="50" id="txtActivo" value="#{frmSala.registro.activo}"/>
+                                <h:selectBooleanCheckbox id="txtActivo" value="#{frmSala.registro.activo}"/>
                                 <h:outputLabel value="Observaciones" for="txtObservaciones"/>
                                 <h:inputTextarea size="50" id="txtObservaciones" value="#{frmSala.registro.observaciones}"/>
                             </h:panelGrid>
@@ -75,7 +82,7 @@
                     </h:panelGrid>
                 </p:tab>
 
-                <p:tab title="Tipos" disabled="#{frmSala.estado!='MODIFICAR'}" closable="false">
+                <p:tab title="Caracteristicas" disabled="#{frmSala.estado!='MODIFICAR'}" closable="false">
                     <h:panelGroup id="tiposPnlGpDatos">
                         <h:form>
                             <h:panelGrid rendered="#{frmSala.frmSalaCaracteristica.estado == 'NINGUNO'}">
@@ -84,7 +91,7 @@
                                              paginatorPosition="bottom" reflow="true" rowKey="#{r.idSalaCaracteristica}"
                                              paginator="true" rows="10" styleClass="dt-products" lazy="true">
 
-                                    <p:ajax event="rowSelect" update="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos" process="@this"
+                                    <p:ajax event="rowSelect" update="tabDetalle:tiposPnlGpDatos tabDetalle:tiposPnlGpDetalle" process="@this"
                                             listener="#{frmSala.frmSalaCaracteristica.selecionarRegistro}"/>
 
                                     <p:column headerText="Id Caracteristica Sala" sortBy="#{r.idSalaCaracteristica}">
@@ -100,29 +107,32 @@
                                         <h:outputText value="#{r.valor}"/>
                                     </p:column>
                                 </p:dataTable>
+                                <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
                             </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
+
                     <h:panelGroup id="tiposPnlGpDetalle">
                         <h:panelGrid>
                             <h:form>
-                                <h:panelGrid columns="2" rendered="#{frmSala.frmSalaCaracteristica.estado !='NINGUNO'}">
-                                    <h:outputLabel value="ID" for="TiposTxtId"/>
-                                    <h:inputText id="TiposTxtId" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
-                                    <h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
-                                    <h:selectOneMenu id="listTipoSala" value="#{frmSala.frmSalaCaracteristica.idTipoSalaSeleccionado}">
-                                        <c:selectItems value="#{frmSala.frmSalaCaracteristica.tipoSalaList}" var="tp"
-                                                       itemLabel="#{tp.nombre}" itemValue="#{tp.idTipoSala}"/>
-                                        <p:ajax execute="@this" update="txtValor"/>
-                                    </h:selectOneMenu>
-                                    <p:outputLabel value="Valor" for="txtValor"/>
-                                    <p:inputTextarea id="txtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
-                                                     value="#{frmSala.frmSalaCaracteristica.registro.valor}"
-                                                     rows="3" cols="10"/>
-                                </h:panelGrid>
-                                <h:panelGrid>
-                                    <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
-                                </h:panelGrid>
+                                <h:panelGroup rendered="#{frmSala.frmSalaCaracteristica.estado!='NINGUNO'}">
+                                    <h:panelGrid columns="2">
+
+                                        <h:outputLabel value="Id Sala" for="tiposTxtIdSala"/>
+                                        <h:inputText id="tiposTxtIdSala" value="#{frmSala.frmSalaCaracteristica.registro.idSala.idSala}" readonly="true" disabled="true"/>
+                                        <h:outputLabel value="Id Caracteristica" for="tiposTxtIdCaracteristicas"/>
+                                        <h:inputText id="tiposTxtIdCaracteristicas" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
+                                        <h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
+                                        <p:selectOneMenu id="listTipoSala" value="#{frmSala.frmSalaCaracteristica.idTipoSalaSeleccionado}">
+                                            <f:selectItems value="#{frmSala.frmSalaCaracteristica.tipoSalaList}" var="tp"
+                                                            itemValue="#{tp.idTipoSala}" itemLabel="#{tp.nombre}"/>
+                                            <p:ajax event="change" execute="@this" update="tiposTxtValor"/>
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Valor" for="tiposTxtValor"/>
+                                        <p:inputTextarea id="tiposTxtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
+                                                         value="#{frmSala.frmSalaCaracteristica.registro.valor}"/>
+                                    </h:panelGrid>
+                                </h:panelGroup>
                             </h:form>
                         </h:panelGrid>
                     </h:panelGroup>
@@ -136,11 +146,14 @@
                                              paginator="true" rows="10" styleClass="dt-products" lazy="true" paginatorPosition="bottom"
                                              value="#{frmSala.frmAsiento.modelo}" selection="#{frmSala.frmAsiento.registro}" rowKey="#{r.idAsiento}">
 
-                                    <p:ajax event="rowSelect" update="tabDetalle:asientosPnlGpDatos tabDetalle:asientosPnlGpDetalle" listener="#{frmSala.frmAsiento.selecionarRegistro}"/>
+                                    <p:ajax event="rowSelect" update="tabDetalle:asientosPnlGpDatos tabDetalle:asientosPnlGpDetalle" listener="#{frmSala.frmAsiento.selecionarRegistro()}"/>
 
-                                        <p:column headerText="Id Asiento" sortBy="#{r.idAsiento}">
-                                            <h:outputText value="#{r.idAsiento}"/>
-                                        </p:column>
+                                    <p:column headerText="Id Asiento" sortBy="#{r.idAsiento}">
+                                        <h:outputText value="#{r.idAsiento}"/>
+                                    </p:column>
+                                    <p:column headerText="Id Sala" sortBy="#{r.idSala}">
+                                        <h:outputText value="#{r.idSala.idSala}"/>
+                                    </p:column>
                                     <p:column headerText="Nombre" sortBy="#{r.nombre}">
                                         <h:outputText value="#{r.nombre}" />
                                     </p:column>
@@ -154,54 +167,60 @@
 
                     <h:panelGroup id="asientosPnlGpDetalle">
                         <h:form>
-                            <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado != 'NINGUNO'}">
-                                <h:outputText value="Id Asiento" for="asientosTxtId"/>
-                                <h:inputText id="asientosTxtId" value="#{frmSala.frmAsiento.registro.idAsiento}" readonly="true" disabled="true"/>
-                                <h:outputText value="Nombre" for="asientosTxtNomnbre"/>
-                                <h:inputText id="asientosTxtNomnbre" value="#{frmSala.frmAsiento.registro.nombre}"/>
-                                <!--h:outputText value="Tipo" for="tipoAsientoList"/>
-                                <h:selectOneMenu id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.tipoAsientoList}">
-                                    <c:selectItems Value="#{frmSala.frmAsiento.frmAsientoCaracteristica.tipoAsientoList}" var="ta"
-                                                  itemValue="#{ta.idTipoAsiento}" itemLabel="#{ta.nombre}"/>
-                                </h:selectOneMenu-->
-                                <h:outputText for="asientostxtValor" value="Valor"/>
-                                <p:inputTextarea id="asientostxtValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}"
-                                                rows="3" cols="7" validator="#{frmSala.frmAsiento.frmAsientoCaracteristica.validarVailador}"/>
-                            </h:panelGrid>
-                            <h:panelGrid>
-                                <crud:BtnTop frm="#{frmSala.frmAsiento}" actualizar="tabDetalle:asientosPnlGpDetalle tabDetalle:asientosPnlGpDatos"/>
-                            </h:panelGrid>
+                            <h:panelGroup >
+                                <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado != 'NINGUNO'}">
+                                    <h:outputText value="Id Asiento" for="asientosTxtId"/>
+                                    <h:inputText id="asientosTxtId" value="#{frmSala.frmAsiento.registro.idAsiento}" readonly="true" disabled="true"/>
+                                    <h:outputText value="Nombre" for="asientosTxtNomnbre"/>
+                                    <h:inputText id="asientosTxtNomnbre" value="#{frmSala.frmAsiento.registro.nombre}"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
+                                    <crud:BtnTop frm="#{frmSala.frmAsiento}" actualizar="tabDetalle:asientosPnlGpDetalle tabDetalle:asientosPnlGpDatos"/>
+                                </h:panelGrid>
+
+<!--                                <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado=='MODIFICAR'}">-->
+<!--                                    <h:outputText value="Caracteristicas" for="tipoAsientoList"/>-->
+<!--                                    <p:orderList id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.modelo}" var="r"-->
+<!--                                                 itemValue="#{r}" itemLabel="#{r.nombre}" responsive="true"-->
+<!--                                                 controlsLocation="none" >-->
+<!--                                        <p:ajax event="select"  process="@this" update="asientosValor"/>-->
+<!--                                    </p:orderList>-->
+<!--                                    <h:outputText value="Valor" for="asientosValor"/>-->
+<!--                                    <h:inputTextarea id="asientosValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}"/>-->
+<!--                                </h:panelGrid>-->
+                            </h:panelGroup>
                         </h:form>
                     </h:panelGroup>
                 </p:tab>
 
-                <p:tab title="Programacion" disabled="#{frmSala.estado!='MODIFICAR'}">
-                    <h:panelGroup id="CalendarioProgramacion">
-                        <h:form>
-                            <h:panelGrid rendered="#{frmSala.frmProgramacion.idSala!=null}">
-                                <p:schedule value="#{frmSala.frmProgramacion.scheduleModel}"/>
-                            </h:panelGrid>
-                            <p:dialog widgetVar="eventoDialogo" id="eventoDialogo" header="Agregar Programacion" modal="true" draggable="false" resizable="false">
-                                <h:panelGrid columns="2">
-                                    <h:outputText value="Id" for="prnId"/>
-                                    <h:inputText id="prnId" value="#{frmSala.frmProgramacion.registro.idSala}" readonly="true" disabled="true"/>
-                                    <h:outputText value="Pelicula" for="prnPelicula"/>
-                                    <h:inputText id="prnPelicula" value="#{frmSala.frmProgramacion.registro.idPelicula.nombre}"/>
-                                    <h:outputText value="Desde" for="prnDesde"/>
-                                    <h:inputText id="prnDesde" value="#{frmSala.frmProgramacion.registro.desde}"/>
-                                    <h:outputText value="Hasta" for="prnHasta"/>
-                                    <h:inputText id="prnHasta" value="#{frmSala.frmProgramacion.registro.hasta}"/>
-                                </h:panelGrid>
-                                <p:commandButton value="#{abstractFrm['abstractFrm.create']}"
-                                                 process="@this" update="tabDetalle:calendarioProgramacion" actionListener="#{frmSala.frmProgramacion.btnGuardarHandler}"
-                                                 styleClass="ui-button-success" style="margin-right: .5rem" con="pi pi-save" oncomplete="PF('eventoDialogo').hide())"/>
-                                </p:dialog>
-                        </h:form>
-                    </h:panelGroup>
-                </p:tab>
+<!--                <p:tab title="Programacion" disabled="#{frmSala.estado!='MODIFICAR'}">-->
+<!--                    <h:panelGroup id="CalendarioProgramacion">-->
+<!--                        <h:form>-->
+<!--                            <h:panelGrid rendered="#{frmSala.frmProgramacion.idSala!=null}">-->
+<!--                                <p:schedule value="#{frmSala.frmProgramacion.scheduleModel}"/>-->
+<!--                            </h:panelGrid>-->
+<!--                            <p:dialog widgetVar="eventoDialogo" id="eventoDialogo" header="Agregar Programacion" modal="true" draggable="false" resizable="false">-->
+<!--                                <h:panelGrid columns="2">-->
+<!--                                    <h:outputText value="Id" for="prnId"/>-->
+<!--                                    <h:inputText id="prnId" value="#{frmSala.frmProgramacion.registro.idSala}" readonly="true" disabled="true"/>-->
+<!--                                    <h:outputText value="Pelicula" for="prnPelicula"/>-->
+<!--                                    <h:inputText id="prnPelicula" value="#{frmSala.frmProgramacion.registro.idPelicula.nombre}"/>-->
+<!--                                    <h:outputText value="Desde" for="prnDesde"/>-->
+<!--                                    <h:inputText id="prnDesde" value="#{frmSala.frmProgramacion.registro.desde}"/>-->
+<!--                                    <h:outputText value="Hasta" for="prnHasta"/>-->
+<!--                                    <h:inputText id="prnHasta" value="#{frmSala.frmProgramacion.registro.hasta}"/>-->
+<!--                                </h:panelGrid>-->
+<!--                                <p:commandButton value="#{abstractFrm['abstractFrm.create']}"-->
+<!--                                                 process="@this" update="tabDetalle:calendarioProgramacion" actionListener="#{frmSala.frmProgramacion.btnGuardarHandler}"-->
+<!--                                                 styleClass="ui-button-success" style="margin-right: .5rem" con="pi pi-save" oncomplete="PF('eventoDialogo').hide())"/>-->
+<!--                                </p:dialog>-->
+<!--                        </h:form>-->
+<!--                    </h:panelGroup>-->
+<!--                </p:tab>-->
 
             </p:tabView>
         </h:panelGroup>
 
-    </f:define>
-</f:composition>
+    </fc:define>
+</fc:composition>
