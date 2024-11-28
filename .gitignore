@@ -2,5 +2,5 @@
 target/
 
 ### IntelliJ IDEA ###
-.idea
-workspace.xml
+.idea/
+cine.iml
