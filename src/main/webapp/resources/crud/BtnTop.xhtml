@@ -36,7 +36,7 @@
                              update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado=='MODIFICAR'}"/>
             <p:commandButton value="#{abstractFrm['abstractFrm.cancel']}" icon="pi pi-times-circle" actionListener="#{cc.attrs.frm.btnCancelarHandler}"
                              styleClass="ui-button-secondary" style="margin-right: .5rem"
-                             update="#{cc.attrs.actualizar}" process="@form" rendered="#{cc.attrs.frm.estado!='NINGUNO'}"/>
+                             update="#{cc.attrs.actualizar}" process="@this" immediate="true" rendered="#{cc.attrs.frm.estado!='NINGUNO'}"/>
         </h:panelGrid>
     </cc:implementation>
 

@@ -259,8 +259,6 @@ public abstract class AbstractFrm<T> implements Serializable {
             try{
                 AbstractDataPersistence<T> dataBean= getDataPersist();
                 dataBean.update(registro);
-                this.registro = null;
-                this.estado = ESTADO_CRUD.NINGUNO;
                 mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
                 //desde jhonatan
                 mensaje.setSummary("El registro " + registro.getClass().getSimpleName() + " se actualizó exitosamente");
