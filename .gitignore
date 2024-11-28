@@ -4,3 +4,8 @@ target/
 ### IntelliJ IDEA ###
 .idea/
 cine.iml
+
+### Maven ###
+.mvn/wrapper/
+mvnw
+mvnw.cmd
