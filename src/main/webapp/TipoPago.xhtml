@@ -32,12 +32,12 @@
         <h:panelGroup id="pnlGpDetalle">
             <h:form id="frmDetalle">
                 <h:panelGrid columns="2" rendered="#{frmTipoPago.estado!='NINGUNO'}">
-                    <h:outputLabel value="ID" for="txtId"/>
-                    <h:inputText id="txtId" value="#{frmTipoPago.registro.idTipoPago}" readonly="true" disabled="true"/>
-                    <h:outputLabel value="Nombre" for="txtNombre"/>
-                    <h:inputText id="txtNombre" value="#{frmTipoPago.registro.nombre}" required="true"/>
-                    <h:outputLabel value="Activo" for="chkActivo"/>
-                    <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPago.registro.activo}"/>
+                    <p:outputLabel value="ID" for="txtId"/>
+                    <p:inputText id="txtId" value="#{frmTipoPago.registro.idTipoPago}" readonly="true" disabled="true"/>
+                    <p:outputLabel value="Nombre" for="txtNombre"/>
+                    <p:inputText id="txtNombre" value="#{frmTipoPago.registro.nombre}" required="true" placeholder="Ingrese un nombre"/>
+                    <p:outputLabel value="Activo" for="chkActivo"/>
+                    <p:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPago.registro.activo}"/>
                 </h:panelGrid>
                 <h:panelGrid>
                     <crud:BtnTop frm="#{frmTipoPago}"/>

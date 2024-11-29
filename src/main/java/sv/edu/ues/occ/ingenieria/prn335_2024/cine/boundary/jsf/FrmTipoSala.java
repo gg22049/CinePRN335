@@ -50,10 +50,7 @@ public class FrmTipoSala extends AbstractFrm<TipoSala> implements Serializable {
     @Override
     public void instanciarRegistro() {
         this.registro = new TipoSala();
-        this.registro.setNombre("Nombre de la Sala");
-        this.registro.setExpresionRegular(".");
-        this.registro.setActivo(true);
-        this.registro.setComentarios("Comentarios aquí.");
+
     }
 
     @Override

@@ -48,21 +48,21 @@
             <p:ajax process="@this" event="tabChange" listener="#{frmPelicula.cambiarTab}"/>
 
             <p:tab title="Detalle" closable="false">
-               <h:panelGrid>
+               <p:panelGrid>
                   <h:form id="frmDetalle" rendered="#{frmPelicula.estado=='MODIFICAR'}">
                      <h:panelGrid columns="2">
-                        <h:outputLabel value="ID" for="txtId"/>
-                        <h:inputText id="txtId" value="#{frmPelicula.registro.idPelicula}" readonly="true" disabled="true"/>
-                        <h:outputLabel value="Nombre" for="txtNombre"/>
-                        <h:inputText  id="txtNombre" value="#{frmPelicula.registro.nombre}" required="true"/>
-                        <h:outputLabel value="Sinopsis" for="txtSinopsis"/>
-                        <h:inputTextarea size="50" id="txtSinopsis" value="#{frmPelicula.registro.sinopsis}"/>
+                        <p:outputLabel value="ID" for="txtId"/>
+                        <p:inputText id="txtId" value="#{frmPelicula.registro.idPelicula}" readonly="true" disabled="true"/>
+                        <p:outputLabel value="Nombre" for="txtNombre"/>
+                        <p:inputText  id="txtNombre" value="#{frmPelicula.registro.nombre}" required="true"/>
+                        <p:outputLabel value="Sinopsis" for="txtSinopsis"/>
+                        <p:inputTextarea size="50" id="txtSinopsis" value="#{frmPelicula.registro.sinopsis}"/>
                      </h:panelGrid>
                      <h:panelGrid>
                         <crud:BtnTop frm="#{frmPelicula}"/>
                      </h:panelGrid>
                   </h:form>
-               </h:panelGrid>
+               </p:panelGrid>
             </p:tab>
 
             <p:tab title="Tipos" disabled="#{frmPelicula.estado!='MODIFICAR'}" closable="false">
@@ -98,9 +98,9 @@
                   <h:panelGrid>
                      <h:form>
                         <h:panelGrid columns="2" rendered="#{frmPelicula.frmPeliculaCaracteristica.estado!='NINGUNO'}">
-                           <h:outputLabel value="ID" for="TiposTxtId"/>
-                           <h:inputText id="TiposTxtId" value="#{frmPelicula.frmPeliculaCaracteristica.registro.idPeliculaCaracteristica}" readonly="true" disabled="true"/>
-                           <h:outputLabel value="Tipos" for="listTipoPelicula"/>
+                           <p:outputLabel value="ID" for="TiposTxtId"/>
+                           <p:inputText id="TiposTxtId" value="#{frmPelicula.frmPeliculaCaracteristica.registro.idPeliculaCaracteristica}" readonly="true" disabled="true"/>
+                           <p:outputLabel value="Tipos" for="listTipoPelicula"/>
                            <h:selectOneMenu id="listTipoPelicula" value="#{frmPelicula.frmPeliculaCaracteristica.idTipoPeliculaSeleccionado}">
                               <c:selectItems value="#{frmPelicula.frmPeliculaCaracteristica.tipoPeliculaList}" var="tp"
                                              itemLabel="#{tp.nombre}" itemValue="#{tp.idTipoPelicula}"/>

@@ -22,7 +22,7 @@
             <p:column headerText="Nombre" sortBy="#{r.nombre}">
                <h:outputText value="#{r.nombre}"/>
             </p:column>
-            <p:column headerText="Activo" sortBy="#{r.activo}">
+            <p:column headerText="Estado" sortBy="#{r.activo}">
                <h:outputText value="#{r.activo?'Activo':'Inactivo'}"/>
             </p:column>
             <p:column headerText="Expresion Regular" sortBy="#{r.expresionRegular}">
@@ -38,16 +38,16 @@
       <h:panelGroup id="pnlGpDetalle">
          <h:form id="frmDetalle">
             <h:panelGrid columns="2" rendered="#{frmTipoPelicula.estado!='NINGUNO'}">
-               <h:outputLabel value="ID" for="txtId"/>
-               <h:inputText id="txtId" value="#{frmTipoPelicula.registro.idTipoPelicula}" readonly="true" disabled="true"/>
-               <h:outputLabel value="Nombre" for="txtNombre"/>
-               <h:inputText id="txtNombre" value="#{frmTipoPelicula.registro.nombre}" required="true"/>
-               <h:outputLabel value="Activo" for="chkActivo"/>
-               <h:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPelicula.registro.activo}"/>
-               <h:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
-               <h:inputText id="txtExpresionRegular" value="#{frmTipoPelicula.registro.expresionRegular}"/>
-               <h:outputLabel value="Comentarios" for="txtComentarios"/>
-               <h:inputTextarea size="50" id="txtComentarios" value="#{frmTipoPelicula.registro.comentarios}"/>
+               <p:outputLabel value="ID" for="txtId"/>
+               <p:inputText id="txtId" value="#{frmTipoPelicula.registro.idTipoPelicula}" readonly="true" disabled="true"/>
+               <p:outputLabel value="Nombre" for="txtNombre"/>
+               <p:inputText id="txtNombre" value="#{frmTipoPelicula.registro.nombre}" required="true" placeholder="Ingrese un nombre"/>
+               <p:outputLabel value="Activo" for="chkActivo"/>
+               <p:selectBooleanCheckbox id="chkActivo" value="#{frmTipoPelicula.registro.activo}"/>
+               <p:outputLabel value="Expresion Regular" for="txtExpresionRegular"/>
+               <p:inputText id="txtExpresionRegular" value="#{frmTipoPelicula.registro.expresionRegular}" placeholder="Ingrese una expresion regular"/>
+               <p:outputLabel value="Comentarios" for="txtComentarios"/>
+               <p:inputTextarea size="50" id="txtComentarios" value="#{frmTipoPelicula.registro.comentarios}" placeholder="Ingrese un comentario"/>
             </h:panelGrid>
             <h:panelGrid>
                <crud:BtnTop frm="#{frmTipoPelicula}"/>
