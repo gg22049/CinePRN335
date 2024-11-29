@@ -31,10 +31,20 @@ import java.util.List;
     @NamedQuery(name = "Pelicula.findBySinopsis", query = "SELECT p FROM Pelicula p WHERE p.sinopsis = :sinopsis")})
 
 public class Pelicula implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pelicula", nullable = false)
     private Long idPelicula;
+
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
+    @Column(name = "nombre")
+    private String nombre;
+
+    @Lob
+    @Column(name = "sinopsis")
+    private String sinopsis;
 
     /** *Relacion: Pelicula/PeliculaCaracteristica
      * Pelicula (id)(M) <-> (fk)(1) PeliculaCaracteristica
@@ -47,15 +57,6 @@ public class Pelicula implements Serializable {
      */
     @OneToMany(mappedBy = "idPelicula", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Programacion> ProgramacionList;
-
-    @NotBlank(message = "Debe ingresar un nombre valido")
-    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
-    @Column(name = "nombre")
-    private String nombre;
-
-    @Lob
-    @Column(name = "sinopsis")
-    private String sinopsis;
 
     //pelicula
     public Pelicula() {}

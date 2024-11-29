@@ -31,7 +31,6 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
     FrmPeliculaCaracteristica frmPeliculaCaracteristica;
 
     protected List<TipoPelicula> tipoPeliculaList;
-    protected Integer idPelicula;
 
     @PostConstruct
     @Override
@@ -91,6 +90,7 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
         if (tce.getTab().getTitle().equals("Tipos")){
             if(this.registro!=null && this.frmPeliculaCaracteristica !=null){
                 this.frmPeliculaCaracteristica.setIdPelicula(this.registro.getIdPelicula());
+                this.frmPeliculaCaracteristica.setPeliculaSeleccionada(registro);
             }
         }
     }

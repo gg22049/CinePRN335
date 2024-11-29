@@ -41,6 +41,18 @@ public class Sala implements Serializable {
     @Column(name = "id_sala", nullable = false)
     private Integer idSala;
 
+    @NotBlank(message = "Debe ingresar un nombre valido")
+    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
+    @Column(name = "nombre", length = 155)
+    private String nombre;
+
+    @Column(name = "activo")
+    private Boolean activo;
+
+    @Lob
+    @Column(name = "observaciones")
+    private String observaciones;
+
     /** *Relacion: Sala/Sucursal
      * Sala (fk)(M) <-> (1)(id) Sucursal
      */
@@ -65,18 +77,6 @@ public class Sala implements Serializable {
      */
     @OneToMany(mappedBy = "idSala", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Programacion> ProgramacionList;
-
-    @NotBlank(message = "Debe ingresar un nombre valido")
-    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
-    @Column(name = "nombre", length = 155)
-    private String nombre;
-
-    @Column(name = "activo")
-    private Boolean activo;
-
-    @Lob
-    @Column(name = "observaciones")
-    private String observaciones;
 
     //Sala
     public Sala() {}

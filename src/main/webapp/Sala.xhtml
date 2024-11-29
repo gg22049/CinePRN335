@@ -107,7 +107,6 @@
                                         <h:outputText value="#{r.valor}"/>
                                     </p:column>
                                 </p:dataTable>
-                                <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
                             </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
@@ -115,9 +114,8 @@
                     <h:panelGroup id="tiposPnlGpDetalle">
                         <h:panelGrid>
                             <h:form>
-                                <h:panelGroup rendered="#{frmSala.frmSalaCaracteristica.estado!='NINGUNO'}">
-                                    <h:panelGrid columns="2">
-
+                                <h:panelGroup>
+                                    <h:panelGrid columns="2" rendered="#{frmSala.frmSalaCaracteristica.estado!='NINGUNO'}">
                                         <h:outputLabel value="Id Sala" for="tiposTxtIdSala"/>
                                         <h:inputText id="tiposTxtIdSala" value="#{frmSala.frmSalaCaracteristica.registro.idSala.idSala}" readonly="true" disabled="true"/>
                                         <h:outputLabel value="Id Caracteristica" for="tiposTxtIdCaracteristicas"/>
@@ -131,6 +129,9 @@
                                         <p:outputLabel value="Valor" for="tiposTxtValor"/>
                                         <p:inputTextarea id="tiposTxtValor" validator="#{frmSala.frmSalaCaracteristica.validarVailador}"
                                                          value="#{frmSala.frmSalaCaracteristica.registro.valor}"/>
+                                    </h:panelGrid>
+                                    <h:panelGrid>
+                                        <crud:BtnTop frm="#{frmSala.frmSalaCaracteristica}" actualizar="tabDetalle:tiposPnlGpDetalle tabDetalle:tiposPnlGpDatos"/>
                                     </h:panelGrid>
                                 </h:panelGroup>
                             </h:form>

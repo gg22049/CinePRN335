@@ -1,8 +1,6 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -42,6 +40,10 @@ public class PeliculaCaracteristica implements Serializable {
     @Column(name = "id_pelicula_caracteristica", nullable = false)
     private Long idPeliculaCaracteristica;
 
+    @Lob
+    @Column(name = "valor")
+    private String valor;
+
     /** *Relacion: PeliculaCaracteristica/TipoPelicula
      * PeliculaCaracteristica (M)(id) <-> (fk)(1) TipoPelicula
      */
@@ -55,12 +57,6 @@ public class PeliculaCaracteristica implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pelicula")
     private Pelicula idPelicula;
-
-    @Lob
-    @NotBlank(message = "Debe ingresar un nombre valido")
-    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
-    @Column(name = "valor")
-    private String valor;
 
     //PeliculaCaracteristica
     public PeliculaCaracteristica() {}
@@ -93,7 +89,6 @@ public class PeliculaCaracteristica implements Serializable {
     public void setIdPelicula(Pelicula idPelicula) {
         this.idPelicula = idPelicula;
     }
-
 
     public Long getIdPeliculaCaracteristica() {
         return idPeliculaCaracteristica;

@@ -10,6 +10,7 @@ import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.PeliculaCaracteristicaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoPeliculaBean;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Pelicula;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.PeliculaCaracteristica;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoPelicula;
 
@@ -19,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Named
 @Dependent
@@ -34,8 +34,10 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
     @Inject
     FacesContext fc;
 
+    //Instancias
     protected List<TipoPelicula> tipoPeliculaList;
     protected Long idPelicula;
+    protected Pelicula peliculaSeleccionada;
 
     @PostConstruct
     @Override
@@ -63,13 +65,13 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         if (object != null && object.getIdPeliculaCaracteristica()!=null) {
             return object.getIdPeliculaCaracteristica().toString();
         }
-        return null;
+        return "";
     }
 
     @Override
     public PeliculaCaracteristica getObjeto(String id) {
         if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
-            return this.modelo.getWrappedData().stream().filter(r->r.getIdPeliculaCaracteristica().toString().equals(id)).collect(Collectors.toList()).get(0);
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdPeliculaCaracteristica().toString().equals(id)).findFirst().orElse(null);
         }
         return null;
     }
@@ -77,6 +79,7 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
     @Override
     public void instanciarRegistro() {
         this.registro = new PeliculaCaracteristica();
+        this.registro.setIdPelicula(peliculaSeleccionada);
     }
 
     @Override
@@ -93,7 +96,7 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
-        return 0;
+        return -1;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
-        return null;
+        return List.of();
     }
 
     public void validarVailador(FacesContext fc, UIComponent component, Object valor){
@@ -126,7 +129,7 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         if (this.registro!=null && this.registro.getIdTipoPelicula()!=null) {
             return this.registro.getIdTipoPelicula().getIdTipoPelicula();
         }
-        return null;
+        return -1;
     }
 
     public void setIdTipoPeliculaSeleccionado(final Integer idTipoPelicula) {
@@ -151,5 +154,9 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
 
     public void setIdPelicula(Long idPelicula) {
         this.idPelicula = idPelicula;
+    }
+
+    public void setPeliculaSeleccionada(Pelicula pelicula) {
+        this.peliculaSeleccionada=pelicula;
     }
 }
