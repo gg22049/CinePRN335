@@ -8,6 +8,12 @@
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud">
 
+   <f:view>
+      <f:metadata>
+         <f:viewAction action="#{sesionUsuario.aplicarIdioma()}"/>
+      </f:metadata>
+   </f:view>
+
    <fc:define name="titulo">
       #{frmPelicula.titulo}
    </fc:define>

@@ -5,18 +5,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.facelets"
-      xmlns:c="jakarta.faces.core"
+      xmlns:fc="jakarta.faces.facelets"
+      xmlns:f="jakarta.faces.core"
 >
+
 <h:head>
     <title>
-        <f:insert name="titulo">
+        <fc:insert name="titulo">
             Titulo de la pagina
-        </f:insert>
+        </fc:insert>
     </title>
     <h:outputStylesheet library="estilos" name="base.css"/>
 </h:head>
 <h:body>
+    <f:viewAction action="#{sesionUsuario.aplicarIdioma}"/>
     <div class="ui-g">
         <p:growl life="5000"/>
         <div class="ui-g-12" id="sesion">
@@ -25,10 +27,10 @@
                     <h:form id="frmIdioma">
                         <p:selectOneMenu value="#{sesionUsuario.idiomaSeleccionado}"
                                          valueChangeListener="#{sesionUsuario.cambiarIdioma}">
-                            <c:selectItems value="#{sesionUsuario.idiomas.entrySet()}" var="idioma"
+                            <f:selectItems value="#{sesionUsuario.idiomas.entrySet()}" var="idioma"
                                           itemLabel="#{idioma.key}"
                                           itemValue="#{idioma.key}"/>
-                            <c:ajax execute="@form" render="@all"/>
+                            <f:ajax execute="@form" render="@all"/>
                         </p:selectOneMenu>
                         <p:commandButton type="button" icon="pi pi-user" styleClass="nr-2" disabled="true"/>
                     </h:form>
@@ -43,16 +45,16 @@
         <div class="ui-g-12 ui-md-10 ui-g-nopad">
             <div class="ui-g-12">
                 <h1>
-                    <f:insert name="titulo">
+                    <fc:insert name="titulo">
                         Titulo de la pagina
-                    </f:insert>
+                    </fc:insert>
                 </h1>
             </div>
             <div class="ui-g-12 ui-g-nopad">
                 <div class="ui-g-12">
-                    <f:insert name="cuerpo">
+                    <fc:insert name="cuerpo">
                         Cuerpo de la pagina
-                    </f:insert>
+                    </fc:insert>
                 </div>
             </div>
         </div>
@@ -60,6 +62,6 @@
             @Copyright Cinepolix 2024
         </div>
     </div>
-    <f:insert name="extras"/>
+    <fc:insert name="extras"/>
 </h:body>
 </html>

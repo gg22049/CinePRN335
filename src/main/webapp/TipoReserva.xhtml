@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<f:composition xmlns="http://www.w3.org/1999/xhtml"
-               xmlns:p="http://primefaces.org/ui"
-               xmlns:h="jakarta.faces.html"
-               xmlns:f="jakarta.faces.facelets"
-               template="WEB-INF/templates/principal.xhtml"
-               xmlns:crud="jakarta.faces.composite/crud"
-               xmlns:datos="jakarta.faces.composite/datos"
->
-    <f:define name="titulo">
-        #{frmTipoReserva.titulo}
-    </f:define>
+<fc:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="WEB-INF/templates/principal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:fc="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:crud="jakarta.faces.composite/crud"
+                xmlns:datos="jakarta.faces.composite/datos">
 
-    <f:define name="cuerpo">
+    <f:view>
+        <f:metadata>
+            <f:viewAction action="#{sesionUsuario.aplicarIdioma()}"/>
+        </f:metadata>
+    </f:view>
+
+    <fc:define name="titulo">
+        #{frmTipoReserva.titulo}
+    </fc:define>
+
+    <fc:define name="cuerpo">
         <h:panelGroup id="pnlGpDatos">
             <datos:TablaDatos frm="#{frmTipoReserva}" rowkey="#{r.idTipoReserva}">
                 <p:column headerText="ID" sortBy="#{r.idTipoReserva}">
@@ -48,5 +55,5 @@
             </h:form>
         </h:panelGroup>
 
-    </f:define>
-</f:composition>
+    </fc:define>
+</fc:composition>

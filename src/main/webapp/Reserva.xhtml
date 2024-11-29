@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<f:composition xmlns="http://www.w3.org/1999/xhtml"
+<fc:composition xmlns="http://www.w3.org/1999/xhtml"
                xmlns:p="http://primefaces.org/ui"
                xmlns:h="jakarta.faces.html"
-               xmlns:f="jakarta.faces.facelets"
+               xmlns:fc="jakarta.faces.facelets"
                template="WEB-INF/templates/principal.xhtml"
-               xmlns:c="jakarta.faces.core"
+               xmlns:f="jakarta.faces.core"
                xmlns:crud="jakarta.faces.composite/crud"
                xmlns:datos="jakarta.faces.composite/datos">
 
-    <f:define name="titulo">
-        #{frmReserva.titulo}
-    </f:define>
+    <f:view>
+        <f:metadata>
+            <f:viewAction action="#{sesionUsuario.aplicarIdioma()}"/>
+        </f:metadata>
+    </f:view>
 
-    <f:define name="cuerpo">
+    <fc:define name="titulo">
+        #{frmReserva.titulo}
+    </fc:define>
+
+    <fc:define name="cuerpo">
 
         <h:form id="reservaFrm">
 
@@ -94,7 +100,7 @@
                                         showButtonPanel="true" mindate="#{reservaWizardBean.minDate}"/>
                             <h:outputText value="Tipo de Reserva: *"/>
                             <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}" ajax="true" process="@form">
-                                <c:selectItems value="#{reservaWizardBean.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
+                                <f:selectItems value="#{reservaWizardBean.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </p:panel>
@@ -107,7 +113,7 @@
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Seleccione función: "/>
                             <p:selectOneMenu id="programacionOption" value="#{reservaWizardBean.reserva.idProgramacion}" ajax="true" process="@form" update="sinopsisPanel">
-                                <c:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn" itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})" itemValue="#{prn.idProgramacion}" />
+                                <f:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn" itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})" itemValue="#{prn.idProgramacion}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
 
@@ -138,6 +144,6 @@
                 </p:tab>
             </p:wizard>
         </h:form>
-    </f:define>
+    </fc:define>
 
-</f:composition>
+</fc:composition>

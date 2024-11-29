@@ -1,16 +1,23 @@
-<f:composition xmlns="http://www.w3.org/1999/xhtml"
+<fc:composition xmlns="http://www.w3.org/1999/xhtml"
                xmlns:p="http://primefaces.org/ui"
                xmlns:h="jakarta.faces.html"
-               xmlns:f="jakarta.faces.facelets"
+               xmlns:fc="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
                template="WEB-INF/templates/principal.xhtml"
                xmlns:crud="jakarta.faces.composite/crud"
                xmlns:datos="jakarta.faces.composite/datos">
 
-    <f:define name="titulo">
-        #{frmSucursal.titulo}
-    </f:define>
+    <f:view>
+        <f:metadata>
+            <f:viewAction action="#{sesionUsuario.aplicarIdioma()}"/>
+        </f:metadata>
+    </f:view>
 
-    <f:define name="cuerpo">
+    <fc:define name="titulo">
+        #{frmSucursal.titulo}
+    </fc:define>
+
+    <fc:define name="cuerpo">
         <h:panelGroup id="pnlGpDatos">
             <datos:TablaDatos frm="#{frmSucursal}" rowkey="#{r.idSucursal}">
                 <p:column headerText="ID" sortBy="#{r.idSucursal}">
@@ -55,5 +62,5 @@
                 </h:panelGrid>
             </h:form>
         </h:panelGroup>
-    </f:define>
-</f:composition>
+    </fc:define>
+</fc:composition>

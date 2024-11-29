@@ -47,11 +47,18 @@ public class SesionUsuario implements Serializable {
     }
 
     public void cambiarIdioma(ValueChangeEvent ev) {
-        String idioma = ev.getNewValue().toString();
-        for (Map.Entry<String, Locale> entry : idiomas.entrySet()) {
-            if (entry.getKey().equals(idioma)) {
-                fc.getViewRoot().setLocale(entry.getValue());
+        if (ev!=null){
+            idiomaSeleccionado = ev.getNewValue().toString();
+            Locale locale = idiomas.get(idiomaSeleccionado);
+            if (locale!=null){
+                fc.getViewRoot().setLocale(locale);
             }
+        }
+    }
+
+    public void aplicarIdioma(){
+        if (idiomaSeleccionado!=null){
+            fc.getViewRoot().setLocale(idiomas.get(idiomaSeleccionado));
         }
     }
 }
