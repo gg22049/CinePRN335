@@ -210,6 +210,12 @@ public abstract class AbstractFrm<T> implements Serializable {
         try{
            this.instanciarRegistro();
            this.estado = ESTADO_CRUD.CREAR;
+           // Para ver si se instancia
+            FacesContext fc = getFacesContext();
+            FacesMessage mensaje = new FacesMessage();
+            mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+            mensaje.setSummary("Se está procesando un nuevo registro de " + registro.getClass().getSimpleName());
+            fc.addMessage(null, mensaje);
         }catch(Exception e) {
             FacesContext fc = getFacesContext();
             FacesMessage mensaje = new FacesMessage();

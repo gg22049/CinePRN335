@@ -28,12 +28,15 @@ public class TipoReservaBean extends AbstractDataPersistence<TipoReserva> implem
 
     /**
      * Solucion 2 para el frm
+     * Devolvemos todas las tiporeserva, falta filtrar activas
      * @return
      */
 
     public List<TipoReserva> obtenerTodos() {
         return em.createQuery("SELECT t FROM TipoReserva t", TipoReserva.class).getResultList();
     }
+
+
 
     /*
     public List<TipoReserva> findAllUnique() {

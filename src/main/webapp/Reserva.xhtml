@@ -19,111 +19,103 @@
 
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
-            <p:wizard flowListener="#{reservaWizardBean.onFlowProcess}">
-
+            <p:wizard id="reservaWizard" flowListener="#{reservaWizardBean.onFlowProcess}" widgetVar="wizard">
                 <!-- Ejemplo-->
-                <p:tab id="EjemploID1" title="Ejemplo de ID1">
+                <p:tab id="Indicaciones" title="Indicaciones">
                     <p:panel>
                         <p:messages/>
-                        <h:panelGrid columns="1">
-                            <h:outputText value="ID Programación"/>
-                            <h:outputText value="Nombre:"/>
-                            <h:outputText value="Tipo de Reserva xd"/>
-                            <h:outputText value="Observaciones: #{frmReserva.registro.observaciones}"/>
-                            <h:outputText value="Asientos"/>
-                            <!--
-                            <h:outputText value="Ejemplo de Id Programacion"/>
-                            <h:inputText value="#{reservaWizardBean.registro.idProgramacion.idProgramacion}" required="true" requiredMessage="Advertencia: Ingrese un id de Programación!!!."/>
-                            <h:outputText value="Ejemplo de Id TipoReserva"/>
-                            <h:inputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
-                            <h:outputText value="Observaciones"/>
-                            <h:inputText value="#{reservaWizardBean.registro.observaciones}"/>
-                            -->
-                        </h:panelGrid>
+                        <p:panelGrid columns="1">
+                            <h:outputText value="Bienvenido al asistente para crear un nuevo registro de Reserva."/>
+                            <h:outputText value="Ingrese todos los datos solicitados incluyendo los asientos y al final guarde su reserva."/>
+                        </p:panelGrid>
                     </p:panel>
                 </p:tab>
 
-                <p:tab id="EjemploID2" title="Ejemplo de ID2">
-                    <p:panel>
-                        <p:messages/>
-                        <h:panelGrid columns="1">
-                            <h:outputText value="ID Programación"/>
-                            <h:outputText value="Nombre:"/>
-                            <h:outputText value="Tipo de Reserva"/>
-                            <h:outputText value="Observaciones"/>
-                            <h:outputText value="Asientos"/>
-                            <!--
-                            <h:outputText value="Ejemplo de Id Programacion"/>
-                            <h:inputText value="#{reservaWizardBean.registro.idProgramacion.idProgramacion}" required="true" requiredMessage="Advertencia: Ingrese un id de Programación!!!."/>
-                            <h:outputText value="Ejemplo de Id TipoReserva"/>
-                            <h:inputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
-                            <h:outputText value="Observaciones"/>
-                            <h:inputText value="#{reservaWizardBean.registro.observaciones}"/>
-                            -->
-                        </h:panelGrid>
-                    </p:panel>
-                </p:tab>
-
-                <!-- Ejemplo-->
-                <p:tab id="EjemploID3" title="Ejemplo de ID3">
-                    <p:panel>
-                        <p:messages/>
-                        <h:panelGrid columns="2">
-                            <h:outputText value="Ejemplo de Id TipoReserva"/>
-                            <h:inputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
-                            <h:outputText value="Ejemplo de Id TipoReserva"/>
-                            <h:outputText value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
-                            <h:outputText value="Observaciones"/>
-                            <h:inputText value="#{reservaWizardBean.registro.observaciones}"/>
-                        </h:panelGrid>
-                    </p:panel>
-                </p:tab>
-
-
-                <!-- Paso 1: Fecha y Tipo de Reserva, formato de fecha no compatible -->
+                <!-- Paso 1: Fecha y Tipo de Reserva, formato de fecha offsetDataTime no compatible -->
                 <!-- 2024-09-19 20:26:00+00-->
-                <p:tab id="fecha" title="Fecha">
+                <p:tab id="fechaStep" title="Fecha">
                     <p:panel header="Seleccionar Fecha">
                         <p:messages/>
-                        <h:outputText value="Id Tipo Reserva: #{reservaWizardBean.registro.idTipoReserva.idTipoReserva}"/>
                         <h:panelGrid columns="2">
                             <h:outputText value="Seleccione día: *"/>
-                            <p:calendar value="#{reservaWizardBean.registro.fechaReserva}"
+                            <p:calendar value="#{reservaWizardBean.fechaReservaSeleccionada}"
                                         label="Seleccione un día" required="true"
-                                        pattern="yyyy-MM-dd HH:mm:ssXXX"
-                                        showButtonPanel="true" mindate="#{reservaWizardBean.minDate}"/>
+                                        requiredMessage="Seleccione una fecha válida!!"
+                                        pattern="yyyy-MM-dd" showButtonPanel="true"
+                                        mindate="#{reservaWizardBean.minDate}"/>
                             <h:outputText value="Tipo de Reserva: *"/>
-                            <p:selectOneMenu id="tipoReservaOption" value="#{reservaWizardBean.registro.idTipoReserva.idTipoReserva}" ajax="true" process="@form">
-                                <c:selectItems value="#{reservaWizardBean.tiposReserva}" var="reserva" itemLabel="#{reserva.nombre}" itemValue="#{reserva.idTipoReserva}" />
+                            <p:selectOneMenu id="tipoReservaOption"
+                                             value="#{reservaWizardBean.idTipoReservaSeleccionado}"
+                                             required="" requiredMessage="Debe Seleccionar un Tipo de Reserva">
+                                <c:selectItems value="#{frmReserva.tiposReserva}"
+                                               var="tr"
+                                               itemLabel="#{tr.nombre}"
+                                               itemValue="#{tr.idTipoReserva}"/>
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
 
                 <!-- Paso 2: Seleccionar una programción -->
-                <p:tab id="funcion" title="Función">
+                <p:tab id="funcionStep" title="Función">
                     <p:panel header="Seleccionar Función">
                         <p:messages/>
                         <h:panelGrid columns="2" columnClasses="label, value">
+                            <h:outputText value="Fecha Selecionada en Wizard: "/>
+                            <h:outputText value="#{reservaWizardBean.fechaReservaSeleccionada}"/>
+                            <h:outputText value="Fecha Guardada en registro: "/>
+                            <h:outputText value="#{frmReserva.registro.fechaReserva}"/>
+                            <h:outputText value="Tipo Reserva guardada en registro: "/>
+                            <h:outputText value="#{frmReserva.registro.idTipoReserva.nombre}"/>
+                            <h:outputText value="Observaciones Default: "/>
+                            <h:outputText value="#{frmReserva.registro.observaciones}"/>
+                            <h:outputText value="Estado Default: "/>
+                            <h:outputText value="#{frmReserva.registro.estado}"/>
+
                             <h:outputText value="Seleccione función: "/>
-                            <p:selectOneMenu id="programacionOption" value="#{reservaWizardBean.reserva.idProgramacion}" ajax="true" process="@form" update="sinopsisPanel">
-                                <c:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn" itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})" itemValue="#{prn.idProgramacion}" />
+                            <p:selectOneMenu id="programacionOption" value="#{reservaWizardBean.idProgramacionSeleccionada}">
+                                <c:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn"
+                                               itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})"
+                                               itemValue="#{prn.idProgramacion}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
 
                         <h:panelGrid id="sinopsisPanel" columns="1">
-
+                            <h:outputText value="Sinopsis: "/>
+                            <!--h:outputText value="#{prn.idPelicula.sinopsis}"/-->
+                            <h:outputText value="Características:"/>
+                            <!--h:outputText value="#{prn.idPelicula.peliculaCaracteristicasList}"/-->
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
 
 
-                <p:tab id="asientos" title="Asientos">
+                <p:tab id="asientosStep" title="Asientos">
                     <p:panel header="Asientos">
                         <p:messages/>
                         <h:panelGrid columns="2" columnClasses="label, value">
+                            <h:outputText value="Fecha Selecionada en Wizard: "/>
+                            <h:outputText value="#{reservaWizardBean.fechaReservaSeleccionada}"/>
+                            <h:outputText value="Fecha Guardada en registro: "/>
+                            <h:outputText value="#{frmReserva.registro.fechaReserva}"/>
+                            <h:outputText value="Tipo Reserva guardada en registro: "/>
+                            <h:outputText value="#{frmReserva.registro.idTipoReserva.nombre}"/>
+                            <h:outputText value="Observaciones Default: "/>
+                            <h:outputText value="#{frmReserva.registro.observaciones}"/>
+                            <h:outputText value="Estado Default: "/>
+                            <h:outputText value="#{frmReserva.registro.estado}"/>
+                            <h:outputText value="Programación en el registro"/>
+                            <h:outputText value="#{frmReserva.registro.idProgramacion.idProgramacion}"/>
 
                         </h:panelGrid>
+                        <p:panelGrid columns="3">
+                            <p:selectOneMenu id="asientosOption" value="#{reservaWizardBean.asientosSeleccionados}">
+                                <c:selectItems value="#{frmAsiento.asientosDisponibles}" var="a"
+                                               itemLabel="#{a.nombre}"
+                                               itemValue="#{a.idAsiento}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+
                     </p:panel>
                 </p:tab>
 
@@ -139,5 +131,6 @@
             </p:wizard>
         </h:form>
     </f:define>
+
 
 </f:composition>

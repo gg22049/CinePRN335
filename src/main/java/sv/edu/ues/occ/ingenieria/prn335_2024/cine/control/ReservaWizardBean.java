@@ -6,24 +6,18 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import org.primefaces.event.FlowEvent;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.AbstractFrm;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmProgramacion;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmReserva;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Pelicula;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Reserva;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmTipoReserva;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Asiento;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoReserva;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -31,7 +25,184 @@ import java.util.stream.Collectors;
  */
 @Named
 @ViewScoped
-public class ReservaWizardBean extends FrmReserva implements Serializable {
+public class ReservaWizardBean implements Serializable {
+
+    //@ManagedProperty(value = "#{frmReserva}")
+    //private FrmReserva frmReserva;
+
+    @Inject
+    FrmReserva frmReserva;
+
+    @Inject
+    FrmTipoReserva frmTipoReserva;
+
+    @Inject
+    FrmProgramacion frmProgramacion;
+
+    @Inject
+    FacesContext fc;
+
+    /**
+     * Dato de ejemplo en el wizard
+     */
+    String textoEjemplo;
+
+    public String getTextoEjemplo() {
+        return textoEjemplo;
+    }
+
+    public void setTextoEjemplo(String textoEjemplo) {
+        this.textoEjemplo = textoEjemplo;
+    }
+
+    /**
+     * Para obtener la fecha del día
+     * Primefaces no soporta offsetDataTime así que se obtiene en LocalDate
+     * Después se asigna en la entidad con un conversor
+     * Formato de fecha si se necesita mostrar
+     */
+    LocalDate fechaReservaSeleccionada;
+
+    public LocalDate getFechaReservaSeleccionada() {
+        return fechaReservaSeleccionada;
+    }
+
+    public void setFechaReservaSeleccionada(LocalDate fechaReservaSeleccionada) {
+        this.fechaReservaSeleccionada = fechaReservaSeleccionada;
+    }
+
+    //No funciona
+    DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ssXXX");
+
+    public DateTimeFormatter getFormatoFecha() {
+        return formatoFecha;
+    }
+
+    public void setFormatoFecha(DateTimeFormatter formatoFecha) {
+        this.formatoFecha = formatoFecha;
+    }
+
+    /**
+     * Para obtener id Tipo Reserva
+     * Luego lo buscamos por id
+     */
+
+    private Integer idTipoReservaSeleccionado;
+
+    public Integer getIdTipoReservaSeleccionado() {
+        return idTipoReservaSeleccionado;
+    }
+
+    public void setIdTipoReservaSeleccionado(Integer idTipoReservaSeleccionado) {
+        this.idTipoReservaSeleccionado = idTipoReservaSeleccionado;
+    }
+
+    /**
+     * Obtener la Programación
+     */
+    private Long idProgramacionSeleccionada;
+
+    public Long getIdProgramacionSeleccionada() {
+        return idProgramacionSeleccionada;
+    }
+
+    public void setIdProgramacionSeleccionada(Long idProgramacionSeleccionada) {
+        this.idProgramacionSeleccionada = idProgramacionSeleccionada;
+    }
+
+    /**
+     * Asientos seleccionados
+     */
+
+    private List<Asiento> asientosSeleccionados;
+
+    public List<Asiento> getAsientosSeleccionados() {
+        return asientosSeleccionados;
+    }
+
+    public void setAsientosSeleccionados(List<Asiento> asientosSeleccionados) {
+        this.asientosSeleccionados = asientosSeleccionados;
+    }
+
+    /**
+     * Controlador de pasos
+     * @param event
+     * @return
+     */
+    public String onFlowProcess(FlowEvent event) {
+        //Paso 0 Iniciar el registro
+        if ("Indicaciones".equals(event.getOldStep())) {
+            try {
+                //Creamos el registro para instanciar una reserva
+                frmReserva.btnNuevoHandler(null);
+                System.out.println("Registro instanciado");
+            } catch (Exception e) {
+                System.out.println("Error al crear registro: " + e.getMessage());
+            }
+
+        }else if ("fechaStep".equals(event.getOldStep())) {
+            //Validaciones Paso 1
+            if(fechaReservaSeleccionada != null && idTipoReservaSeleccionado!=null && idTipoReservaSeleccionado>0) {
+                try {
+                    //Guardamos la fecha con el formato correcto
+                    System.out.println(idTipoReservaSeleccionado);
+                    frmReserva.getRegistro().setFechaReserva(fechaReservaSeleccionada.atStartOfDay().atOffset(ZoneOffset.UTC));
+                    System.out.println("fecha guardado: " + frmReserva.getRegistro().getFechaReserva());
+                    //Guardamos la entidad idTipoSala seleccionada
+                    frmReserva.getRegistro().setIdTipoReserva(frmTipoReserva.getDataPersist().findById(idTipoReservaSeleccionado));
+                    System.out.println("idTipoReserva guardado: " + frmReserva.getRegistro().getIdTipoReserva().getNombre());
+                    return event.getNewStep();
+                } catch (Exception e) {
+                    FacesContext fc = frmReserva.getFacesContext();
+                    FacesMessage mensaje = new FacesMessage();
+                    mensaje.setSeverity(FacesMessage.SEVERITY_FATAL);
+                    mensaje.setSummary("Error al asignar: " + e.getMessage());
+                    System.out.println("Error al guardar. " + e.getMessage());
+                }
+            } else {
+                System.out.println("No se pueden guardar los campos:"+ fechaReservaSeleccionada + ", " + idTipoReservaSeleccionado);
+                return event.getOldStep();
+            }
+
+        } else if ("funcionStep".equals(event.getOldStep())) {
+            //Validaciones Paso 2
+            if(idProgramacionSeleccionada!=null && idProgramacionSeleccionada>0) {
+                try {
+                    //Guardamos la programación seleccionada
+                    frmReserva.getRegistro().setIdProgramacion(frmProgramacion.getDataPersist().findById(idProgramacionSeleccionada));
+                    System.out.println("Programación guardada:" + frmReserva.getRegistro().getIdProgramacion().getIdProgramacion());
+                    return event.getNewStep();
+                } catch (Exception e) {
+                    FacesContext fc = frmReserva.getFacesContext();
+                    FacesMessage mensaje = new FacesMessage();
+                    mensaje.setSeverity(FacesMessage.SEVERITY_FATAL);
+                    mensaje.setSummary("Error al asignar: " + e.getMessage());
+                }
+            } else {
+                System.out.println("No se pueden guardar los campos:" + idProgramacionSeleccionada);
+                return event.getOldStep();
+            }
+        } else if ("asientosStep".equals(event.getOldStep())) {
+            if(asientosSeleccionados != null && !asientosSeleccionados.isEmpty()) {
+
+
+                return event.getNewStep();
+            } else {
+                System.out.println("No se pueden guardar los campos:" + asientosSeleccionados);
+                return event.getOldStep();
+            }
+
+        }
+        return event.getNewStep();
+    }
+
+    /**
+     * Guardar
+     */
+    public void save() {
+        FacesMessage msg = new FacesMessage("Successful", "Reserva creado correctamente. ID: ");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
     /*
     @Inject
@@ -96,11 +267,6 @@ public class ReservaWizardBean extends FrmReserva implements Serializable {
         this.reserva.setFechaReserva(OffsetDateTime.parse("2024-09-19 20:26:00+00"));
     }*/
 
-    public void save() {
-        FacesMessage msg = new FacesMessage("Successful", "Reserva creado correctamente. ID: ");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
 
     /**
      * Solo reserva de hoy en adelante
@@ -125,6 +291,8 @@ public class ReservaWizardBean extends FrmReserva implements Serializable {
     public Date getMinDate() {
         return minDate;
     }
+
+
 
 
     /**
@@ -169,12 +337,13 @@ public class ReservaWizardBean extends FrmReserva implements Serializable {
         emf.close();
     }
     */
+    /*
     public OffsetDateTime setIdTipoReserva() {
         String fecha = getMinDate().toString();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
         OffsetDateTime fechaHora = OffsetDateTime.parse(fecha, formatter);
         return fechaHora;
-    }
+    }*/
 
 
     /**
@@ -195,15 +364,6 @@ public class ReservaWizardBean extends FrmReserva implements Serializable {
     public void setFechaReserva(LocalDate fechaReserva) {
         this.fechaReserva = fechaReserva;
     }*/
-
-    /**
-     * Controlador de pasos
-     * @param event
-     * @return
-     */
-    public String onFlowProcess(FlowEvent event) {
-        return event.getNewStep();
-    }
     /*
     // Método que controla el flujo entre pasos
     public String onFlowProcess(FlowEvent event) {
