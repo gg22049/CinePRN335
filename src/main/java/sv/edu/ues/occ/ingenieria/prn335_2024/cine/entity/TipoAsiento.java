@@ -38,7 +38,8 @@ import java.util.List;
         /**⬇️ Necesita expresionRegular(Columna)[String] de la tabla (TipoAsiento)
          * orden de retorno
          * (Integer idTipoAsiento, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
-        @NamedQuery(name = "TipoAsiento.findByExpresionRegular", query = "SELECT t FROM TipoAsiento t WHERE t.expresionRegular = :expresionRegular")})
+        @NamedQuery(name = "TipoAsiento.findByExpresionRegular", query = "SELECT t FROM TipoAsiento t WHERE t.expresionRegular = :expresionRegular")
+})
 public class TipoAsiento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

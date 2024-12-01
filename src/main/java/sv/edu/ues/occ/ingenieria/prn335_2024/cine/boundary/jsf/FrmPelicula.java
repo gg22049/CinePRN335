@@ -89,7 +89,6 @@ public class FrmPelicula extends AbstractFrm<Pelicula> implements Serializable {
     public void cambiarTab(TabChangeEvent tce){
         if (tce.getTab().getTitle().equals("Tipos")){
             if(this.registro!=null && this.frmPeliculaCaracteristica !=null){
-                this.frmPeliculaCaracteristica.setIdPelicula(this.registro.getIdPelicula());
                 this.frmPeliculaCaracteristica.setPeliculaSeleccionada(registro);
             }
         }

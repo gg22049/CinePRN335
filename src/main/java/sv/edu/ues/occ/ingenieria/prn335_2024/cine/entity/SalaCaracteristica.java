@@ -30,7 +30,7 @@ import java.io.Serializable;
      * (Long idSalaCaracteristica, TipoSala idTipoSala, Sala idSala, String valor),
      * (Integer idSala, Sucursal idSucursal, String nombre, Boolean activo, String observaciones),
      * (Integer idTipoSala, String nombre, Boolean activo, String comentarios, String expresionRegular)*/
-    @NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idTipoSala.nombre ASC"),
+    @NamedQuery(name = "SalaCaracteristica.ListBySelected", query="SELECT sc FROM SalaCaracteristica  sc WHERE sc.idSala.idSala = :idSala ORDER BY sc.idSalaCaracteristica ASC"),
 
     /**⬇️ Necesita idSala(PK)[Integer] de la tabla(Sala)
      * orden de retorno:
@@ -60,7 +60,6 @@ public class SalaCaracteristica implements Serializable {
 
     @Lob
     @NotBlank(message = "Debe ingresar un valor valido")
-    @Size(min=3, max = 155, message = "El valor debe tener entre 3 y 155 caracteres")
     @Column(name = "valor")
     private String valor;
 

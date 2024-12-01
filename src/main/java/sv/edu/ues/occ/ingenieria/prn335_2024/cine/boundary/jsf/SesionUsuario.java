@@ -57,8 +57,13 @@ public class SesionUsuario implements Serializable {
     }
 
     public void aplicarIdioma(){
+        if (idiomaSeleccionado==null){
+            idiomaSeleccionado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idiomaSeleccionado");
+        }
         if (idiomaSeleccionado!=null){
-            fc.getViewRoot().setLocale(idiomas.get(idiomaSeleccionado));
+           Locale locale = idiomas.get(idiomaSeleccionado);
+           FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
         }
     }
+
 }

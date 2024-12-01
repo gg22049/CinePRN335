@@ -2,7 +2,6 @@ package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 
@@ -11,7 +10,7 @@ import java.io.Serializable;
 @NamedQueries({
     @NamedQuery(name="AsientoCaracteristica.ListBySelected",query = "select a from AsientoCaracteristica a where a.idAsiento = :idAsiento order by a.idAsientoCaracteristica asc"),
     @NamedQuery(name="AsientoCaracteristica.cantidadPaginador",query = "select count(a) from AsientoCaracteristica a where a.idAsiento = :idAsiento"),
-    @NamedQuery(name="AsientoCaracteristica.TiposAsientosByIdAsiento", query = "select ac.idTipoAsiento from AsientoCaracteristica ac where ac.idAsiento.idAsiento = :idAsiento order by ac.idAsientoCaracteristica asc"),
+    @NamedQuery(name="AsientoCaracteristica.caracteristicasByIdAsiento", query = "select ac from AsientoCaracteristica ac where ac.idAsiento.idAsiento = :idAsiento order by ac.idAsientoCaracteristica asc"),
     /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idAsientoCaracteristica, Asiento idAsiento, TipoAsiento idTipoAsiento, String valor)*/
@@ -49,7 +48,6 @@ public class AsientoCaracteristica implements Serializable {
 
     @Lob
     @NotBlank(message = "Debe ingresar un nombre valido")
-    @Size(min=3, max = 155, message = "El nombre debe tener entre 3 y 155 caracteres")
     @Column(name = "valor")
     private String valor;
 

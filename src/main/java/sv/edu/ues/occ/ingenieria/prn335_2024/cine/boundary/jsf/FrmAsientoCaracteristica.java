@@ -1,14 +1,17 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
 import jakarta.enterprise.context.Dependent;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AsientoCaracteristicaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoAsientoBean;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Asiento;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.AsientoCaracteristica;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoAsiento;
 
@@ -18,14 +21,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Named
 @Dependent
 public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica> implements Serializable {
 
     @Inject
-    AsientoCaracteristicaBean bean;
+    AsientoCaracteristicaBean acBean;
+
+    @Inject
+    FrmTipoAsiento frmTipoAsiento;
 
     @Inject
     TipoAsientoBean taBean;
@@ -33,12 +38,13 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     @Inject
     FacesContext fc;
 
-    protected  List<TipoAsiento> tipoAsientoList;
-    protected Long idAsiento;
+    //Instancias
+    protected  List<AsientoCaracteristica> caracteristicasAsiento;
+    protected Asiento asientoSeleccionado;
 
     @Override
     public AbstractDataPersistence<AsientoCaracteristica> getDataPersist() {
-        return this.bean;
+        return this.acBean;
     }
 
     @Override
@@ -57,7 +63,7 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     @Override
     public AsientoCaracteristica getObjeto(String id) {
         if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
-            return this.modelo.getWrappedData().stream().filter(r->r.getIdAsientoCaracteristica().toString().equals(id)).collect(Collectors.toList()).get(0);
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdAsientoCaracteristica().toString().equals(id)).findFirst().orElse(null);
         }
         return null;
     }
@@ -65,6 +71,7 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     @Override
     public void instanciarRegistro() {
         this.registro = new AsientoCaracteristica();
+        this.registro.setIdAsiento(asientoSeleccionado);
     }
 
     @Override
@@ -75,8 +82,8 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     @Override
     public int contar(){
         try {
-            if (idAsiento!=null && bean!=null) {
-                return bean.countAsiento(this.idAsiento);
+            if (asientoSeleccionado.getIdAsiento()!=null && acBean !=null) {
+                return acBean.countAsiento(this.asientoSeleccionado.getIdAsiento());
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -87,13 +94,31 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     @Override
     public List<AsientoCaracteristica> cargarDatos(int findFrist,int findMax){
         try {
-            if (idAsiento!=null && bean!=null) {
-                return bean.caracteristicaSelected(this.idAsiento, findFrist, findMax);
+            if (asientoSeleccionado.getIdAsiento()!=null && acBean !=null) {
+                return acBean.caracteristicaSelected(this.asientoSeleccionado.getIdAsiento(), findFrist, findMax);
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
         return null;
+    }
+
+    @Override
+    public void btnNuevoHandler(ActionEvent actionEvent) {
+        super.btnNuevoHandler(actionEvent);
+        cargarAsientoCaracteristicas();
+    }
+
+    @Override
+    public void btnModificarHandler(ActionEvent actionEvent) {
+        super.btnModificarHandler(actionEvent);
+        cargarAsientoCaracteristicas();
+    }
+
+    @Override
+    public void btnEliminarHandler(ActionEvent actionEvent) {
+        super.btnEliminarHandler(actionEvent);
+        cargarAsientoCaracteristicas();
     }
 
     public void validarVailador(FacesContext fc, UIComponent component, Object valor){
@@ -110,36 +135,57 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
         input.setValue(false);
     }
 
-    //Propiedades Sintericas
-    public Integer getIdTipoAsientoSeleccionado() {
-        if (this.registro!=null && this.registro.getIdTipoAsiento()!=null) {
-            return this.registro.getIdTipoAsiento().getIdTipoAsiento();
+    public void cargarAsientoCaracteristicas(){
+        if (asientoSeleccionado.getIdAsiento()!=null && acBean !=null) {
+            try {
+                this.caracteristicasAsiento = acBean.caracteristicasByIdAsiento(asientoSeleccionado.getIdAsiento());
+            }catch (Exception e) {
+                this.caracteristicasAsiento = List.of();
+                Logger.getLogger(FrmAsientoCaracteristica.class.getName()).log(Level.SEVERE, null, e);
+                FacesMessage mensaje = new FacesMessage();
+                mensaje.setSummary("Error al procesar el asiento seleccionado");
+                mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
+                fc.addMessage(null, mensaje);
+            }
         }
-        return null;
     }
 
-    public void setIdTipoAsientoSeleccionado(final Integer idTipoAsiento) {
-        if (this.registro!=null && this.tipoAsientoList!=null && !this.tipoAsientoList.isEmpty()){
-            this.registro.setIdTipoAsiento(this.tipoAsientoList.stream().filter(r->r.getIdTipoAsiento().equals(idTipoAsiento)).findFirst().orElse(null));
+    //Probeblemente lo elimine
+    public void cambiarValor(){
+        this.estado = ESTADO_CRUD.MODIFICAR;
+    }
+
+//    Propiedades Sintericas
+    public Integer getIdTipoAsientoSeleccionado() {
+        if (this.registro!=null && this.registro.getIdTipoAsiento().getIdTipoAsiento() != null && !caracteristicasAsiento.isEmpty()) {
+            return this.registro.getIdTipoAsiento().getIdTipoAsiento();
+        }
+        return -1;
+    }
+
+    public void setIdTipoAsientoSeleccionado(final Integer idTipo) {
+        if (this.registro!=null && !this.caracteristicasAsiento.isEmpty()){
+            this.registro.setIdTipoAsiento(this.caracteristicasAsiento.stream()
+                    .filter(r->r.getIdTipoAsiento().getIdTipoAsiento().equals(idTipo))
+                    .findFirst().get().getIdTipoAsiento());
         }
     }
 
     //Getter & Setter
-
-    public List<TipoAsiento> getTipoAsientoList() {
-        return tipoAsientoList;
+    public List<AsientoCaracteristica> getCaracteristicasAsiento() {
+        return caracteristicasAsiento;
     }
 
-    public void setTipoAsientoList(List<TipoAsiento> tipoAsientoList) {
-        this.tipoAsientoList = tipoAsientoList;
+    public void setCaracteristicasAsiento(List<AsientoCaracteristica> caracteristicasAsiento) {
+        this.caracteristicasAsiento = caracteristicasAsiento;
     }
 
-    public Long getIdAsiento() {
-        return idAsiento;
+    public Asiento getAsientoSeleccionado() {
+        return asientoSeleccionado;
     }
 
-    public void setIdAsiento(Long idAsiento) {
-        this.idAsiento = idAsiento;
+    public void setAsientoSeleccionado(Asiento asientoSeleccionado) {
+        this.asientoSeleccionado = asientoSeleccionado;
     }
 
 }

@@ -36,7 +36,6 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
 
     //Instancias
     protected List<TipoPelicula> tipoPeliculaList;
-    protected Long idPelicula;
     protected Pelicula peliculaSeleccionada;
 
     @PostConstruct
@@ -44,7 +43,7 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
     public void init() {
         super.init();
         try {
-            this.tipoPeliculaList=tpBean.findRange(0, Integer.MAX_VALUE);
+            this.tipoPeliculaList = tpBean.findRange(0, Integer.MAX_VALUE);
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
@@ -90,8 +89,8 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
     @Override
     public int contar(){
         try {
-            if (idPelicula!=null && bean!=null) {
-                return bean.countPelicula(this.idPelicula);
+            if (this.peliculaSeleccionada.getIdPelicula()!=null && bean!=null) {
+                return bean.countPelicula(this.peliculaSeleccionada.getIdPelicula());
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -102,8 +101,8 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
     @Override
     public List<PeliculaCaracteristica> cargarDatos(int findFrist,int findMax){
         try {
-            if (idPelicula!=null && bean!=null) {
-                return bean.caracteristicaSelected(this.idPelicula, findFrist, findMax);
+            if (this.peliculaSeleccionada.getIdPelicula()!=null && bean!=null) {
+                return bean.caracteristicaSelected(this.peliculaSeleccionada.getIdPelicula(), findFrist, findMax);
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -134,7 +133,8 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
 
     public void setIdTipoPeliculaSeleccionado(final Integer idTipoPelicula) {
         if (this.registro!=null && this.tipoPeliculaList!=null && !this.tipoPeliculaList.isEmpty()){
-            this.registro.setIdTipoPelicula(this.tipoPeliculaList.stream().filter(r->r.getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null));
+            this.registro = this.modelo.getWrappedData().stream().filter(r->r.getIdTipoPelicula().getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null);
+            //this.registro.setIdTipoPelicula(this.tipoPeliculaList.stream().filter(r->r.getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null));
         }
     }
 
@@ -148,15 +148,11 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
         this.tipoPeliculaList = tipoPeliculaList;
     }
 
-    public Long getIdPelicula() {
-        return idPelicula;
-    }
-
-    public void setIdPelicula(Long idPelicula) {
-        this.idPelicula = idPelicula;
-    }
-
     public void setPeliculaSeleccionada(Pelicula pelicula) {
         this.peliculaSeleccionada=pelicula;
+    }
+
+    public Pelicula getPeliculaSeleccionada() {
+        return peliculaSeleccionada;
     }
 }

@@ -211,10 +211,11 @@ public abstract class AbstractFrm<T> implements Serializable {
            this.instanciarRegistro();
            this.estado = ESTADO_CRUD.CREAR;
         }catch(Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
             FacesContext fc = getFacesContext();
             FacesMessage mensaje = new FacesMessage();
             mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-            mensaje.setSummary("Error al crear el nuevo registro" + e.getMessage());
+            mensaje.setSummary("Error al crear el nuevo registro");
             fc.addMessage(null, mensaje);
         }
     }
@@ -263,7 +264,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("El registro no debe ser nulo para modificar");
+                mensaje.setSummary("El registro no se actualizar");
                 fc.addMessage(null, mensaje);
             }
         }

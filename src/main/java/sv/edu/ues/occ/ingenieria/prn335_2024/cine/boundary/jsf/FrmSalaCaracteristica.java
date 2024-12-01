@@ -10,6 +10,7 @@ import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.SalaCaracteristicaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoSalaBean;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Sala;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.SalaCaracteristica;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoSala;
 
@@ -37,14 +38,14 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     FacesContext fc;
 
     protected List<TipoSala> tipoSalaList;
-    protected Long idSala;
+    protected Sala salaSeleccionada;
 
     @PostConstruct
     @Override
     public void init() {
         super.init();
         try {
-            this.tipoSalaList= tsBean.findRange(0,Integer.MAX_VALUE);
+            this.tipoSalaList = tsBean.findRange(0,Integer.MAX_VALUE);
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
@@ -71,7 +72,7 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     @Override
     public SalaCaracteristica getObjeto(String id) {
         if (id!=null && this.modelo != null && this.modelo.getWrappedData() != null) {
-            return this.modelo.getWrappedData().stream().filter(r->r.getIdSalaCaracteristica().toString().equals(id)).collect(Collectors.toList()).get(0);
+            return this.modelo.getWrappedData().stream().filter(r->r.getIdSalaCaracteristica().toString().equals(id)).findFirst().orElse(null);
         }
         return null;
     }
@@ -79,6 +80,7 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     @Override
     public void instanciarRegistro() {
         this.registro = new SalaCaracteristica();
+        this.registro.setIdSala(salaSeleccionada);
     }
 
     @Override
@@ -89,8 +91,8 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     @Override
     public int contar(){
         try {
-            if (idSala!=null && bean!=null) {
-                return bean.countSala(this.idSala);
+            if (this.salaSeleccionada.getIdSala()!=null && bean!=null) {
+                return bean.countSala(this.salaSeleccionada.getIdSala().longValue());
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
@@ -101,13 +103,13 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     @Override
     public List<SalaCaracteristica> cargarDatos(int findFrist,int findMax){
         try {
-            if (idSala!=null && bean!=null) {
-                return bean.caracteristicaSelected(this.idSala, findFrist, findMax);
+            if (salaSeleccionada.getIdSala()!=null && bean!=null) {
+                return bean.caracteristicaSelected(this.salaSeleccionada.getIdSala().longValue(), findFrist, findMax);
             }
         }catch (Exception e){
             Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
         }
-        return null;
+        return List.of();
     }
 
     public void validarVailador(FacesContext fc, UIComponent component, Object valor){
@@ -138,7 +140,6 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
     }
 
     //Getter & Setter
-
     public List<TipoSala> getTipoSalaList() {
         return tipoSalaList;
     }
@@ -147,12 +148,11 @@ public class FrmSalaCaracteristica extends AbstractFrm<SalaCaracteristica> imple
         this.tipoSalaList = tipoSalaList;
     }
 
-    public Long getIdSala() {
-        return idSala;
+    public Sala getSalaSeleccionada() {
+        return salaSeleccionada;
     }
 
-    public void setIdSala(Long idSala) {
-        this.idSala = idSala;
+    public void setSalaSeleccionada(Sala salaSeleccionada) {
+        this.salaSeleccionada = salaSeleccionada;
     }
-
 }

@@ -70,9 +70,6 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
         }
         return null;    }
 
-    /**
-     * Para crear nueva sala
-     */
     @Override
     public void instanciarRegistro() {
         this.registro = new Sala();
@@ -142,16 +139,16 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
     public void cambiarTab(TabChangeEvent tce){
         if (tce.getTab().getTitle().equals("Caracteristicas")){
             if(this.registro!=null && this.frmSalaCaracteristica !=null){
-                this.frmSalaCaracteristica.setIdSala(this.registro.getIdSala().longValue());
+                this.frmSalaCaracteristica.setSalaSeleccionada(registro);
             }
         } else if (tce.getTab().getTitle().equals("Asientos")){
             if(this.registro!=null && this.frmAsiento !=null){
-                this.frmAsiento.setIdSala(this.registro.getIdSala().longValue());
+                this.frmAsiento.setSalaSeleccionada(this.registro);
             }
         }else if (tce.getTab().getTitle().equals("Programacion")){
-//            if(this.registro!=null && this.frmProgramacion !=null){
-//                this.frmProgramacion.setIdSala(this.registro.getIdSala().longValue());
-//            }
+            if(this.registro!=null && this.frmProgramacion !=null){
+                //faltan cosas de programacion
+            }
         }
     }
 }

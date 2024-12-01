@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <fc:composition xmlns="http://www.w3.org/1999/xhtml"
-               xmlns:p="http://primefaces.org/ui"
-               xmlns:h="jakarta.faces.html"
-               xmlns:fc="jakarta.faces.facelets"
-               xmlns:f="jakarta.faces.core"
-               template="WEB-INF/templates/principal.xhtml"
-               xmlns:crud="jakarta.faces.composite/crud">
+                template="WEB-INF/templates/principal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="jakarta.faces.html"
+                xmlns:fc="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                xmlns:crud="jakarta.faces.composite/crud">
 
     <f:view>
         <f:metadata>
@@ -63,16 +63,14 @@
 
                 <p:tab title="Detalle" closable="false">
                     <h:panelGrid>
-                        <h:form id="frmDetalle" rendered="#{frmSala.estado=='MODIFICAR'}">
+                        <h:form id="frmDetalle" rendered="#{frmSala.estado!='NINGUNO'}">
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Id Sala" for="txtIdSala"/>
                                 <h:inputText id="txtIdSala" value="#{frmSala.registro.idSala}" readonly="true" disabled="true"/>
-                                <h:outputLabel value="Id Sucursal" for="txtIdSucursal"/>
-                                <h:inputText id="txtIdSucursal" value="#{frmSala.registro.idSucursal.idSucursal}" readonly="true" disabled="true"/>
                                 <h:outputLabel value="Nombre" for="txtNombre"/>
                                 <h:inputText  id="txtNombre" value="#{frmSala.registro.nombre}" required="true"/>
                                 <h:outputText value="Sucursa" for="sucursalList"/>
-                                <p:selectOneMenu id="sucursalList" value="#{frmSala.sucursalList}">
+                                <p:selectOneMenu id="sucursalList" value="#{frmSala.idSucursalSeleccionado}">
                                     <f:selectItems value="#{frmSala.sucursalList}" var="s"
                                                     itemLabel="#{s.nombre}" itemValue="#{s.idSucursal}"/>
                                 </p:selectOneMenu>
@@ -118,12 +116,11 @@
                     </h:panelGroup>
 
                     <h:panelGroup id="tiposPnlGpDetalle">
-                        <h:panelGrid>
                             <h:form>
                                 <h:panelGroup>
                                     <h:panelGrid columns="2" rendered="#{frmSala.frmSalaCaracteristica.estado!='NINGUNO'}">
                                         <h:outputLabel value="Id Sala" for="tiposTxtIdSala"/>
-                                        <h:inputText id="tiposTxtIdSala" value="#{frmSala.frmSalaCaracteristica.registro.idSala.idSala}" readonly="true" disabled="true"/>
+                                         <h:inputText id="tiposTxtIdSala" value="#{frmSala.frmSalaCaracteristica.registro.idSala.idSala}" readonly="true" disabled="true"/>
                                         <h:outputLabel value="Id Caracteristica" for="tiposTxtIdCaracteristicas"/>
                                         <h:inputText id="tiposTxtIdCaracteristicas" value="#{frmSala.frmSalaCaracteristica.registro.idSalaCaracteristica}" readonly="true" disabled="true"/>
                                         <h:outputLabel value="Tipos de Sala" for="listTipoSala"/>
@@ -141,7 +138,6 @@
                                     </h:panelGrid>
                                 </h:panelGroup>
                             </h:form>
-                        </h:panelGrid>
                     </h:panelGroup>
                 </p:tab>
 
@@ -174,28 +170,37 @@
 
                     <h:panelGroup id="asientosPnlGpDetalle">
                         <h:form>
-                            <h:panelGroup >
+                            <h:panelGroup>
                                 <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado != 'NINGUNO'}">
+                                    <h:outputText value="Id Sala" for="asientoTxtIdSala"/>
+                                    <h:inputText id="asientoTxtIdSala" value="#{frmSala.frmAsiento.registro.idSala.idSala}" readonly="true" disabled="true"/>
                                     <h:outputText value="Id Asiento" for="asientosTxtId"/>
                                     <h:inputText id="asientosTxtId" value="#{frmSala.frmAsiento.registro.idAsiento}" readonly="true" disabled="true"/>
                                     <h:outputText value="Nombre" for="asientosTxtNomnbre"/>
                                     <h:inputText id="asientosTxtNomnbre" value="#{frmSala.frmAsiento.registro.nombre}"/>
-                                </h:panelGrid>
-
-                                <h:panelGrid>
                                     <crud:BtnTop frm="#{frmSala.frmAsiento}" actualizar="tabDetalle:asientosPnlGpDetalle tabDetalle:asientosPnlGpDatos"/>
                                 </h:panelGrid>
 
-<!--                                <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado=='MODIFICAR'}">-->
-<!--                                    <h:outputText value="Caracteristicas" for="tipoAsientoList"/>-->
-<!--                                    <p:orderList id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.modelo}" var="r"-->
-<!--                                                 itemValue="#{r}" itemLabel="#{r.nombre}" responsive="true"-->
-<!--                                                 controlsLocation="none" >-->
-<!--                                        <p:ajax event="select"  process="@this" update="asientosValor"/>-->
-<!--                                    </p:orderList>-->
-<!--                                    <h:outputText value="Valor" for="asientosValor"/>-->
-<!--                                    <h:inputTextarea id="asientosValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}"/>-->
-<!--                                </h:panelGrid>-->
+                                <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado!='NINGUNO'}">
+                                    <h:outputText value="Caracteristicas" for="tipoAsientoList"/>
+                                    <p:selectOneListbox id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.idTipoAsientoSeleccionado}">
+                                        <f:selectItems value="#{frmSala.frmAsiento.frmAsientoCaracteristica.caracteristicasAsiento}" var="r" itemLabel="#{r.idTipoAsiento.nombre}" itemValue="#{r.idTipoAsiento.idTipoAsiento}"/>
+                                        <p:ajax event="change" listener="#{frmSala.frmAsiento.frmAsientoCaracteristica.cambiarValor}" process="@this" update="asientosPnlGpDetalle:tipoAsientoDetalle asientosPnlGpDetalle:tipoAsientoDetalle"/>
+                                    </p:selectOneListbox>
+                                    <crud:BtnTop frm="#{frmSala.frmAsiento.frmAsientoCaracteristica}" actualizar="tipoAsientoDetalle"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid id="tipoAsientoDetalle">
+                                    <h:outputText value="Id Asiento" for="asientoTxtId"/>
+                                    <h:inputText id="asientoTxtId" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.asientoSeleccionado.idAsiento}" disabled="true" readonly="true"/>
+                                    <h:outputText value="Id Caracteristica" for="asientoCaracteristicaTxtId"/>
+                                    <h:inputText id="asientoCaracteristicaTxtId" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.idAsientoCaracteristica}" disabled="true" readonly="true"/>
+                                    <h:outputText value="Id Tipo" for="asientoValor"/>
+                                    <h:inputText id="asientoValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.idAsiento}" readonly="true" disabled="true"/>
+                                    <h:outputText value="Valor" for="asientoCaracteristicaTxtValor"/>
+                                    <h:inputTextarea id="asientoCaracteristicaTxtValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}" validator="#{frmSala.frmAsiento.frmAsientoCaracteristica.validarVailador}"/>
+                                </h:panelGrid>
+
                             </h:panelGroup>
                         </h:form>
                     </h:panelGroup>

@@ -22,4 +22,5 @@ public class TipoAsientoBean extends AbstractDataPersistence<TipoAsiento> implem
     public EntityManager getEntityManager() {
         return em;
     }
+
 }

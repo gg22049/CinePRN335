@@ -1,6 +1,7 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
@@ -46,17 +47,12 @@ import java.util.List;
 
 public class Sucursal implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sucursal", nullable = false)
     private Integer idSucursal;
 
-    /**
-     * Relacion: Sucursal/Sala
-     * Sucursal (1)(id) <-> (fk)(M)Sala
-     */
-    @OneToMany(mappedBy = "idSucursal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Sala> SalaList;
-
-    @Size(max = 155)
+    @NotBlank(message="El nombre no puede estar vacio")
+    @Size(min=3, max = 155, message = "EL nombre debe contener entre 3 y 155 caracteres")
     @Column(name = "nombre", length = 155)
     private String nombre;
 
@@ -72,6 +68,13 @@ public class Sucursal implements Serializable {
 
     @Column(name = "activo")
     private Boolean activo;
+
+    /**
+     * Relacion: Sucursal/Sala
+     * Sucursal (1)(id) <-> (fk)(M)Sala
+     */
+    @OneToMany(mappedBy = "idSucursal", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Sala> SalaList;
 
     //Sucursal
     public Sucursal() {}
