@@ -1,5 +1,6 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.Dependent;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
@@ -30,9 +31,6 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     AsientoCaracteristicaBean acBean;
 
     @Inject
-    FrmTipoAsiento frmTipoAsiento;
-
-    @Inject
     TipoAsientoBean taBean;
 
     @Inject
@@ -41,6 +39,18 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     //Instancias
     protected  List<AsientoCaracteristica> caracteristicasAsiento;
     protected Asiento asientoSeleccionado;
+    protected List<TipoAsiento> tipoAsientoList;
+
+    @PostConstruct
+    @Override
+    public void init(){
+        super.init();
+        try{
+            tipoAsientoList = taBean.findRange(0,Integer.MAX_VALUE);
+        }catch (Exception e){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
 
     @Override
     public AbstractDataPersistence<AsientoCaracteristica> getDataPersist() {
@@ -66,12 +76,6 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
             return this.modelo.getWrappedData().stream().filter(r->r.getIdAsientoCaracteristica().toString().equals(id)).findFirst().orElse(null);
         }
         return null;
-    }
-
-    @Override
-    public void instanciarRegistro() {
-        this.registro = new AsientoCaracteristica();
-        this.registro.setIdAsiento(asientoSeleccionado);
     }
 
     @Override
@@ -103,9 +107,23 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
         return null;
     }
 
+    //BOTONES
+
     @Override
-    public void btnNuevoHandler(ActionEvent actionEvent) {
-        super.btnNuevoHandler(actionEvent);
+    public void instanciarRegistro() {
+        this.registro = new AsientoCaracteristica();
+        this.registro.setIdAsiento(asientoSeleccionado);
+    }
+
+    @Override
+    public void selecionarRegistro(){
+        super.selecionarRegistro();
+        System.out.println(this.estado);
+    }
+
+    @Override
+    public void btnGuardarHandler(ActionEvent actionEvent){
+        super.btnGuardarHandler(actionEvent);
         cargarAsientoCaracteristicas();
     }
 
@@ -150,24 +168,31 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
         }
     }
 
-    //Probeblemente lo elimine
-    public void cambiarValor(){
-        this.estado = ESTADO_CRUD.MODIFICAR;
-    }
-
 //    Propiedades Sintericas
-    public Integer getIdTipoAsientoSeleccionado() {
-        if (this.registro!=null && this.registro.getIdTipoAsiento().getIdTipoAsiento() != null && !caracteristicasAsiento.isEmpty()) {
+    public Integer getCaracteristicaByTipo() {
+        if (this.registro != null && this.registro.getIdTipoAsiento().getIdTipoAsiento() != null && !caracteristicasAsiento.isEmpty()) {
             return this.registro.getIdTipoAsiento().getIdTipoAsiento();
         }
         return -1;
     }
 
-    public void setIdTipoAsientoSeleccionado(final Integer idTipo) {
-        if (this.registro!=null && !this.caracteristicasAsiento.isEmpty()){
-            this.registro.setIdTipoAsiento(this.caracteristicasAsiento.stream()
-                    .filter(r->r.getIdTipoAsiento().getIdTipoAsiento().equals(idTipo))
-                    .findFirst().get().getIdTipoAsiento());
+    public void setCaracteristicaByTipo(final Integer idTipo) {
+        if (!this.caracteristicasAsiento.isEmpty()){
+            this.registro = this.caracteristicasAsiento.stream().filter(r->r.getIdTipoAsiento().getIdTipoAsiento().equals(idTipo)).findFirst().orElse(new AsientoCaracteristica());
+            System.out.println("valor "+registro.getValor());
+        }
+    }
+
+    public Integer getIdTipoAsientoSeleccionado() {
+        if (registro!=null && this.registro.getIdTipoAsiento()!=null) {
+            return this.registro.getIdTipoAsiento().getIdTipoAsiento();
+        }
+        return -1;
+    }
+
+    public void setIdTipoAsientoSeleccionado(final Integer idAsientoSeleccionado) {
+        if ( idAsientoSeleccionado !=null && idAsientoSeleccionado>0 && !this.tipoAsientoList.isEmpty()){
+            this.registro.setIdTipoAsiento(tipoAsientoList.stream().filter(r->r.getIdTipoAsiento().equals(idAsientoSeleccionado)).findFirst().orElse(new TipoAsiento()));
         }
     }
 
@@ -188,4 +213,11 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
         this.asientoSeleccionado = asientoSeleccionado;
     }
 
+    public List<TipoAsiento> getTipoAsientoList() {
+        return tipoAsientoList;
+    }
+
+    public void setTipoAsientoList(List<TipoAsiento> tipoAsientoList) {
+        this.tipoAsientoList = tipoAsientoList;
+    }
 }

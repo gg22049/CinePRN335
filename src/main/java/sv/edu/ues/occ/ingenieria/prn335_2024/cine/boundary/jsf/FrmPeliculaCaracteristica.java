@@ -133,8 +133,7 @@ public class FrmPeliculaCaracteristica extends AbstractFrm<PeliculaCaracteristic
 
     public void setIdTipoPeliculaSeleccionado(final Integer idTipoPelicula) {
         if (this.registro!=null && this.tipoPeliculaList!=null && !this.tipoPeliculaList.isEmpty()){
-            this.registro = this.modelo.getWrappedData().stream().filter(r->r.getIdTipoPelicula().getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null);
-            //this.registro.setIdTipoPelicula(this.tipoPeliculaList.stream().filter(r->r.getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null));
+            this.registro.setIdTipoPelicula(this.tipoPeliculaList.stream().filter(r->r.getIdTipoPelicula().equals(idTipoPelicula)).findFirst().orElse(null));
         }
     }
 

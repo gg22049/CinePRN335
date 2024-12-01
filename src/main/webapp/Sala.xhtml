@@ -170,7 +170,7 @@
 
                     <h:panelGroup id="asientosPnlGpDetalle">
                         <h:form>
-                            <h:panelGroup>
+                            <h:panelGroup id="asientosPnlGpDetalles">
                                 <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado != 'NINGUNO'}">
                                     <h:outputText value="Id Sala" for="asientoTxtIdSala"/>
                                     <h:inputText id="asientoTxtIdSala" value="#{frmSala.frmAsiento.registro.idSala.idSala}" readonly="true" disabled="true"/>
@@ -178,30 +178,50 @@
                                     <h:inputText id="asientosTxtId" value="#{frmSala.frmAsiento.registro.idAsiento}" readonly="true" disabled="true"/>
                                     <h:outputText value="Nombre" for="asientosTxtNomnbre"/>
                                     <h:inputText id="asientosTxtNomnbre" value="#{frmSala.frmAsiento.registro.nombre}"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid>
                                     <crud:BtnTop frm="#{frmSala.frmAsiento}" actualizar="tabDetalle:asientosPnlGpDetalle tabDetalle:asientosPnlGpDatos"/>
                                 </h:panelGrid>
-
-                                <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.estado!='NINGUNO'}">
-                                    <h:outputText value="Caracteristicas" for="tipoAsientoList"/>
-                                    <p:selectOneListbox id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.idTipoAsientoSeleccionado}">
-                                        <f:selectItems value="#{frmSala.frmAsiento.frmAsientoCaracteristica.caracteristicasAsiento}" var="r" itemLabel="#{r.idTipoAsiento.nombre}" itemValue="#{r.idTipoAsiento.idTipoAsiento}"/>
-                                        <p:ajax event="change" listener="#{frmSala.frmAsiento.frmAsientoCaracteristica.cambiarValor}" process="@this" update="asientosPnlGpDetalle:tipoAsientoDetalle asientosPnlGpDetalle:tipoAsientoDetalle"/>
-                                    </p:selectOneListbox>
-                                    <crud:BtnTop frm="#{frmSala.frmAsiento.frmAsientoCaracteristica}" actualizar="tipoAsientoDetalle"/>
-                                </h:panelGrid>
-
-                                <h:panelGrid id="tipoAsientoDetalle">
-                                    <h:outputText value="Id Asiento" for="asientoTxtId"/>
-                                    <h:inputText id="asientoTxtId" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.asientoSeleccionado.idAsiento}" disabled="true" readonly="true"/>
-                                    <h:outputText value="Id Caracteristica" for="asientoCaracteristicaTxtId"/>
-                                    <h:inputText id="asientoCaracteristicaTxtId" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.idAsientoCaracteristica}" disabled="true" readonly="true"/>
-                                    <h:outputText value="Id Tipo" for="asientoValor"/>
-                                    <h:inputText id="asientoValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.idAsiento}" readonly="true" disabled="true"/>
-                                    <h:outputText value="Valor" for="asientoCaracteristicaTxtValor"/>
-                                    <h:inputTextarea id="asientoCaracteristicaTxtValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}" validator="#{frmSala.frmAsiento.frmAsientoCaracteristica.validarVailador}"/>
-                                </h:panelGrid>
-
                             </h:panelGroup>
+
+                            <h:panelGroup id="asientosCaracteristicasPnlGplist" rendered="#{frmSala.frmAsiento.estado == 'MODIFICAR'}">
+                                <h:panelGrid columns="2" rendered="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado != 'CREAR'}">
+                                    <h:outputText value="Caracteristicas" for="tipoAsientoList" />
+                                    <p:selectOneListbox id="tipoAsientoList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.caracteristicaByTipo}">
+                                        <f:selectItems value="#{frmSala.frmAsiento.frmAsientoCaracteristica.caracteristicasAsiento}" var="r"
+                                                       itemLabel="#{r.idTipoAsiento.nombre}" itemValue="#{r.idTipoAsiento.idTipoAsiento}"/>
+                                        <p:ajax event="change" listener="#{frmSala.frmAsiento.frmAsientoCaracteristica.selecionarRegistro}"
+                                                process="@this" update="tabDetalle:asientosPnlGpDetalle"/>
+                                    </p:selectOneListbox>
+                                </h:panelGrid>
+                                <h:panelGrid>
+                                    <crud:BtnTop frm="#{frmSala.frmAsiento.frmAsientoCaracteristica}" actualizar="tabDetalle:asientosPnlGpDetalle"/>
+                                </h:panelGrid>
+                            </h:panelGroup>
+
+                            <h:panelGrid columns="2" id="tipoAsientoDetalle" rendered="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado !='NINGUNO'}">
+                                <h:outputText value="Id Caracteristica" for="asientoCaracteristicaTxtId"/>
+                                <h:inputText id="asientoCaracteristicaTxtId" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.idAsientoCaracteristica}" disabled="true" readonly="true"/>
+                                <h:outputText value="Id Tipo" for="asientoTxtId"
+                                              rendered="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'MODIFICAR'}"
+                                              style="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'MODIFICAR'? '' : 'display: none;'}"/>
+                                <h:inputText id="asientoTxtId" readonly="true" disabled="true"
+                                             value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.idTipoAsiento.idTipoAsiento}"
+                                             rendered="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'MODIFICAR'}"
+                                             style="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'MODIFICAR'? '' : 'display: none;'}"/>
+
+                                <h:outputText value="Caracteristica" for="tipoAsientoList"
+                                              rendered="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'CREAR'}"
+                                              style="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'CREAR'? '' : 'display: none;'}"/>
+                                <p:selectOneMenu id="tiposAsientosList" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.idTipoAsientoSeleccionado}"
+                                                 rendered="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'CREAR'}"
+                                                 style="#{frmSala.frmAsiento.frmAsientoCaracteristica.estado == 'CREAR'? '' : 'display: none;'}">
+                                    <f:selectItems value="#{frmSala.frmAsiento.frmAsientoCaracteristica.tipoAsientoList}" var="r" itemValue="#{r.idTipoAsiento}" itemLabel="#{r.nombre}"/>
+                                </p:selectOneMenu>
+                                <h:outputText value="Valor" for="asientoCaracteristicaTxtValor"/>
+                                <h:inputTextarea id="asientoCaracteristicaTxtValor" value="#{frmSala.frmAsiento.frmAsientoCaracteristica.registro.valor}" validator="#{frmSala.frmAsiento.frmAsientoCaracteristica.validarVailador}"/>
+                            </h:panelGrid>
                         </h:form>
                     </h:panelGroup>
                 </p:tab>
