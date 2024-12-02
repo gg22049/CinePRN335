@@ -14,17 +14,17 @@
     </f:define>
 
     <f:define name="cuerpo">
-
         <h:form id="reservaFrm">
-
             <p:growl id="growl" sticky="true" showDetail="true"/>
-
+            <h:messages id="messages" globalOnly="true" showDetail="true" showSummary="true" style="color:green;" />
+            <!-- Componente para crear una reserva con asistente por pasos -->
             <p:wizard id="reservaWizard" flowListener="#{reservaWizardBean.onFlowProcess}" widgetVar="wizard">
-
                 <!-- Paso 1: Fecha y Tipo de Reserva, formato de fecha offsetDataTime no compatible con primefaces -->
                 <p:tab id="fechaStep" title="Fecha">
                     <p:panel header="Seleccionar Fecha">
                         <p:messages/>
+                        <!-- calendar: Componente para mostrar fechas disponibles -->
+                        <!-- selectOneMenu: Componente para seleccionar un Tipo de Reserva disponible -->
                         <h:panelGrid columns="2">
                             <h:outputText value="Seleccione día: *"/>
                             <p:calendar value="#{reservaWizardBean.fechaReservaSeleccionada}"
@@ -44,11 +44,12 @@
                         </h:panelGrid>
                     </p:panel>
                 </p:tab>
-
                 <!-- Paso 2: Seleccionar una programción -->
                 <p:tab id="funcionStep" title="Función">
                     <p:panel header="Seleccionar Función">
                         <p:messages/>
+                        <!-- selectOneMenu: Componente para sleccionar programación disponible según el día -->
+                        <!-- Ajax para actualizar la descripción cuando se cambia la selección -->
                         <h:panelGrid columns="1">
                             <h:outputText value="Seleccione función disponible: " style="display: block; margin-bottom: 15px;"/>
                             <p:selectOneMenu id="programacionOption"
@@ -58,13 +59,12 @@
                                 <c:selectItems value="#{frmProgramacion.programacionesDelDia}" var="prn"
                                                itemLabel="#{prn.idPelicula.nombre}, #{prn.idSala.nombre}, #{prn.idSala.idSucursal.nombre}, (#{prn.desde} - #{prn.hasta})"
                                                itemValue="#{prn.idProgramacion}"/>
-                                <!-- Ajax para actualizar cuando se cambia la selección -->
                                 <p:ajax event="change" update="outputSinopsisText"/>
                                 <p:ajax event="change" update="outputSinopsisValue"/>
                                 <p:ajax event="change" update="outCaracterísticas"/>
-
                             </p:selectOneMenu>
                         </h:panelGrid>
+                        <!-- ouputs: Descripción de la pelicula seleccionada(No se muestra si no selecciona una programación) -->
                         <h:outputText id="outputSinopsisText" style="display: block; margin-bottom: 15px;  font-weight:bold"
                                       value="#{reservaWizardBean.idProgramacionSeleccionada == null ? '' : 'Sinopsis'}"/>
                         <h:outputText id="outputSinopsisValue" style="display: block; margin-bottom: 15px;"
@@ -73,16 +73,16 @@
                                       value="#{reservaWizardBean.idProgramacionSeleccionada == null ? '' : 'Características'}"/>
                     </p:panel>
                 </p:tab>
-
-
+                <!-- Paso 3: Selecionar asientos disponibles -->
                 <p:tab id="asientoStep" title="Asientos">
                     <p:panel header="Asientos">
                         <p:messages/>
+                        <!-- Componente para selección de asientos -->
                         <p:pickList value="#{reservaWizardBean.asientoDualListModel}"
-                                    var="asiento" immediate="false"
-                                    itemLabel="Asiento # #{asiento}"
+                                    var="asiento" immediate="true"
+                                    itemLabel="Asiento # #{asiento}" itemValue="#{asiento}"
+                                    converter="#{reservaWizardBean.longConverter}"
                                     filter="true" filterMatchMode="contains"
-                                    itemValue="#{asiento}"
                                     showCheckbox="true" transferOnCheckboxClick="true"
                                     showSourceControls="false" showTargetControls="false"
                                     rendered="#{not empty reservaWizardBean.asientoDualListModel.source}"
@@ -90,27 +90,29 @@
                         </p:pickList>
                     </p:panel>
                 </p:tab>
-
+                <!-- Paso 4: Resumen y confimación de la reserva -->
                 <p:tab id="confirmacionStep" title="Confirmar">
                     <p:panel header="Confirmar Reserva">
                         <p:messages/>
+                        <!-- Resumen de la reserva -->
                         <h:panelGrid id="confirmation" columns="2">
                             <h:outputText value="Pelicula: #{frmReserva.registro.idProgramacion.idPelicula.nombre}"
-                                          style="margin-bottom: 15px;"/>
+                                          style="display: block; margin-bottom: 50px; margin-right: 50px"/>
                             <h:outputText value="Hora: #{frmReserva.registro.idProgramacion.desde} #{frmReserva.registro.idProgramacion.hasta}"
-                                          style="margin-bottom: 15px;"/>
-                            <h:outputText value="Asientos: " style="margin-bottom: 15px;"/>
-                            <p:selectOneMenu>
-                                <c:selectItems value="#{reservaWizardBean.asientoDualListModel.target}" var="asiento" itemLabel="Asiento ##{asiento}"/>
-                            </p:selectOneMenu>
+                                          style="display: block; margin-bottom: 50px; margin-right: 50px"/>
+                            <h:outputText value="Asientos seleccionados: " style="display: block; margin-top: 50px; margin-bottom: 50px; margin-right: 50px"/>
+                            <h:outputText value="#{reservaWizardBean.formatearAsientos(reservaWizardBean.asientoDualListModel.target)}"/>
                         </h:panelGrid>
-
-                        <p:commandButton value="Confirmar Reserva" action="#{reservaWizardBean.save}" update="growl" process="@form"/>
+                        <!-- Botón de confirmar(LLama al método save) -->
+                        <p:commandButton value="Confirmar Reserva"
+                                         action="#{reservaWizardBean.save}"
+                                         update="growl" process="@form"
+                                         style="display: block; margin-top: 50px; margin-bottom: 50px; text-align: center;">
+                            <p:ajax oncomplete="setTimeout(() => { window.location.href='Reserva.jsf'; }, 3000);"/>
+                        </p:commandButton>
                     </p:panel>
                 </p:tab>
             </p:wizard>
         </h:form>
     </f:define>
-
-
 </f:composition>

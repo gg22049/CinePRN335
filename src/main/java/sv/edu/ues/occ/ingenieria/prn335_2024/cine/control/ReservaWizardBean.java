@@ -4,22 +4,24 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.convert.Converter;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.DualListModel;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmAsiento;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmProgramacion;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmReserva;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.FrmTipoReserva;
-import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Asiento;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.*;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Reserva;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -35,6 +37,7 @@ public class ReservaWizardBean implements Serializable {
      * frmTipoReserva para traer los TipoReserva disponibles
      * frmProgramación para traer las Programaciones disponibles según fechaReserva
      * frmAsiento para traer los asientos disponibles
+     * frmReservaDetalle para guardar los asientos asociados a la reserva
      * FacesContext para poder mostrar mensajes al cliente
      */
 
@@ -49,6 +52,9 @@ public class ReservaWizardBean implements Serializable {
 
     @Inject
     FrmAsiento frmAsiento;
+
+    @Inject
+    FrmReservaDetalle frmReservaDetalle;
 
     @Inject
     FacesContext fc;
@@ -138,7 +144,6 @@ public class ReservaWizardBean implements Serializable {
      * Luego lo buscamos por id
      */
     private List<Long> asientosDisponibles = new ArrayList<>();
-    private List<Long> asientosSeleccionados = new ArrayList<>();
     private DualListModel<Long> asientoDualListModel;
 
     public List<Long> getAsientosDisponibles() {
@@ -149,20 +154,43 @@ public class ReservaWizardBean implements Serializable {
         this.asientosDisponibles = asientosDisponibles;
     }
 
-    public List<Long> getAsientosSeleccionados() {
-        return asientosSeleccionados;
-    }
-
-    public void setAsientosSeleccionados(List<Long> asientosSeleccionados) {
-        this.asientosSeleccionados = asientosSeleccionados;
-    }
-
     public DualListModel<Long> getAsientoDualListModel() {
         return asientoDualListModel;
     }
 
     public void setAsientoDualListModel(DualListModel<Long> asientoDualListModel) {
         this.asientoDualListModel = asientoDualListModel;
+    }
+
+    /**
+     * Converter para el pickList
+     * @return
+     */
+    public Converter<Long> getLongConverter() {
+        return new Converter<Long>() {
+            @Override
+            public Long getAsObject(FacesContext context, UIComponent component, String value) {
+                if (value == null || value.trim().isEmpty()) {
+                    return null;
+                }
+                return Long.valueOf(value);
+            }
+            @Override
+            public String getAsString(FacesContext context, UIComponent component, Long value) {
+                return value == null ? "" : value.toString();
+            }
+        };
+    }
+
+
+    public static String formatearAsientos(List<Object> asientos) {
+        if (asientos == null || asientos.isEmpty()) {
+            return "No hay asientos seleccionados.";
+        }
+
+        return asientos.stream()
+                .map(asiento -> "Asiento #" + asiento)
+                .collect(Collectors.joining(", "));
     }
 
     /**
@@ -256,7 +284,7 @@ public class ReservaWizardBean implements Serializable {
                         System.out.println("Asiento: " + obj.getClass().getName());
                     }
                     System.out.println("Revisados los asientos en asientosDisponibles");
-                    asientoDualListModel = new DualListModel<>(asientosDisponibles, asientosSeleccionados);
+                    asientoDualListModel = new DualListModel<>(asientosDisponibles, new ArrayList<>());
                     System.out.println("Array en la lista" + Arrays.toString(getAsientoDualListModel().getSource().toArray()));
                     System.out.println("añadidos al listdatamodel");
 
@@ -271,14 +299,11 @@ public class ReservaWizardBean implements Serializable {
                         System.out.println(e.getMessage());
                     }
 
-
                     System.out.println("aD: " + asientosDisponibles);
-                    System.out.println("aS: " + asientosSeleccionados);
                     try {
-                        System.out.println("asientosD:" + asientosDisponibles.getClass());
-                        System.out.println("asientosS:" + asientosSeleccionados.getClass());
-                        System.out.println("primeraLista" + asientoDualListModel.getSource().getClass());
-                        System.out.println("segundaLista" + asientoDualListModel.getTarget().getClass());
+                        System.out.println("asientosDisponibles:" + asientosDisponibles.getClass());
+                        System.out.println("primeraListaDual" + asientoDualListModel.getSource().getClass());
+                        System.out.println("segundaListaDual" + asientoDualListModel.getTarget().getClass());
                     } catch (Exception e){
                         System.out.println(e.getMessage());
                     }
@@ -288,41 +313,27 @@ public class ReservaWizardBean implements Serializable {
                     break;
                 //Paso 3
                 case "asientoStep":
-                    System.out.println("Entró en el stepAsientos");
+                    //System.out.println("Entró en el asientoStep");
                     try {
-                        System.out.println("Asientos disponibles: " + asientoDualListModel.getSource().size());
-                        System.out.println("Asientos seleccionados: " + asientoDualListModel.getTarget().size());
-
-                        System.out.println("revisando asientos en asientoStep");
-                        for (Object obj : getAsientoDualListModel().getSource()) {
-                            System.out.println(obj.getClass().getName());
-                            System.out.println();
-                        }
-                        System.out.println("Salió del for");
-                        //System.out.println("afuera del for: " + getAsientoDualListModel().getSource().get(0).getClass().getName());
-                        System.out.println("segundaLista: " + asientoDualListModel.getTarget().size());
-                        //
-                        if (getAsientoDualListModel().getTarget().isEmpty()) {
-                            System.out.println("Entro en el if: No se seleccionaron asientos");
+                        //Validaciones
+                        if (getAsientoDualListModel().getTarget()==null || getAsientoDualListModel().getTarget().isEmpty()) {
+                            //System.out.println("No se seleccionaron asientos");
                             FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_INFO, "Error: seleccione al menos un asiento", "");
                             FacesContext.getCurrentInstance().addMessage(null, mensaje);
-
-                            // Resetear el modelo de asientos
-
-                            //FacesContext.getCurrentInstance().renderResponse(); // Asegura que no se siga el flujo de navegación
-                            return currentStep; // No avanzamos si la lista está vacía
+                            // No avanzamos si la lista está vacía
+                            return currentStep;
                         }
-
+                        //Debug
+                        //System.out.println("Validaciones realizadas");
+                        //System.out.println("Asientos que no se reservaron: " + asientoDualListModel.getSource());
+                        //System.out.println("Asientos reservados: " + asientoDualListModel.getTarget());
                         FacesMessage msg = new FacesMessage("Asientos agregados correctamente", "Asientos agregados correctamente");
                         FacesContext.getCurrentInstance().addMessage(null, msg);
-
-                        System.out.println("Validación correcta");
-                        System.out.println("Asientos que no se reservaron: " + asientoDualListModel.getSource());
-                        System.out.println("Asientos reservados: " + asientoDualListModel.getTarget());
-
                         // Si se llega aquí, avanzamos al siguiente paso
                         return nextStep; // Aquí avanzamos, si la validación pasó
                     } catch (Exception e){
+                        FacesMessage msg = new FacesMessage("Error", "Falló al agregar asientos");
+                        FacesContext.getCurrentInstance().addMessage(null, msg);
                         System.out.println(e.getMessage());
                     }
 
@@ -345,10 +356,69 @@ public class ReservaWizardBean implements Serializable {
      * Guardar el registro(Esto devería invocar al save de nuestro AbtractFrm)
      */
     public void save() {
-        //Aquí la lógica de guardar
-        FacesMessage msg = new FacesMessage("Successful", "Reserva creado correctamente. ID: ");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        System.out.println("Volviendo al paso uno:");
+        try {
+            boolean forzarError = false;
+            // Forzar excepción:
+            if (forzarError) {
+                throw new Exception("Error Forzado");
+            }
+
+            // Aquí llamamos a guardar al método transacional para guardar
+            guardarReserva();
+
+            // Mensaje de guardado exitoso
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Successful", "Reserva creada correctamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+            // Redirigir a la misma página o una diferente, mejor con Ajax en la vista
+            //FacesContext.getCurrentInstance().getExternalContext().redirect("Reserva.jsf");
+        } catch (Exception e) {
+            // Manejo de errores
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "No se pudo crear la reserva: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
+
+    @Transactional
+    public void guardarReserva(){
+
+        try {
+            // Guardamos la reserva
+            frmReserva.btnGuardarHandler(null);
+
+            //Buscamos la reserva guardada
+            Query query = frmReserva.getDataPersist().getEntityManager().createQuery("SELECT r FROM Reserva r ORDER BY r.idReserva DESC");
+            query.setMaxResults(1); // Limita el resultado al último registro
+            Reserva ultimaReserva = (Reserva) query.getSingleResult();
+
+            // Validamos que la reserva fue encontrada
+            if (ultimaReserva == null || ultimaReserva.getIdReserva() == null) {
+                throw new IllegalStateException("No se pudo obtener la reserva recién generada.");
+            }
+
+            // Guardamos los detalles de la reserva para cada asiento
+            for (Object asiento : asientoDualListModel.getTarget()) {
+                // Configuramos el nuevo detalle
+                frmReservaDetalle.btnNuevoHandler(null);
+                //Rellenamos campos
+                frmReservaDetalle.getRegistro().setIdReserva(ultimaReserva);
+                frmReservaDetalle.getRegistro().setIdAsiento(frmAsiento.getDataPersist().findById(asiento));
+
+                // Guardamos el detalle
+                frmReservaDetalle.btnGuardarHandler(null);
+            }
+        } catch (IllegalArgumentException e) {
+            FacesMessage msg = new FacesMessage("Error", "Falló al enontrar la reserva creada");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println("Error" + e.getMessage());
+            throw e;
+
+        } catch (Exception e) {
+            FacesMessage msg = new FacesMessage("Error", "Falló al crear las reservas");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            System.out.println("Error" + e.getMessage());
+            throw e;
+        }
     }
 
 }
