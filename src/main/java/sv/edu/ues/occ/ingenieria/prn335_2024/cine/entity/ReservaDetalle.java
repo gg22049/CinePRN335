@@ -27,6 +27,7 @@ import java.util.List;
 public class ReservaDetalle implements Serializable {
     @Id
     @Column(name = "id_reserva_detalle", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReservaDetalle;
 
     /**

@@ -9,7 +9,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Stateless
@@ -28,13 +28,17 @@ public class ProgramacionBean extends AbstractDataPersistence<Programacion> impl
     }
 
     /**
-     * Obtener las programaciones por fecha
-     * @return
-     * Valor quemada falta hacer que el usuario pueda ingresar la fecha a buscar
+     * Esto sirve para la pantalla de reserva NO TOCAR!!!
+     * @param fechaRecibida Obtener las programaciones por fecha
+     * @return Lista de programaciones que inicia ese día
      */
-    public List<Programacion> obtenerProgramacionesDelDia() {
+    public List<Programacion> obtenerProgramacionesDelDia(OffsetDateTime fechaRecibida) {
+        //Estamos dando por hecho que recibimos un día con zona horaria 00:00:00+00
         return getEntityManager()
-                .createQuery("SELECT prn FROM Programacion prn JOIN prn.idPelicula p JOIN prn.idSala s WHERE prn.desde >= '2024-09-23T00:00:00' AND prn.desde < '2024-09-24T00:00:00'", Programacion.class).getResultList();
+                .createQuery("SELECT prn FROM Programacion prn JOIN prn.idPelicula p JOIN prn.idSala s WHERE prn.desde >= :fechaInicio AND prn.hasta <= :fechaFinal", Programacion.class)
+                .setParameter("fechaInicio", fechaRecibida)
+                .setParameter("fechaFinal", fechaRecibida.plusDays(1))
+                .getResultList();
     }
 
     public List<Programacion> programacionesByIdSala(final Integer idSala) {

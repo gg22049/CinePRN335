@@ -208,8 +208,14 @@ public abstract class AbstractFrm<T> implements Serializable {
      */
     public void btnNuevoHandler(ActionEvent actionEvent) {
         try{
-           this.instanciarRegistro();
-           this.estado = ESTADO_CRUD.CREAR;
+            this.instanciarRegistro();
+            this.estado = ESTADO_CRUD.CREAR;
+            // Para ver si se instancia
+            FacesContext fc = getFacesContext();
+            FacesMessage mensaje = new FacesMessage();
+            mensaje.setSeverity(FacesMessage.SEVERITY_INFO);
+            mensaje.setSummary("Se está procesando un nuevo registro de " + registro.getClass().getSimpleName());
+            fc.addMessage(null, mensaje);
         }catch(Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
             FacesContext fc = getFacesContext();
@@ -239,7 +245,7 @@ public abstract class AbstractFrm<T> implements Serializable {
             }catch(Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
                 mensaje.setSeverity(FacesMessage.SEVERITY_ERROR);
-                mensaje.setSummary("Error al guardar el nuevo registro");
+                mensaje.setSummary("Error al guardar el nuevo registro" + registro.getClass().getSimpleName());
                 fc.addMessage(null, mensaje);
             }
         }

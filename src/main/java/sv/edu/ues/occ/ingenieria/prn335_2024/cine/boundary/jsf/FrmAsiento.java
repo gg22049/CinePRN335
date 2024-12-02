@@ -1,5 +1,6 @@
 package sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.Dependent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
@@ -7,10 +8,13 @@ import jakarta.inject.Named;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AsientoBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AsientoCaracteristicaBean;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.TipoReservaBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Asiento;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Sala;
+import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoReserva;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -115,6 +119,31 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
 
     public void setFrmAsientoCaracteristica(FrmAsientoCaracteristica frmAsientoCaracteristica) {
         this.frmAsientoCaracteristica = frmAsientoCaracteristica;
+    }
+
+    /**
+     * Esto sirve para la pantalla de Reserva
+     * Método para traer todos los asientos disponibles para reservar
+     *
+     */
+    private List<Long> asientosDisponiblesID;
+
+    public List<Long> getAsientosDisponiblesID() {
+        return asientosDisponiblesID;
+    }
+
+    public void setAsientosDisponiblesID(List<Long> asientosDisponiblesID) {
+        this.asientosDisponiblesID = asientosDisponiblesID;
+    }
+
+    @PostConstruct
+    public void init() {
+        //Iniciarlizar valores a usar
+        asientosDisponiblesID = new ArrayList<>();
+    }
+
+    public void cargarAsientosDisponibles(Integer idSalaRecibido) {
+        asientosDisponiblesID = aBean.obtenerAsientosDisponibles(idSalaRecibido);
     }
 
 }

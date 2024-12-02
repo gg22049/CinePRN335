@@ -13,6 +13,9 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Sala;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +26,7 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
 
     //Injecciones
     @Inject
-    ProgramacionBean bean;
+    ProgramacionBean prnbean;
 
     @Inject
     FacesContext fc;
@@ -44,7 +47,7 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
 
     @Override
     public AbstractDataPersistence<Programacion> getDataPersist() {
-        return this.bean;
+        return this.prnbean;
     }
 
     @Override
@@ -92,6 +95,10 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
                         .build();
             }
         }
+    }
+
+    public void cargarProgramaciones(LocalDate fechaWizard){
+        programacionesDelDia = prnbean.obtenerProgramacionesDelDia(fechaWizard.atStartOfDay().atOffset(ZoneOffset.UTC));
     }
 
     //Getter && Setter

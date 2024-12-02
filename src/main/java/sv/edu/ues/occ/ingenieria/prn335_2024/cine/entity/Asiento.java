@@ -60,6 +60,20 @@ public class Asiento implements Serializable {
     @Column(name = "activo")
     private Boolean activo;
 
+    /** *Relacion: Asiento/AsientoCaracteristica
+     * Asiento (id)(M) <-> (fk)(1) ReservaCarateristica
+     */
+    @OneToMany(mappedBy = "idAsiento", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ReservaDetalle> ReservaDetalleList;
+
+    public List<ReservaDetalle> getReservaDetalleList() {
+        return ReservaDetalleList;
+    }
+
+    public void setReservaDetalleList(List<ReservaDetalle> reservaDetalleList) {
+        ReservaDetalleList = reservaDetalleList;
+    }
+
     public Asiento() {
     }
 

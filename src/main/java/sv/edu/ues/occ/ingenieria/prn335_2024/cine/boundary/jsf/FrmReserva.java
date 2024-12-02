@@ -12,7 +12,6 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Reserva;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.TipoReserva;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +20,14 @@ import java.util.stream.Collectors;
 public class FrmReserva extends AbstractFrm<Reserva> implements Serializable {
 
     @Inject
-    ReservaBean bean;
+    ReservaBean rbean;
 
     @Inject
     FacesContext fc;
 
     @Override
     public AbstractDataPersistence<Reserva> getDataPersist() {
-        return this.bean;
+        return this.rbean;
     }
 
     @Override
@@ -58,7 +57,8 @@ public class FrmReserva extends AbstractFrm<Reserva> implements Serializable {
     @Override
     public void instanciarRegistro() {
         this.registro = new Reserva();
-        this.registro.setObservaciones("Hola");
+        this.registro.setObservaciones("Hola desde la instancia en frmReserva!!!");
+        this.registro.setEstado("CREADO");
     }
 
     @Override
@@ -78,6 +78,10 @@ public class FrmReserva extends AbstractFrm<Reserva> implements Serializable {
     public void init() {
         // Obtener los tipos de reserva únicos
         tiposReserva = trbean.obtenerTodos();
+    }
+
+    public void setTiposReserva(List<TipoReserva> tiposReserva) {
+        this.tiposReserva = tiposReserva;
     }
 
     public List<TipoReserva> getTiposReserva() {
