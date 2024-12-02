@@ -110,30 +110,28 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
     }
 
     /**
+     * Esto sirve para la pantalla de Reserva
      * Método para traer todos los asientos disponibles para reservar
+     *
      */
+    private List<Long> asientosDisponiblesID;
 
-    @Inject
-    AsientoBean abean;
-
-    private List<Asiento> asientosDisponibles;
-
-    public List<Asiento> getAsientosDisponibles() {
-        return asientosDisponibles;
+    public List<Long> getAsientosDisponiblesID() {
+        return asientosDisponiblesID;
     }
 
-    public void setAsientosDisponibles(List<Asiento> asientosDisponibles) {
-        this.asientosDisponibles = asientosDisponibles;
+    public void setAsientosDisponiblesID(List<Long> asientosDisponiblesID) {
+        this.asientosDisponiblesID = asientosDisponiblesID;
     }
-
-    @Inject
-    FrmReserva frmReserva;
 
     @PostConstruct
     public void init() {
-        asientosDisponibles = abean.obtenerAsientosDisponibles(frmReserva.getRegistro().getIdProgramacion().getIdProgramacion());
+        //Iniciarlizar valores a usar
+        asientosDisponiblesID = new ArrayList<>();
     }
 
-
+    public void cargarAsientosDisponibles(Integer idSalaRecibido) {
+        asientosDisponiblesID = aBean.obtenerAsientosDisponibles(idSalaRecibido);
+    }
 
 }

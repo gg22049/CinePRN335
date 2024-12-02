@@ -10,6 +10,9 @@ import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.ProgramacionBean;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -17,14 +20,14 @@ import java.util.List;
 public class FrmProgramacion extends AbstractFrm<Programacion> implements Serializable {
 
     @Inject
-    ProgramacionBean bean;
+    ProgramacionBean prnbean;
 
     @Inject
     FacesContext fc;
 
     @Override
     public AbstractDataPersistence<Programacion> getDataPersist() {
-        return this.bean;
+        return this.prnbean;
     }
 
     @Override
@@ -53,34 +56,23 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
     }
 
     /**
+     * Esto sirve para la pantalla de Reserva
      * Para traer las programaciones
      */
     private List<Programacion> programacionesDelDia;
 
     @PostConstruct
     public void init() {
-        // Obtener los tipos de reserva únicos
-        programacionesDelDia = bean.obtenerProgramacionesDelDia();
+        //Iniciarlizar valores a usar
+        programacionesDelDia = new ArrayList<>();
+    }
+
+    public void cargarProgramaciones(LocalDate fechaWizard){
+        programacionesDelDia = prnbean.obtenerProgramacionesDelDia(fechaWizard.atStartOfDay().atOffset(ZoneOffset.UTC));
     }
 
     public List<Programacion> getProgramacionesDelDia() {
         return programacionesDelDia;
     }
-
-    /**
-     * Detalles de las pelicula del dia
-     */
-    /*
-    private String sinopsisProgramacion;
-
-    public String getSinopsisProgramacion() {
-        // Aquí deberías obtener la sinopsis de la programación seleccionada.
-        return sinopsisProgramacion;
-    }
-
-    public void setSinopsisProgramacion(String sinopsisProgramacion) {
-        this.sinopsisProgramacion = sinopsisProgramacion;
-    }*/
-
 
 }
