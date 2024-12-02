@@ -7,6 +7,8 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Generalizacion de los metodos de crud
@@ -32,52 +34,45 @@ public abstract class AbstractDataPersistence<T> {
      * @throws IllegalStateException si se produce un error en el proceso
      * @throws IllegalArgumentException si la entidad es nula
      */
-    /*
     public void create(final T entity) throws  IllegalStateException, IllegalArgumentException {
-        EntityManager em = null;
-
         if(entity==null){
             throw new IllegalArgumentException("Parametro no valido");
         }
         try {
+            EntityManager em = null;
             em = getEntityManager();
             if(em == null){
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
             em.persist(entity);
         }catch (Exception ex){
-            throw new  IllegalStateException("Error al acceder al repositorio",ex);
-        }
-    }*/
-
-    public void create(final T entity) throws IllegalStateException, IllegalArgumentException {
-        EntityManager em = getEntityManager();
-        if (entity == null) {
-            throw new IllegalArgumentException("El parámetro no puede ser nulo.");
-        }
-
-        em = getEntityManager();
-        if (em == null) {
-            throw new IllegalStateException("No se pudo acceder al repositorio.");
-        }
-
-        try {
-            em.persist(entity); // Persistimos la entidad
-            em.flush();         // Sincronizamos con la base de datos
-        } catch (Exception ex) {
-            throw new IllegalStateException("Error al intentar guardar la entidad: " + ex.getMessage(), ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            throw new  IllegalStateException("Error durante la creacion del registro");
         }
     }
 
-
     /**
      * Método para traer todos los objetos
-     * @return
+     * @return Lista de entidades de una tabla
+     * @throws IllegalArgumentException en caso de entidad nula
+     * @throws IllegalStateException en caso de error en proceso
      */
     public List<T> obtenerTodos() {
-        return getEntityManager()
-                .createQuery("SELECT e FROM " + tipoDato.getSimpleName() + " e", tipoDato)
-                .getResultList();
+        try{
+            EntityManager em = getEntityManager();
+            if(em == null){
+                throw new IllegalStateException("Error al acceder al repositorio");
+            }
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaQuery<T> cq = cb.createQuery(tipoDato);
+            Root<T> root = cq.from(tipoDato);
+            cq.select(root);
+            TypedQuery<T> q = em.createQuery(cq);
+            return q.getResultList();
+        }catch (Exception ex){
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            throw new  IllegalStateException("Error al obtener los datos");
+        }
     }
 
     /**
@@ -89,7 +84,6 @@ public abstract class AbstractDataPersistence<T> {
      */
     public T findById(final Object id) throws IllegalArgumentException, IllegalStateException{
         EntityManager em = null;
-
         if(id==null){
             throw new IllegalArgumentException("Parametro no valido");
         }
@@ -98,10 +92,11 @@ public abstract class AbstractDataPersistence<T> {
             if(em == null){
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
+            return em.find(tipoDato, id);
         }catch (Exception ex){
-            throw new  IllegalStateException("Error al acceder al repositorio",ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            throw new  IllegalStateException("Error durante la busqueda en el repositorio");
         }
-        return em.find(tipoDato, id);
     }
 
     /**
@@ -110,46 +105,23 @@ public abstract class AbstractDataPersistence<T> {
      * @throws IllegalArgumentException la entidad brindada es nula
      * @throws IllegalStateException error en proceso de eliminado
      */
-    /*
-    public void delete(final T entity) throws IllegalArgumentException, IllegalStateException{
-        EntityManager em = null;
-
+    public void delete(T entity) throws IllegalArgumentException, IllegalStateException{
         if(entity==null){
             throw new IllegalArgumentException("Parametro no valido");
         }
         try {
+            EntityManager em = null;
             em = getEntityManager();
             if(em == null){
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
+            entity = em.merge(entity);
             em.remove(entity);
         }catch (Exception ex){
-            throw new  IllegalStateException("Error al acceder al repositorio: " + ex ,ex);
-        }
-    }*/
-    public void delete(final T entity) throws IllegalArgumentException, IllegalStateException {
-        if (entity == null) {
-            throw new IllegalArgumentException("El parámetro no puede ser nulo.");
-        }
-
-        EntityManager em = getEntityManager();
-        if (em == null) {
-            throw new IllegalStateException("No se pudo acceder al repositorio.");
-        }
-
-        try {
-            if (!em.contains(entity)) {
-                // Si la entidad no está gestionada, fusiónala primero
-                T managedEntity = em.merge(entity);
-                em.remove(managedEntity); // Ahora eliminamos la entidad gestionada
-            } else {
-                em.remove(entity); // Si ya está gestionada, eliminar directamente
-            }
-        } catch (Exception ex) {
-            throw new IllegalStateException("Error al intentar eliminar la entidad: " + ex.getMessage(), ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            throw new  IllegalStateException("Error al eliminar el registro");
         }
     }
-
 
     /**
      * Metodo para acualizar con campos de un registro
@@ -158,48 +130,22 @@ public abstract class AbstractDataPersistence<T> {
      * @throws IllegalArgumentException La entidad a actualizar es nula
      * @throws IllegalStateException Error en proceso de actualizacion
      */
-    /*
     public T update(final T entity) throws IllegalArgumentException, IllegalStateException{
-        EntityManager em = null;
-
         if(entity==null){
             throw new IllegalArgumentException("Parametro no valido");
         }
         try {
+            EntityManager em = null;
             em = getEntityManager();
             if(em == null){
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
             return em.merge(entity);
         }catch (Exception ex){
-            throw new  IllegalStateException("Error al acceder al repositorio",ex);
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            throw new  IllegalStateException("Error al actualizar el registro");
         }
-    }*/
-
-    public T update(final T entity) throws IllegalArgumentException, IllegalStateException {
-        EntityManager em = null;
-        if (entity == null) {
-            throw new IllegalArgumentException("El parámetro no puede ser nulo.");
-        }
-
-        em = getEntityManager();
-        if (em == null) {
-            throw new IllegalStateException("No se pudo acceder al repositorio.");
-        }
-
-        try {
-            System.out.println("Actualizando entidad: " + entity);
-            T mergedEntity = em.merge(entity);
-            em.flush(); // Sincronizamos inmediatamente los cambios
-            System.out.println("Entidad actualizada: " + mergedEntity);
-            return mergedEntity;
-        } catch (Exception ex) {
-            throw new IllegalStateException("Error al intentar actualizar la entidad: " + ex.getMessage(), ex);
-        }
-
     }
-
-
 
     /**
      * Metodo para buscar listas de registros por rango
@@ -220,16 +166,15 @@ public abstract class AbstractDataPersistence<T> {
                 throw new IllegalStateException("Error al acceder al repositorio");
             }
             CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery cq = cb.createQuery(tipoDato);
+            CriteriaQuery<T> cq = cb.createQuery(tipoDato);
             Root<T> raiz = cq.from(tipoDato);
             cq.select(raiz);
-            TypedQuery q = em.createQuery(cq);
-
+            TypedQuery<T> q = em.createQuery(cq);
             q.setFirstResult(first);
             q.setMaxResults(pageSize);
             return q.getResultList();
         }catch(Exception ex){
-            throw new IllegalStateException("Error al acceder al repositorio");
+            throw new IllegalStateException("Error al obtener el rango de registros");
         }
     }
 
@@ -249,10 +194,10 @@ public abstract class AbstractDataPersistence<T> {
             CriteriaQuery<Long> cq = cb.createQuery(Long.class);
             Root<T> raiz = cq.from(tipoDato);
             cq.select(cb.count(raiz));
-            TypedQuery q = em.createQuery(cq);
+            TypedQuery<Long> q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
         }catch(Exception ex){
-            throw new IllegalStateException("Error al acceder al repositorio",ex);
+            throw new IllegalStateException("Error al contar los registros del repositorio");
         }
     }
 }

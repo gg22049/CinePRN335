@@ -11,6 +11,7 @@ import java.util.List;
 @NamedQueries({
     @NamedQuery(name="Programacion.ListBySelected", query = "select p from Programacion p where p.idSala.idSala = :idSala order by p.idProgramacion asc"),
     @NamedQuery(name="Programacion.cantidadPaginador", query = "select count(p) from Programacion p where p.idSala.idSala = :idSala"),
+    @NamedQuery(name="Programacion.programacionesByIdSala", query ="select p from Programacion p where p.idSala.idSala = :idSala order by p.idProgramacion asc"),
     /**⬇️ Necesita ser invocada
      * orden de retorno
      * (Long idProgramacion, Sala idSala, Pelicula idPelicula, OffsetDateTime desde, OffsetDateTime hasta, String comentarios)*/

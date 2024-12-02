@@ -23,9 +23,6 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
     AsientoBean aBean;
 
     @Inject
-    AsientoCaracteristicaBean acBean;
-
-    @Inject
     FacesContext fc;
 
     @Inject
@@ -34,6 +31,7 @@ public class FrmAsiento extends AbstractFrm<Asiento> implements Serializable {
     //Instancias
     protected Sala salaSeleccionada;
 
+    //Metodos Abstractos
     @Override
     public AbstractDataPersistence<Asiento> getDataPersist() {
         return this.aBean;

@@ -52,6 +52,7 @@ public class SesionUsuario implements Serializable {
             Locale locale = idiomas.get(idiomaSeleccionado);
             if (locale!=null){
                 fc.getViewRoot().setLocale(locale);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idiomaSeleccionado", idiomaSeleccionado);
             }
         }
     }
@@ -59,10 +60,13 @@ public class SesionUsuario implements Serializable {
     public void aplicarIdioma(){
         if (idiomaSeleccionado==null){
             idiomaSeleccionado = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idiomaSeleccionado");
-        }
-        if (idiomaSeleccionado!=null){
-           Locale locale = idiomas.get(idiomaSeleccionado);
-           FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+        }else {
+            Locale locale = idiomas.get(idiomaSeleccionado);
+            if (locale!=null){
+                fc.getViewRoot().setLocale(locale);
+                FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idiomaSeleccionado", idiomaSeleccionado);
+            }
         }
     }
 

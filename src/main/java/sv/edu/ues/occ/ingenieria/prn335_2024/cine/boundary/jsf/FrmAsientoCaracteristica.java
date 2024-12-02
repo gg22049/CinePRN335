@@ -116,12 +116,6 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     }
 
     @Override
-    public void selecionarRegistro(){
-        super.selecionarRegistro();
-        System.out.println(this.estado);
-    }
-
-    @Override
     public void btnGuardarHandler(ActionEvent actionEvent){
         super.btnGuardarHandler(actionEvent);
         cargarAsientoCaracteristicas();
@@ -179,7 +173,6 @@ public class FrmAsientoCaracteristica extends AbstractFrm<AsientoCaracteristica>
     public void setCaracteristicaByTipo(final Integer idTipo) {
         if (!this.caracteristicasAsiento.isEmpty()){
             this.registro = this.caracteristicasAsiento.stream().filter(r->r.getIdTipoAsiento().getIdTipoAsiento().equals(idTipo)).findFirst().orElse(new AsientoCaracteristica());
-            System.out.println("valor "+registro.getValor());
         }
     }
 

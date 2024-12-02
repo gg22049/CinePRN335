@@ -4,6 +4,8 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaQuery;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Programacion;
 
 import java.io.Serializable;
@@ -33,5 +35,14 @@ public class ProgramacionBean extends AbstractDataPersistence<Programacion> impl
     public List<Programacion> obtenerProgramacionesDelDia() {
         return getEntityManager()
                 .createQuery("SELECT prn FROM Programacion prn JOIN prn.idPelicula p JOIN prn.idSala s WHERE prn.desde >= '2024-09-23T00:00:00' AND prn.desde < '2024-09-24T00:00:00'", Programacion.class).getResultList();
+    }
+
+    public List<Programacion> programacionesByIdSala(final Integer idSala) {
+        if (idSala == null && em!=null) {
+            TypedQuery<Programacion> tq = em.createNamedQuery("Programacion.programacionesByIdSala",Programacion.class);
+            tq.setParameter("idSala", idSala);
+            return tq.getResultList();
+        }
+        return List.of();
     }
 }

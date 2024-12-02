@@ -55,7 +55,7 @@
 
         <h:panelGroup id="pnlGpDetalle">
             <p:commandButton actionListener="#{frmSala.btnCancelarHandler}" value="#{abstractFrm['abstractFrm.cancel']}"
-                             process="@this" update=":pnlGpDetalle :pnlGpDatos"
+                             process="@this" update=":pnlGpDetalle :pnlGpDatos" action="#{sesionUsuario.aplicarIdioma}"
                              styleClass="ui-button-secondary" style="margin-right: .5rem" icon="pi pi-times-circle" rendered="#{frmSala.estado=='MODIFICAR'}"/>
             <p:tabView id="tabDetalle" cache="false" rendered="#{frmSala.estado!='NINGUNO'}" dynamic="true">
 
@@ -226,12 +226,12 @@
                     </h:panelGroup>
                 </p:tab>
 
-<!--                <p:tab title="Programacion" disabled="#{frmSala.estado!='MODIFICAR'}">-->
-<!--                    <h:panelGroup id="CalendarioProgramacion">-->
-<!--                        <h:form>-->
-<!--                            <h:panelGrid rendered="#{frmSala.frmProgramacion.idSala!=null}">-->
-<!--                                <p:schedule value="#{frmSala.frmProgramacion.scheduleModel}"/>-->
-<!--                            </h:panelGrid>-->
+                <p:tab title="Programacion" disabled="#{frmSala.estado!='MODIFICAR'}">
+                    <h:panelGroup id="CalendarioProgramacion">
+                        <h:form>
+                            <h:panelGrid rendered="#{frmSala.frmProgramacion.salaSeleccionada!=null}">
+                                <p:schedule value="#{frmSala.frmProgramacion.programacionModel}"/>
+                            </h:panelGrid>
 <!--                            <p:dialog widgetVar="eventoDialogo" id="eventoDialogo" header="Agregar Programacion" modal="true" draggable="false" resizable="false">-->
 <!--                                <h:panelGrid columns="2">-->
 <!--                                    <h:outputText value="Id" for="prnId"/>-->
@@ -247,9 +247,9 @@
 <!--                                                 process="@this" update="tabDetalle:calendarioProgramacion" actionListener="#{frmSala.frmProgramacion.btnGuardarHandler}"-->
 <!--                                                 styleClass="ui-button-success" style="margin-right: .5rem" con="pi pi-save" oncomplete="PF('eventoDialogo').hide())"/>-->
 <!--                                </p:dialog>-->
-<!--                        </h:form>-->
-<!--                    </h:panelGroup>-->
-<!--                </p:tab>-->
+                        </h:form>
+                    </h:panelGroup>
+                </p:tab>
 
             </p:tabView>
         </h:panelGroup>

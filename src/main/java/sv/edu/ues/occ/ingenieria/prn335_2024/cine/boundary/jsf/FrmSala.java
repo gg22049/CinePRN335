@@ -100,6 +100,9 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
         super.btnCancelarHandler(actionEvent);
         frmAsiento.btnCancelarHandler(actionEvent);
         frmSalaCaracteristica.btnCancelarHandler(actionEvent);
+        frmAsiento.btnCancelarHandler(actionEvent);
+        frmAsiento.frmAsientoCaracteristica.btnCancelarHandler(actionEvent);
+        frmProgramacion.btnCancelarHandler(actionEvent);
     }
 
     public FrmSalaCaracteristica getFrmSalaCaracteristica() {
@@ -147,7 +150,8 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
             }
         }else if (tce.getTab().getTitle().equals("Programacion")){
             if(this.registro!=null && this.frmProgramacion !=null){
-                //faltan cosas de programacion
+                this.frmProgramacion.setSalaSeleccionada(this.registro);
+                this.frmProgramacion.cargarProgramaciones();
             }
         }
     }
