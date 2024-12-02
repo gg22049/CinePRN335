@@ -7,7 +7,6 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.jms.Message;
 import org.primefaces.event.TabChangeEvent;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.AbstractDataPersistence;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.control.SalaBean;
@@ -151,7 +150,7 @@ public class FrmSala extends AbstractFrm<Sala> implements Serializable {
         }else if (tce.getTab().getTitle().equals("Programacion")){
             if(this.registro!=null && this.frmProgramacion !=null){
                 this.frmProgramacion.setSalaSeleccionada(this.registro);
-                this.frmProgramacion.cargarProgramaciones();
+                this.frmProgramacion.cargarProgramacionesBySala();
             }
         }
     }

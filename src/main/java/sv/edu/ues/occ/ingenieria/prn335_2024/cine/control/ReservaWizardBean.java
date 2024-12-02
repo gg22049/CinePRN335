@@ -15,7 +15,6 @@ import org.primefaces.model.DualListModel;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.boundary.jsf.*;
 import sv.edu.ues.occ.ingenieria.prn335_2024.cine.entity.Reserva;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.time.*;
 import java.util.ArrayList;
@@ -237,7 +236,7 @@ public class ReservaWizardBean implements Serializable {
                         return currentStep; // No avanzamos si el idTipoReserva no es válido
                     }
                     //Bucamos las programaciones para el paso 2, sino hay no avanzamos
-                    frmProgramacion.cargarProgramaciones(fechaReservaSeleccionada);
+                    frmProgramacion.cargarProgramacionesByFecha(fechaReservaSeleccionada);
 
                     if (frmProgramacion.getProgramacionesDelDia().isEmpty()) {
                         FacesMessage mensaje = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: Selecciona un día con programaciones.", "");

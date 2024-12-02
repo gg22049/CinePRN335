@@ -26,7 +26,7 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
 
     //Injecciones
     @Inject
-    ProgramacionBean prnbean;
+    ProgramacionBean pBean;
 
     @Inject
     FacesContext fc;
@@ -42,12 +42,12 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
     @PostConstruct
     public void init() {
         super.init();
-        programacionesDelDia = bean.obtenerProgramacionesDelDia();
+        programacionesDelDia = new ArrayList<>();
     }
 
     @Override
     public AbstractDataPersistence<Programacion> getDataPersist() {
-        return this.prnbean;
+        return this.pBean;
     }
 
     @Override
@@ -75,16 +75,16 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
 
     //Metodos Propios
     public void cargarProgramacionBySala() {
-        if (salaSeleccionada != null && bean!=null) {
+        if (salaSeleccionada != null && pBean!=null) {
             try{
-                programaciones = bean.programacionesByIdSala(salaSeleccionada.getIdSala());
+                programaciones = pBean.programacionesByIdSala(salaSeleccionada.getIdSala());
             }catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE,e.getMessage(),e);
             }
         }
     }
 
-    public void cargarProgramaciones() {
+    public void cargarProgramacionesBySala() {
         cargarProgramacionBySala();
         if (programaciones!=null && programaciones.size()>0) {
             for (Programacion p : programaciones) {
@@ -97,8 +97,8 @@ public class FrmProgramacion extends AbstractFrm<Programacion> implements Serial
         }
     }
 
-    public void cargarProgramaciones(LocalDate fechaWizard){
-        programacionesDelDia = prnbean.obtenerProgramacionesDelDia(fechaWizard.atStartOfDay().atOffset(ZoneOffset.UTC));
+    public void cargarProgramacionesByFecha(LocalDate fechaWizard){
+        programacionesDelDia = pBean.obtenerProgramacionesDelDia(fechaWizard.atStartOfDay().atOffset(ZoneOffset.UTC));
     }
 
     //Getter && Setter
